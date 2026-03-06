@@ -5,14 +5,14 @@ import {Errors} from "contracts/core/types/Errors.sol";
 import {IOwnable} from "contracts/core/interfaces/IOwnable.sol";
 
 abstract contract Ownable is IOwnable {
-    event Lens_Ownable_OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+    event Sense_Ownable_OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
 
     struct OwnableStorage {
         address owner;
     }
 
-    /// @custom:keccak lens.storage.Ownable
-    bytes32 constant STORAGE__OWNABLE = 0x29cf0539cdb8487ad7dbc33f1a5f82174ca0f44de05580c9bd8cfe649fa8c9fe;
+    /// @custom:keccak sense.storage.Ownable
+    bytes32 constant STORAGE__OWNABLE = 0xeb8d4c49f0c28998cc107c90f28f2229359aa289e94e87bee1e40cfa083e80a7;
 
     function $ownableStorage() private pure returns (OwnableStorage storage _storage) {
         assembly {
@@ -36,6 +36,6 @@ abstract contract Ownable is IOwnable {
     function _transferOwnership(address newOwner) internal virtual {
         address oldOwner = $ownableStorage().owner;
         $ownableStorage().owner = newOwner;
-        emit Lens_Ownable_OwnershipTransferred(oldOwner, newOwner);
+        emit Sense_Ownable_OwnershipTransferred(oldOwner, newOwner);
     }
 }

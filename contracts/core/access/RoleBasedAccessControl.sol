@@ -21,16 +21,16 @@ import {Errors} from "contracts/core/types/Errors.sol";
 contract RoleBasedAccessControl is Ownable, IRoleBasedAccessControl {
     address internal constant ANY_CONTRACT_ADDRESS = address(0);
     uint256 internal constant ANY_PERMISSION_ID = uint256(0);
-    /// @custom:keccak lens.role.Owner
-    uint256 constant OWNER_ROLE_ID = uint256(0x441b0c1da21837a189de2bb219f231a98e08a545e9ede0b2874dec4807e57e7e);
-    /// @custom:keccak lens.contract.AccessControl.RoleBasedAccessControl
-    bytes32 constant CONTRACT_TYPE = 0xd7f02d8d0f478fc8e4dfbe64bafebbee03e9d359c4395bdbf35858b495f3daaa;
+    /// @custom:keccak sense.role.Owner
+    uint256 constant OWNER_ROLE_ID = uint256(0x452e7c92ce591d61abeed38616300baea1208813e9b9adb1032d9987f20963c1);
+    /// @custom:keccak sense.contract.AccessControl.RoleBasedAccessControl
+    bytes32 constant CONTRACT_TYPE = 0x7c14ec6dc318f4ce26aade91193276fa8e69bd5fe5a78e8378af9bd4ef8f0799;
 
     mapping(address => uint256[]) internal _roles;
     mapping(uint256 => mapping(address => mapping(uint256 => Access))) internal _access;
 
     constructor(address owner) {
-        _emitLensContractDeployedEvent();
+        _emitSenseContractDeployedEvent();
         _grantRole(owner, OWNER_ROLE_ID);
         _setAccess(OWNER_ROLE_ID, ANY_CONTRACT_ADDRESS, ANY_PERMISSION_ID, Access.GRANTED);
         _transferOwnership(owner);
@@ -101,7 +101,7 @@ contract RoleBasedAccessControl is Ownable, IRoleBasedAccessControl {
     function _grantRole(address account, uint256 roleId) internal virtual {
         require(!_hasRole(account, roleId), Errors.RedundantStateChange());
         _roles[account].push(roleId);
-        emit Lens_AccessControl_RoleGranted(account, roleId);
+        emit Sense_AccessControl_RoleGranted(account, roleId);
     }
 
     function _beforeRevokingRole(address, /* account */ uint256 roleId) internal virtual onlyOwner {
@@ -122,7 +122,7 @@ contract RoleBasedAccessControl is Ownable, IRoleBasedAccessControl {
         require(roleIndex < accountRolesLength, Errors.RedundantStateChange()); // Index must be found before reaching the end of the array
         _roles[account][roleIndex] = _roles[account][accountRolesLength - 1];
         _roles[account].pop();
-        emit Lens_AccessControl_RoleRevoked(account, roleId);
+        emit Sense_AccessControl_RoleRevoked(account, roleId);
     }
 
     function hasRole(address account, uint256 roleId) external view override returns (bool) {
@@ -153,11 +153,11 @@ contract RoleBasedAccessControl is Ownable, IRoleBasedAccessControl {
         require(access != perviousAccess, Errors.RedundantStateChange());
         _access[roleId][contractAddress][permissionId] = access;
         if (perviousAccess == Access.UNDEFINED) {
-            emit Lens_AccessControl_AccessAdded(roleId, contractAddress, permissionId, access == Access.GRANTED);
+            emit Sense_AccessControl_AccessAdded(roleId, contractAddress, permissionId, access == Access.GRANTED);
         } else if (access == Access.UNDEFINED) {
-            emit Lens_AccessControl_AccessRemoved(roleId, contractAddress, permissionId);
+            emit Sense_AccessControl_AccessRemoved(roleId, contractAddress, permissionId);
         } else {
-            emit Lens_AccessControl_AccessUpdated(roleId, contractAddress, permissionId, access == Access.GRANTED);
+            emit Sense_AccessControl_AccessUpdated(roleId, contractAddress, permissionId, access == Access.GRANTED);
         }
     }
 
@@ -220,10 +220,10 @@ contract RoleBasedAccessControl is Ownable, IRoleBasedAccessControl {
         return false;
     }
 
-    function _emitLensContractDeployedEvent() internal virtual {
-        emit Events.Lens_Contract_Deployed({
-            contractType: "lens.contract.AccessControl",
-            flavour: "lens.contract.AccessControl.RoleBasedAccessControl"
+    function _emitSenseContractDeployedEvent() internal virtual {
+        emit Events.Sense_Contract_Deployed({
+            contractType: "sense.contract.AccessControl",
+            flavour: "sense.contract.AccessControl.RoleBasedAccessControl"
         });
     }
 }

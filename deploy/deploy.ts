@@ -2,10 +2,10 @@
 
 import deployImplementations from './deployImplementations';
 import deployFactories from './deployFactories';
-import { deployLensPrimitives, deployLensAccessControl, deployLensActionHub } from './deployAux';
+import { deploySensePrimitives, deploySenseAccessControl, deploySenseActionHub } from './deployAux';
 import { deployRules } from './deployRules';
 import { deployActions } from './deployActions';
-import { generateEnvFile } from './lensUtils';
+import { generateEnvFile } from './senseUtils';
 import { deployBeacons, deployLock } from './deployProxyStuff';
 import { getWallet, LOCAL_RICH_WALLETS } from './utils';
 
@@ -82,7 +82,7 @@ async function deploy() {
     console.log('\tProxyAdminLockOwner:', deployerAddress);
     console.log('\tAccessControlLockOwner:', deployerAddress);
     console.log('\tBeaconOwner:', deployerAddress);
-    console.log('\tFactoriesProxyOwner:', LOCAL_RICH_WALLETS[1].address); // Cannot be deployer cause later it will fail to execute the lensFactory primitives deployments
+    console.log('\tFactoriesProxyOwner:', LOCAL_RICH_WALLETS[1].address); // Cannot be deployer cause later it will fail to execute the senseFactory primitives deployments
     console.log('\tRulesOwner:', deployerAddress);
     console.log('\tActionsOwner:', deployerAddress);
     console.log('\tPrimitivesOwner:', deployerAddress);
@@ -104,14 +104,14 @@ async function deploy() {
     factoriesProxyOwner ?? LOCAL_RICH_WALLETS[1].address,
     DEPLOYING_MIGRATION
   );
-  await deployLensPrimitives(primitivesOwner ?? deployerAddress, DEPLOYING_MIGRATION);
+  await deploySensePrimitives(primitivesOwner ?? deployerAddress, DEPLOYING_MIGRATION);
   if (!DEPLOYING_MIGRATION) {
-    const actionHub = await deployLensActionHub(
+    const actionHub = await deploySenseActionHub(
       factoriesProxyOwner ?? deployerAddress,
       treasuryAddress ?? deployerAddress,
       treasuryFeeBps ?? 0
     );
-    await deployLensAccessControl(primitivesOwner ?? deployerAddress);
+    await deploySenseAccessControl(primitivesOwner ?? deployerAddress);
     await deployRules(rulesOwner ?? deployerAddress);
     await deployActions(actionHub, actionsOwner ?? deployerAddress);
   }

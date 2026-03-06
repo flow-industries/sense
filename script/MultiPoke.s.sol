@@ -17,9 +17,9 @@ import {IMetadataBased} from "contracts/core/interfaces/IMetadataBased.sol";
 ///   forge script script/MultiPoke.s.sol --rpc-url https://api.lens.matterhosted.dev/ --zksync -vvvvv
 /// Then add the --broadcast flag to actually send the transactions to the network.
 contract MultiPoke is Script {
-    address constant LENS_GLOBAL_NAMESPACE = address(0x1aA55B9042f08f45825dC4b651B64c9F98Af4615);
-    address constant LENS_GLOBAL_FEED = address(0xcB5E109FFC0E15565082d78E68dDDf2573703580);
-    address constant LENS_GLOBAL_GRAPH = address(0x433025d9718302E7B2e1853D712d96F00764513F);
+    address constant SENSE_GLOBAL_NAMESPACE = address(0x1aA55B9042f08f45825dC4b651B64c9F98Af4615);
+    address constant SENSE_GLOBAL_FEED = address(0xcB5E109FFC0E15565082d78E68dDDf2573703580);
+    address constant SENSE_GLOBAL_GRAPH = address(0x433025d9718302E7B2e1853D712d96F00764513F);
 
     address constant WHITELISTED_MULTICALL = address(0xC9A7A3762cC1073b40B19f7A333c046ce464e8Db);
 
@@ -32,13 +32,13 @@ contract MultiPoke is Script {
 
         IMulticall3.Call[] memory calls = new IMulticall3.Call[](3);
 
-        calls[0].target = LENS_GLOBAL_NAMESPACE;
+        calls[0].target = SENSE_GLOBAL_NAMESPACE;
         calls[0].callData = abi.encodeCall(IMetadataBased.getMetadataURI, ());
 
-        calls[1].target = LENS_GLOBAL_FEED;
+        calls[1].target = SENSE_GLOBAL_FEED;
         calls[1].callData = abi.encodeCall(IMetadataBased.getMetadataURI, ());
 
-        calls[2].target = LENS_GLOBAL_GRAPH;
+        calls[2].target = SENSE_GLOBAL_GRAPH;
         calls[2].callData = abi.encodeCall(IMetadataBased.getMetadataURI, ());
 
         vm.startBroadcast(whitelistedCallerPK);

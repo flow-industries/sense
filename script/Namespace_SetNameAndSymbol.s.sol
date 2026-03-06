@@ -17,7 +17,7 @@ interface IMigrationNamespace {
 contract Namespace_SetNameAndSymbol is Script {
     address constant WHITELISTED_MULTICALL = address(0xC9A7A3762cC1073b40B19f7A333c046ce464e8Db);
 
-    address constant LENS_GLOBAL_NAMESPACE = address(0x1aA55B9042f08f45825dC4b651B64c9F98Af4615);
+    address constant SENSE_GLOBAL_NAMESPACE = address(0x1aA55B9042f08f45825dC4b651B64c9F98Af4615);
 
     function testNamespace_SetNameAndSymbol() public {
         // Prevents being counted in Foundry Coverage
@@ -26,8 +26,8 @@ contract Namespace_SetNameAndSymbol is Script {
     function run() external {
         uint256 whitelistedCallerPK = vm.envUint("WHITELISTED_CALLER_PK");
 
-        string memory name = IERC721Metadata(LENS_GLOBAL_NAMESPACE).name();
-        string memory symbol = IERC721Metadata(LENS_GLOBAL_NAMESPACE).symbol();
+        string memory name = IERC721Metadata(SENSE_GLOBAL_NAMESPACE).name();
+        string memory symbol = IERC721Metadata(SENSE_GLOBAL_NAMESPACE).symbol();
 
         console.log("[BEFORE] Name: %s", name);
         console.log("[BEFORE] Symbol: %s", symbol);
@@ -35,9 +35,9 @@ contract Namespace_SetNameAndSymbol is Script {
         console.log("Updating name and symbol...");
 
         IMulticall3.Call[] memory calls = new IMulticall3.Call[](1);
-        calls[0].target = LENS_GLOBAL_NAMESPACE;
+        calls[0].target = SENSE_GLOBAL_NAMESPACE;
         calls[0].callData =
-            abi.encodeCall(IMigrationNamespace.migration_force__setNameAndSymbol, ("Lens Usernames", "LU"));
+            abi.encodeCall(IMigrationNamespace.migration_force__setNameAndSymbol, ("Sense Usernames", "SU"));
 
         vm.startBroadcast(whitelistedCallerPK);
 
@@ -45,8 +45,8 @@ contract Namespace_SetNameAndSymbol is Script {
 
         vm.stopBroadcast();
 
-        name = IERC721Metadata(LENS_GLOBAL_NAMESPACE).name();
-        symbol = IERC721Metadata(LENS_GLOBAL_NAMESPACE).symbol();
+        name = IERC721Metadata(SENSE_GLOBAL_NAMESPACE).name();
+        symbol = IERC721Metadata(SENSE_GLOBAL_NAMESPACE).symbol();
 
         console.log("[AFTER] Name: %s", name);
         console.log("[AFTER] Symbol: %s", symbol);

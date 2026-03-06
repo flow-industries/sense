@@ -9,15 +9,15 @@ abstract contract AccessControlled is IAccessControlled {
     using AccessControlLib for IAccessControl;
     using AccessControlLib for address;
 
-    event Lens_AccessControlAdded(address indexed accessControl, bytes32 indexed accessControlType);
-    event Lens_AccessControlUpdated(address indexed accessControl, bytes32 indexed accessControlType);
+    event Sense_AccessControlAdded(address indexed accessControl, bytes32 indexed accessControlType);
+    event Sense_AccessControlUpdated(address indexed accessControl, bytes32 indexed accessControlType);
 
     struct AccessControlledStorage {
         address accessControl;
     }
 
-    /// @custom:keccak lens.storage.AccessControlledStorage.AccessControlledStorage
-    bytes32 constant STORAGE__ACCESS_CONTROLLED = 0xbd033a0ffbb1596134cd289270549cdbb5543523671bd5bbfcdc89a3f6decd75;
+    /// @custom:keccak sense.storage.AccessControlledStorage.AccessControlledStorage
+    bytes32 constant STORAGE__ACCESS_CONTROLLED = 0x88ade596d415ad0f2be80f1ceda562a3773046109a629a9f36d6886453c62629;
 
     function $accessControlledStorage() private pure returns (AccessControlledStorage storage _storage) {
         assembly {
@@ -57,9 +57,9 @@ abstract contract AccessControlled is IAccessControlled {
         address oldAccessControl = $accessControlledStorage().accessControl;
         $accessControlledStorage().accessControl = address(newAccessControl);
         if (oldAccessControl == address(0)) {
-            emit Lens_AccessControlAdded(address(newAccessControl), newAccessControl.getType());
+            emit Sense_AccessControlAdded(address(newAccessControl), newAccessControl.getType());
         } else {
-            emit Lens_AccessControlUpdated(address(newAccessControl), newAccessControl.getType());
+            emit Sense_AccessControlUpdated(address(newAccessControl), newAccessControl.getType());
         }
     }
 

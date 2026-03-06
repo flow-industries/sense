@@ -10,7 +10,7 @@ import {
     Allowance,
     AllowanceChange
 } from "@extensions/account/IAccount.sol";
-import {Account as LensAccount} from "@extensions/account/Account.sol";
+import {Account as SenseAccount} from "@extensions/account/Account.sol";
 import {Feed} from "@core/primitives/feed/Feed.sol";
 import {IFeed, Post, CreatePostParams} from "@core/interfaces/IFeed.sol";
 import {BaseDeployments} from "test/helpers/BaseDeployments.sol";
@@ -40,7 +40,7 @@ contract AccountTestBase is FuzzZkTest, BaseDeployments {
 
         account = IAccount(
             payable(
-                lensFactory.deployAccount({
+                senseFactory.deployAccount({
                     metadataURI: "uri://account-metadata",
                     owner: owner,
                     accountManagers: accountManagers,
@@ -52,7 +52,7 @@ contract AccountTestBase is FuzzZkTest, BaseDeployments {
         );
 
         feed = IFeed(
-            lensFactory.deployFeed({
+            senseFactory.deployFeed({
                 metadataURI: "some metadata uri",
                 owner: address(account),
                 admins: _emptyAddressArray(),
@@ -1716,7 +1716,7 @@ contract AccountTest2 is AccountTestBase {
         string memory metadataURI = "uri://new-metadata";
 
         vm.expectEmit(true, true, true, true);
-        emit IAccount.Lens_Account_MetadataURISet(metadataURI, address(0));
+        emit IAccount.Sense_Account_MetadataURISet(metadataURI, address(0));
 
         vm.prank(owner);
         account.setMetadataURI(metadataURI, _emptySourceStamp());
@@ -1814,7 +1814,7 @@ contract AccountTest2 is AccountTestBase {
         KeyValue memory data = KeyValue({key: keccak256("test.key"), value: abi.encode("test value")});
 
         vm.expectEmit(true, true, true, true);
-        emit IAccount.Lens_Account_ExtraDataAdded(data.key, data.value, data.value);
+        emit IAccount.Sense_Account_ExtraDataAdded(data.key, data.value, data.value);
 
         vm.prank(owner);
         account.setExtraData(_toKeyValueArray(data));
@@ -1858,7 +1858,7 @@ contract AccountTest2 is AccountTestBase {
         KeyValue memory updatedData = KeyValue({key: testKey, value: updatedValue});
 
         vm.expectEmit(true, true, true, true);
-        emit IAccount.Lens_Account_ExtraDataUpdated(testKey, updatedValue, updatedValue);
+        emit IAccount.Sense_Account_ExtraDataUpdated(testKey, updatedValue, updatedValue);
 
         vm.prank(owner);
         account.setExtraData(_toKeyValueArray(updatedData));
@@ -1877,7 +1877,7 @@ contract AccountTest2 is AccountTestBase {
         KeyValue memory removeData = KeyValue({key: testKey, value: ""});
 
         vm.expectEmit(true, true, true, true);
-        emit IAccount.Lens_Account_ExtraDataRemoved(testKey);
+        emit IAccount.Sense_Account_ExtraDataRemoved(testKey);
 
         vm.prank(owner);
         account.setExtraData(_toKeyValueArray(removeData));
@@ -1906,7 +1906,7 @@ contract AccountTest2 is AccountTestBase {
         IOwnable(address(account)).transferOwnership(newOwner);
 
         vm.expectEmit(true, true, true, true);
-        emit IAccount.Lens_Account_OwnershipTransferred(owner, newOwner);
+        emit IAccount.Sense_Account_OwnershipTransferred(owner, newOwner);
 
         vm.prank(owner);
         IOwnable(address(account)).transferOwnership(newOwner);
@@ -2272,7 +2272,7 @@ contract AccountTest3 is AccountTestBase {
 
         assertTrue(account.isAccountManager(owner));
 
-        LensAccount(payable(account)).removeOwnerAsManager();
+        SenseAccount(payable(account)).removeOwnerAsManager();
 
         assertFalse(account.isAccountManager(owner));
     }
@@ -2282,14 +2282,14 @@ contract AccountTest3 is AccountTestBase {
 
         assertTrue(account.isAccountManager(address(account)));
 
-        LensAccount(payable(account)).removeAccountAsManager();
+        SenseAccount(payable(account)).removeAccountAsManager();
 
         assertFalse(account.isAccountManager(address(account)));
     }
 
     function test_cannotInitializeAccount_WithOwnerAsManager() public {
         address proxyAdmin = makeAddr("PROXY_ADMIN");
-        LensAccount account = LensAccount(payable(new BeaconProxy(proxyAdmin, accountBeacon)));
+        SenseAccount account = SenseAccount(payable(new BeaconProxy(proxyAdmin, accountBeacon)));
         string memory metadataURI = "https://example.com";
         address[] memory accountManagers = _toAddressArray(owner);
         AccountManagerPermissions[] memory accountManagersPermissions = new AccountManagerPermissions[](1);
@@ -2308,7 +2308,7 @@ contract AccountTest3 is AccountTestBase {
 
     function test_cannotInitializeAccount_WithAddressZeroAsManager() public {
         address proxyAdmin = makeAddr("PROXY_ADMIN");
-        LensAccount account = LensAccount(payable(new BeaconProxy(proxyAdmin, accountBeacon)));
+        SenseAccount account = SenseAccount(payable(new BeaconProxy(proxyAdmin, accountBeacon)));
         string memory metadataURI = "https://example.com";
         address[] memory accountManagers = _toAddressArray(address(0));
         AccountManagerPermissions[] memory accountManagersPermissions = new AccountManagerPermissions[](1);
@@ -2327,7 +2327,7 @@ contract AccountTest3 is AccountTestBase {
 
     function test_cannotInitializeAccount_WithItselfAsManager() public {
         address proxyAdmin = makeAddr("PROXY_ADMIN");
-        LensAccount account = LensAccount(payable(new BeaconProxy(proxyAdmin, accountBeacon)));
+        SenseAccount account = SenseAccount(payable(new BeaconProxy(proxyAdmin, accountBeacon)));
         string memory metadataURI = "https://example.com";
         address[] memory accountManagers = _toAddressArray(address(account));
         AccountManagerPermissions[] memory accountManagersPermissions = new AccountManagerPermissions[](1);

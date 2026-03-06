@@ -1,7 +1,7 @@
 [
   {
     "type": "event",
-    "name": "Lens_ExtraStorageSet",
+    "name": "Sense_ExtraStorageSet",
     "inputs": [
       {
         "name": "addressScope",

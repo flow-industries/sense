@@ -6,8 +6,8 @@ import {Ownable} from "contracts/core/access/Ownable.sol";
 import {EventEmitterEarly} from "contracts/migration/EventEmitterEarly.sol";
 
 contract Lock is Ownable, ILock, EventEmitterEarly {
-    event Lens_Lock_LockStatusSet(bool indexed locked);
-    event Lens_Lock_LockStatusSet(address indexed target, bool indexed locked);
+    event Sense_Lock_LockStatusSet(bool indexed locked);
+    event Sense_Lock_LockStatusSet(address indexed target, bool indexed locked);
 
     bool internal _areAllAddressesUnlocked;
     mapping(address => bool) internal _isAddressUnlocked;
@@ -32,11 +32,11 @@ contract Lock is Ownable, ILock, EventEmitterEarly {
     // Only to unlock specific addresses before the global lock is released.
     function setLockStatusForAddress(address target, bool locked) external onlyOwner {
         _isAddressUnlocked[target] = !locked;
-        emit Lens_Lock_LockStatusSet(target, locked);
+        emit Sense_Lock_LockStatusSet(target, locked);
     }
 
     function _setLockStatus(bool locked) internal {
         _areAllAddressesUnlocked = !locked;
-        emit Lens_Lock_LockStatusSet(locked);
+        emit Sense_Lock_LockStatusSet(locked);
     }
 }

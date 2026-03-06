@@ -817,7 +817,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_AccountBlocking_AccountBlocked",
+    "name": "Sense_AccountBlocking_AccountBlocked",
     "inputs": [
       {
         "name": "source",
@@ -836,7 +836,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_AccountBlocking_AccountUnblocked",
+    "name": "Sense_AccountBlocking_AccountUnblocked",
     "inputs": [
       {
         "name": "source",
@@ -855,7 +855,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Ownable_OwnershipTransferred",
+    "name": "Sense_Ownable_OwnershipTransferred",
     "inputs": [
       {
         "name": "previousOwner",
@@ -874,7 +874,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Rule_MetadataURISet",
+    "name": "Sense_Rule_MetadataURISet",
     "inputs": [
       {
         "name": "metadataURI",

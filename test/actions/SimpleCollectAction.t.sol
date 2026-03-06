@@ -9,20 +9,20 @@ import {ActionHub} from "contracts/extensions/actions/ActionHub.sol";
 import {RecipientData} from "contracts/core/types/Types.sol";
 import {Post, IFeed} from "contracts/core/interfaces/IFeed.sol";
 import {MockFeed} from "test/mocks/MockFeed.sol";
-import {LensCollectedPost} from "contracts/actions/post/collect/LensCollectedPost.sol";
+import {SenseCollectedPost} from "contracts/actions/post/collect/SenseCollectedPost.sol";
 import {CollectActionData} from "contracts/actions/post/collect/ISimpleCollectAction.sol";
 import {MockSimpleCollectAction} from "test/mocks/MockSimpleCollectAction.sol";
-import {MockLegacyLensCollectedPost} from "test/mocks/MockLegacyLensCollectedPost.sol";
+import {MockLegacySenseCollectedPost} from "test/mocks/MockLegacySenseCollectedPost.sol";
 import {Errors} from "contracts/core/types/Errors.sol";
 
-/// @custom:keccak lens.param.amount
-bytes32 constant PARAM__AMOUNT = 0xc8a06abcb0f2366f32dc2741bdf075c3215e3108918311ec0ac742f1ffd37f49;
-/// @custom:keccak lens.param.token
-bytes32 constant PARAM__TOKEN = 0xee737c77be2981e91c179485406e6d793521b20aca5e2137b6c497949a74bc94;
-/// @custom:keccak lens.param.recipients
-bytes32 constant PARAM__RECIPIENTS = 0x7f7e01c87d5278dd08505253491cf5d6b30930036f6afa2ae22a980882f2cac1;
-/// @custom:keccak lens.param.isImmutable
-bytes32 constant PARAM__IS_IMMUTABLE = 0x4d1cad3e438026974130ac84979964dd6019eace55216c3de16bc79e36a4c44b;
+/// @custom:keccak sense.param.amount
+bytes32 constant PARAM__AMOUNT = 0xeaa3dd19eab22ecc64759d4cd79f6f6e9243d88ba532ea00ded4283b5ad9ae6e;
+/// @custom:keccak sense.param.token
+bytes32 constant PARAM__TOKEN = 0x2779023769d78afea1ea6190f63ff520931d95692776fa9186e2a883072b8e44;
+/// @custom:keccak sense.param.recipients
+bytes32 constant PARAM__RECIPIENTS = 0xbcfbed296bc161e8c204c236e33069bf82db78cbc29e0d8a15c012f9a3bb7fb7;
+/// @custom:keccak sense.param.isImmutable
+bytes32 constant PARAM__IS_IMMUTABLE = 0x333d2bbf9e5aa7e32321e9f27b7f06c443b7db1f65da37851dd44aaf97e00088;
 
 contract SimpleCollectActionTest is Test, BaseDeployments {
     address mockFeed;
@@ -141,7 +141,7 @@ contract SimpleCollectActionTest is Test, BaseDeployments {
         result = ActionHub(actionHub).executePostAction(address(simpleCollectAction), mockFeed, postId, collectParams);
         uint256 tokenId4 = abi.decode(result, (uint256));
 
-        LensCollectedPost collection = LensCollectedPost(configurationData.collectionAddress);
+        SenseCollectedPost collection = SenseCollectedPost(configurationData.collectionAddress);
 
         string memory latestContentURI = MockFeed(mockFeed).getPost(postId).contentURI;
 
@@ -188,7 +188,7 @@ contract SimpleCollectActionTest is Test, BaseDeployments {
         result = ActionHub(actionHub).executePostAction(address(simpleCollectAction), mockFeed, postId, collectParams);
         uint256 tokenId4 = abi.decode(result, (uint256));
 
-        LensCollectedPost collection = LensCollectedPost(configurationData.collectionAddress);
+        SenseCollectedPost collection = SenseCollectedPost(configurationData.collectionAddress);
 
         assertEq(collection.tokenURI(tokenId1), "1");
         assertEq(collection.tokenURI(tokenId2), "2");
@@ -225,7 +225,7 @@ contract SimpleCollectActionTest is Test, BaseDeployments {
         result = ActionHub(actionHub).executePostAction(address(simpleCollectAction), mockFeed, postId, collectParams);
         uint256 tokenId4 = abi.decode(result, (uint256));
 
-        LensCollectedPost collection = LensCollectedPost(configurationData.collectionAddress);
+        SenseCollectedPost collection = SenseCollectedPost(configurationData.collectionAddress);
 
         string memory latestContentURI = MockFeed(mockFeed).getPost(postId).contentURI;
 
@@ -274,7 +274,7 @@ contract SimpleCollectActionTest is Test, BaseDeployments {
         result = ActionHub(actionHub).executePostAction(address(simpleCollectAction), mockFeed, postId, collectParams);
         uint256 tokenId4 = abi.decode(result, (uint256));
 
-        LensCollectedPost collection = LensCollectedPost(configurationData.collectionAddress);
+        SenseCollectedPost collection = SenseCollectedPost(configurationData.collectionAddress);
 
         assertEq(collection.tokenURI(tokenId1), "1");
         assertEq(collection.tokenURI(tokenId2), "2");
@@ -294,7 +294,7 @@ contract SimpleCollectActionTest is Test, BaseDeployments {
     //     MockSimpleCollectAction mockSimpleCollectAction = new MockSimpleCollectAction(actionHub);
 
     //     vm.prank(address(mockSimpleCollectAction));
-    //     MockLegacyLensCollectedPost legacyCollection = new MockLegacyLensCollectedPost(mockFeed, postId, true);
+    //     MockLegacySenseCollectedPost legacyCollection = new MockLegacySenseCollectedPost(mockFeed, postId, true);
 
     //     bytes memory result =
     //         ActionHub(actionHub).configurePostAction(address(mockSimpleCollectAction), mockFeed, postId, params);
@@ -320,7 +320,7 @@ contract SimpleCollectActionTest is Test, BaseDeployments {
     //         ActionHub(actionHub).executePostAction(address(mockSimpleCollectAction), mockFeed, postId, collectParams);
     //     uint256 tokenId2 = abi.decode(result, (uint256));
 
-    //     LensCollectedPost collection = LensCollectedPost(configurationData.collectionAddress);
+    //     SenseCollectedPost collection = SenseCollectedPost(configurationData.collectionAddress);
     //     assertEq(collection.tokenURI(tokenId1), "1");
     //     assertEq(collection.tokenURI(tokenId2), "1");
     // }
@@ -335,7 +335,7 @@ contract SimpleCollectActionTest is Test, BaseDeployments {
         MockSimpleCollectAction mockSimpleCollectAction = new MockSimpleCollectAction(actionHub);
 
         vm.prank(address(mockSimpleCollectAction));
-        MockLegacyLensCollectedPost legacyCollection = new MockLegacyLensCollectedPost(mockFeed, postId, true);
+        MockLegacySenseCollectedPost legacyCollection = new MockLegacySenseCollectedPost(mockFeed, postId, true);
 
         bytes memory result =
             ActionHub(actionHub).configurePostAction(address(mockSimpleCollectAction), mockFeed, postId, params);
@@ -362,7 +362,7 @@ contract SimpleCollectActionTest is Test, BaseDeployments {
             ActionHub(actionHub).executePostAction(address(mockSimpleCollectAction), mockFeed, postId, collectParams);
         uint256 tokenId3 = abi.decode(result, (uint256));
 
-        LensCollectedPost collection = LensCollectedPost(configurationData.collectionAddress);
+        SenseCollectedPost collection = SenseCollectedPost(configurationData.collectionAddress);
         assertEq(collection.tokenURI(tokenId1), "1");
         assertEq(collection.tokenURI(tokenId2), "1");
         assertEq(collection.tokenURI(tokenId3), "1");

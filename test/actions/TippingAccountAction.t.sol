@@ -7,10 +7,10 @@ import {NATIVE_TOKEN, BPS_MAX} from "contracts/core/types/Constants.sol";
 import {BaseDeployments} from "test/helpers/BaseDeployments.sol";
 import {ActionHub} from "contracts/extensions/actions/ActionHub.sol";
 
-/// @custom:keccak lens.param.amount
-bytes32 constant PARAM__TIP_AMOUNT = 0xc8a06abcb0f2366f32dc2741bdf075c3215e3108918311ec0ac742f1ffd37f49;
-/// @custom:keccak lens.param.token
-bytes32 constant PARAM__TIP_TOKEN = 0xee737c77be2981e91c179485406e6d793521b20aca5e2137b6c497949a74bc94;
+/// @custom:keccak sense.param.amount
+bytes32 constant PARAM__TIP_AMOUNT = 0xeaa3dd19eab22ecc64759d4cd79f6f6e9243d88ba532ea00ded4283b5ad9ae6e;
+/// @custom:keccak sense.param.token
+bytes32 constant PARAM__TIP_TOKEN = 0x2779023769d78afea1ea6190f63ff520931d95692776fa9186e2a883072b8e44;
 
 contract TippingAccountActionTest is Test, BaseDeployments {
     function setUp() public override {

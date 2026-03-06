@@ -1205,7 +1205,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_AccessControlAdded",
+    "name": "Sense_AccessControlAdded",
     "inputs": [
       {
         "name": "accessControl",
@@ -1224,7 +1224,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_AccessControlUpdated",
+    "name": "Sense_AccessControlUpdated",
     "inputs": [
       {
         "name": "accessControl",
@@ -1243,7 +1243,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Contract_Deployed",
+    "name": "Sense_Contract_Deployed",
     "inputs": [
       {
         "name": "contractType",
@@ -1262,7 +1262,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_ExtraStorageSet",
+    "name": "Sense_ExtraStorageSet",
     "inputs": [
       {
         "name": "addressScope",
@@ -1299,7 +1299,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Feed_ExtraDataAdded",
+    "name": "Sense_Feed_ExtraDataAdded",
     "inputs": [
       {
         "name": "key",
@@ -1324,7 +1324,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Feed_ExtraDataRemoved",
+    "name": "Sense_Feed_ExtraDataRemoved",
     "inputs": [
       {
         "name": "key",
@@ -1337,7 +1337,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Feed_ExtraDataUpdated",
+    "name": "Sense_Feed_ExtraDataUpdated",
     "inputs": [
       {
         "name": "key",
@@ -1362,7 +1362,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Feed_MetadataURISet",
+    "name": "Sense_Feed_MetadataURISet",
     "inputs": [
       {
         "name": "metadataURI",
@@ -1375,7 +1375,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Feed_PostCreated",
+    "name": "Sense_Feed_PostCreated",
     "inputs": [
       {
         "name": "postId",
@@ -1653,7 +1653,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Feed_PostDeleted",
+    "name": "Sense_Feed_PostDeleted",
     "inputs": [
       {
         "name": "postId",
@@ -1696,7 +1696,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Feed_PostEdited",
+    "name": "Sense_Feed_PostEdited",
     "inputs": [
       {
         "name": "postId",
@@ -1874,7 +1874,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Feed_Post_ExtraDataAdded",
+    "name": "Sense_Feed_Post_ExtraDataAdded",
     "inputs": [
       {
         "name": "postId",
@@ -1905,7 +1905,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Feed_Post_ExtraDataRemoved",
+    "name": "Sense_Feed_Post_ExtraDataRemoved",
     "inputs": [
       {
         "name": "postId",
@@ -1924,7 +1924,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Feed_Post_ExtraDataUpdated",
+    "name": "Sense_Feed_Post_ExtraDataUpdated",
     "inputs": [
       {
         "name": "postId",
@@ -1955,7 +1955,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Feed_Post_RuleConfigured",
+    "name": "Sense_Feed_Post_RuleConfigured",
     "inputs": [
       {
         "name": "postId",
@@ -2004,7 +2004,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Feed_Post_RuleReconfigured",
+    "name": "Sense_Feed_Post_RuleReconfigured",
     "inputs": [
       {
         "name": "postId",
@@ -2053,7 +2053,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Feed_Post_RuleSelectorDisabled",
+    "name": "Sense_Feed_Post_RuleSelectorDisabled",
     "inputs": [
       {
         "name": "postId",
@@ -2096,7 +2096,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Feed_Post_RuleSelectorEnabled",
+    "name": "Sense_Feed_Post_RuleSelectorEnabled",
     "inputs": [
       {
         "name": "postId",
@@ -2139,7 +2139,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Feed_RuleConfigured",
+    "name": "Sense_Feed_RuleConfigured",
     "inputs": [
       {
         "name": "rule",
@@ -2176,7 +2176,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Feed_RuleReconfigured",
+    "name": "Sense_Feed_RuleReconfigured",
     "inputs": [
       {
         "name": "rule",
@@ -2213,7 +2213,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Feed_RuleSelectorDisabled",
+    "name": "Sense_Feed_RuleSelectorDisabled",
     "inputs": [
       {
         "name": "rule",
@@ -2244,7 +2244,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Feed_RuleSelectorEnabled",
+    "name": "Sense_Feed_RuleSelectorEnabled",
     "inputs": [
       {
         "name": "rule",
@@ -2275,7 +2275,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_PermissionId_Available",
+    "name": "Sense_PermissionId_Available",
     "inputs": [
       {
         "name": "permissionId",

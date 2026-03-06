@@ -3,11 +3,11 @@
 import {
   ContractType,
   ContractInfo,
-  deployLensContractWithCreate2,
+  deploySenseContractWithCreate2,
   getInitializeEncodedCall,
   loadAddressBook,
   saveAddressBook,
-} from './lensUtils';
+} from './senseUtils';
 import { getWallet } from './utils';
 import { ethers } from 'ethers';
 import hre from 'hardhat';
@@ -26,21 +26,21 @@ async function deploy() {
 
   /////////////////// SETUP ACTION HUB ///////////////////
 
-  const actionHubInfo = await deployLensContractWithCreate2({
+  const actionHubInfo = await deploySenseContractWithCreate2({
     contractName: 'ActionHub',
     contractType: ContractType.Aux,
     constructorArguments: [],
   }, proxyAdminAddress);
   const actionHubAddress = actionHubInfo.address;
 
-  const lensFeesInfo = await deployLensContractWithCreate2(
+  const senseFeesInfo = await deploySenseContractWithCreate2(
     {
-      contractName: 'LensFees',
+      contractName: 'SenseFees',
       contractType: ContractType.Aux,
     constructorArguments: [process.env.TREASURY_ADDRESS, process.env.TREASURY_FEE_BPS],
   }, proxyAdminAddress);
 
-  /////////////////// SETUP LENS FEES AND ACTIONS ///////////////////
+  /////////////////// SETUP SENSE FEES AND ACTIONS ///////////////////
 
   const actionsToDeploy: ContractInfo[] = [
     {
@@ -189,7 +189,7 @@ async function deploy() {
   const deployedActions: ContractInfo[] = [];
 
   for (const actionToDeploy of actionsToDeploy) {
-    const deployedAction = await deployLensContractWithCreate2(actionToDeploy, proxyAdminAddress, actionToDeploy.initializerCalldata);
+    const deployedAction = await deploySenseContractWithCreate2(actionToDeploy, proxyAdminAddress, actionToDeploy.initializerCalldata);
     deployedActions.push(deployedAction);
   }
 
@@ -198,7 +198,7 @@ async function deploy() {
   const deployedRules: ContractInfo[] = [];
 
   for (const ruleToDeploy of rulesToDeploy) {
-    const deployedRule = await deployLensContractWithCreate2(ruleToDeploy, proxyAdminAddress, ruleToDeploy.initializerCalldata);
+    const deployedRule = await deploySenseContractWithCreate2(ruleToDeploy, proxyAdminAddress, ruleToDeploy.initializerCalldata);
     deployedRules.push(deployedRule);
   }
 

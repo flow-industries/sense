@@ -7,7 +7,7 @@ import {
   saveContractToAddressBook,
   loadAddressBook,
   saveAddressBook,
-} from './lensUtils';
+} from './senseUtils';
 import { deployContract, getWallet } from './utils';
 import * as hre from 'hardhat';
 import { ethers, keccak256, toUtf8Bytes, ZeroAddress } from 'ethers';
@@ -22,7 +22,7 @@ async function deploy() {
     console.log(`Using owner: ${owner}`);
   }
 
-  const preSalt = 'lens.contract.TokenDistributor';
+  const preSalt = 'sense.contract.TokenDistributor';
 
   const implToDeploy: ContractInfo = {
     name: 'TokenDistributorImpl',
@@ -52,38 +52,38 @@ async function deploy() {
   console.log(`Using proxy admin private key with address: ${proxyAdminAddress}`);
   console.log(`Proxy admin balance: ${ethers.formatEther(proxyAdminBalance)}`);
 
-  const lensCreate2OwnerPk = process.env.LENS_CREATE2_OWNER_PRIVATE_KEY;
-  if (!lensCreate2OwnerPk) {
-    throw new Error('LENS_CREATE2_OWNER_PRIVATE_KEY not found in environment variables');
+  const senseCreate2OwnerPk = process.env.SENSE_CREATE2_OWNER_PRIVATE_KEY;
+  if (!senseCreate2OwnerPk) {
+    throw new Error('SENSE_CREATE2_OWNER_PRIVATE_KEY not found in environment variables');
   }
 
-  const lensCreate2OwnerBalance = await getWallet(lensCreate2OwnerPk).getBalance();
-  if (lensCreate2OwnerBalance < ethers.parseEther('0.01')) {
-    throw new Error('LensCreate2 Owner balance is less than 0.01 ETH');
+  const senseCreate2OwnerBalance = await getWallet(senseCreate2OwnerPk).getBalance();
+  if (senseCreate2OwnerBalance < ethers.parseEther('0.01')) {
+    throw new Error('SenseCreate2 Owner balance is less than 0.01 ETH');
   }
 
   console.log(
-    `Using lensCreate2 owner private key with address: ${await getWallet(
-      lensCreate2OwnerPk
+    `Using senseCreate2 owner private key with address: ${await getWallet(
+      senseCreate2OwnerPk
     ).getAddress()}`
   );
-  console.log(`LensCreate2 owner balance: ${ethers.formatEther(lensCreate2OwnerBalance)}`);
+  console.log(`SenseCreate2 owner balance: ${ethers.formatEther(senseCreate2OwnerBalance)}`);
 
-  const lensCreate2OwnerWallet = getWallet(lensCreate2OwnerPk);
+  const senseCreate2OwnerWallet = getWallet(senseCreate2OwnerPk);
 
   const salt = keccak256(toUtf8Bytes(preSalt));
 
-  const lensCreate2Address = '0x52AF9CF29976C310E3DE03C509E108edB6edb8c0';
-  const lensCreate2ContractName = 'LensCreate2';
-  const lensCreate2Artifact = await hre.artifacts.readArtifact(lensCreate2ContractName);
+  const senseCreate2Address = '0x52AF9CF29976C310E3DE03C509E108edB6edb8c0';
+  const senseCreate2ContractName = 'SenseCreate2';
+  const senseCreate2Artifact = await hre.artifacts.readArtifact(senseCreate2ContractName);
 
-  const lensCreate2 = new hre.ethers.Contract(
-    lensCreate2Address,
-    lensCreate2Artifact.abi,
-    lensCreate2OwnerWallet
+  const senseCreate2 = new hre.ethers.Contract(
+    senseCreate2Address,
+    senseCreate2Artifact.abi,
+    senseCreate2OwnerWallet
   );
 
-  const predictedAddress = await lensCreate2['getAddress(bytes32)'].staticCall(salt);
+  const predictedAddress = await senseCreate2['getAddress(bytes32)'].staticCall(salt);
 
   console.log(`About to deploy contract for '${preSalt}'`);
   console.log(`Computed salt for '${preSalt}' is ${salt}`);
@@ -105,9 +105,9 @@ async function deploy() {
 
   console.log(`${implToDeploy.contractName} implementation deployed at ${implementationAddress}`);
 
-  console.log(`Deploying ${implToDeploy.contractName} proxy through LensCreate2`);
+  console.log(`Deploying ${implToDeploy.contractName} proxy through SenseCreate2`);
 
-  const deployWithCreate2Tx = await lensCreate2.createTransparentUpgradeableProxy(
+  const deployWithCreate2Tx = await senseCreate2.createTransparentUpgradeableProxy(
     salt,
     implementationAddress,
     proxyAdminAddress,
@@ -146,7 +146,7 @@ async function deploy() {
     implementation: implementationAddress,
     bytecodeHash: create2TransparentProxyBytecodeHash,
     proxyAdmin: proxyAdminAddress,
-    lensCreate2PreSalt: preSalt,
+    senseCreate2PreSalt: preSalt,
   };
 
   saveAddressBook(addressBook);

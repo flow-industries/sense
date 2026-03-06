@@ -15,8 +15,8 @@ library GraphCore {
         mapping(address => uint256) followingCount;
     }
 
-    /// @custom:keccak lens.storage.GraphCore
-    bytes32 constant STORAGE__GRAPH_CORE = 0x5863e3ed01973a22e9d816ccf1175242559c6aa633e210d5eef6ba360542fe03;
+    /// @custom:keccak sense.storage.GraphCore
+    bytes32 constant STORAGE__GRAPH_CORE = 0xaadf980db50d207e650450d4820b13b82a4709673691769e215f21e202c6c089;
 
     function $storage() internal pure returns (Storage storage _storage) {
         assembly {

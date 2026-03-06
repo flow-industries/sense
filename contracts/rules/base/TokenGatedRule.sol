@@ -17,8 +17,8 @@ abstract contract TokenGatedRule is OwnableMetadataBasedRule {
     uint256 internal constant ERC721 = 721;
     uint256 internal constant ERC1155 = 1155;
 
-    /// @custom:keccak lens.param.tokenGate
-    bytes32 constant PARAM__TOKEN_GATE = 0xb395c61ecf6294b637d557db500d79f61694bd0d2e3c9b0d54383cc4a6c6dcea;
+    /// @custom:keccak sense.param.tokenGate
+    bytes32 constant PARAM__TOKEN_GATE = 0xf9b29b46338a8b370eb890dbdf352f03b85a26bb3f64f0f20a44e4d32f272f48;
 
     struct TokenGateConfiguration {
         uint256 tokenStandard;

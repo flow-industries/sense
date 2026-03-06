@@ -8,7 +8,7 @@ contract MockAccessControl is IAccessControl {
     mapping(address => mapping(address => mapping(uint256 => bool))) _mockedAccess;
 
     function getType() external pure override returns (bytes32) {
-        return keccak256("lens.contract.AccessControl.MockAccessControl");
+        return keccak256("sense.contract.AccessControl.MockAccessControl");
     }
 
     function canChangeAccessControl(address account, address contractAddress) external view override returns (bool) {

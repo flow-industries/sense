@@ -115,7 +115,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_AppFactory_Deployment",
+    "name": "Sense_AppFactory_Deployment",
     "inputs": [
       {
         "name": "app",

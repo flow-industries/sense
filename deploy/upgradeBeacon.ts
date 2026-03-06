@@ -5,7 +5,7 @@ import {
   ContractInfo,
   loadContractAddressFromAddressBook,
   saveContractToAddressBook,
-} from './lensUtils';
+} from './senseUtils';
 import { deployContract, getWallet } from './utils';
 import * as hre from 'hardhat';
 import { ethers, keccak256 } from 'ethers';

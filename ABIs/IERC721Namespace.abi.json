@@ -1104,7 +1104,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Namespace_ExtraDataAdded",
+    "name": "Sense_Namespace_ExtraDataAdded",
     "inputs": [
       {
         "name": "key",
@@ -1129,7 +1129,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Namespace_ExtraDataRemoved",
+    "name": "Sense_Namespace_ExtraDataRemoved",
     "inputs": [
       {
         "name": "key",
@@ -1142,7 +1142,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Namespace_ExtraDataUpdated",
+    "name": "Sense_Namespace_ExtraDataUpdated",
     "inputs": [
       {
         "name": "key",
@@ -1167,7 +1167,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Namespace_MetadataURISet",
+    "name": "Sense_Namespace_MetadataURISet",
     "inputs": [
       {
         "name": "metadataURI",
@@ -1180,7 +1180,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Namespace_RuleConfigured",
+    "name": "Sense_Namespace_RuleConfigured",
     "inputs": [
       {
         "name": "rule",
@@ -1217,7 +1217,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Namespace_RuleReconfigured",
+    "name": "Sense_Namespace_RuleReconfigured",
     "inputs": [
       {
         "name": "rule",
@@ -1254,7 +1254,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Namespace_RuleSelectorDisabled",
+    "name": "Sense_Namespace_RuleSelectorDisabled",
     "inputs": [
       {
         "name": "rule",
@@ -1285,7 +1285,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Namespace_RuleSelectorEnabled",
+    "name": "Sense_Namespace_RuleSelectorEnabled",
     "inputs": [
       {
         "name": "rule",
@@ -1316,7 +1316,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Username_Assigned",
+    "name": "Sense_Username_Assigned",
     "inputs": [
       {
         "name": "username",
@@ -1394,7 +1394,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Username_Created",
+    "name": "Sense_Username_Created",
     "inputs": [
       {
         "name": "username",
@@ -1490,7 +1490,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Username_ExtraDataAdded",
+    "name": "Sense_Username_ExtraDataAdded",
     "inputs": [
       {
         "name": "usernameId",
@@ -1521,7 +1521,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Username_ExtraDataRemoved",
+    "name": "Sense_Username_ExtraDataRemoved",
     "inputs": [
       {
         "name": "usernameId",
@@ -1540,7 +1540,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Username_ExtraDataUpdated",
+    "name": "Sense_Username_ExtraDataUpdated",
     "inputs": [
       {
         "name": "usernameId",
@@ -1571,7 +1571,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Username_Removed",
+    "name": "Sense_Username_Removed",
     "inputs": [
       {
         "name": "username",
@@ -1649,7 +1649,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Username_Transfer",
+    "name": "Sense_Username_Transfer",
     "inputs": [
       {
         "name": "from",
@@ -1674,7 +1674,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Username_Unassigned",
+    "name": "Sense_Username_Unassigned",
     "inputs": [
       {
         "name": "username",

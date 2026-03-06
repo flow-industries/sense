@@ -13,7 +13,7 @@
         "internalType": "address"
       },
       {
-        "name": "lensFactory",
+        "name": "senseFactory",
         "type": "address",
         "internalType": "address"
       }
@@ -136,7 +136,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_FeedFactory_Deployment",
+    "name": "Sense_FeedFactory_Deployment",
     "inputs": [
       {
         "name": "feed",

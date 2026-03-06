@@ -11,8 +11,8 @@ abstract contract MetadataBased is IMetadataBased {
         mapping(address => string) metadataURI;
     }
 
-    /// @custom:keccak lens.storage.metadataURI
-    bytes32 constant STORAGE__METADATA_URI = 0x1e3609457e69da9dd0dabac13fb8ca9b651f93d6966199d652f92264e8b2ea10;
+    /// @custom:keccak sense.storage.metadataURI
+    bytes32 constant STORAGE__METADATA_URI = 0x61c8946124c9affc67826aa28eb1010aa8b979944fbd2303d6cbe352b014cbfd;
 
     function $metadataStorage() internal pure returns (MetadataURIStorage storage _storage) {
         assembly {

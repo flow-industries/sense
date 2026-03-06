@@ -36,7 +36,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_AccessControlFactory_OwnerAdminDeployment",
+    "name": "Sense_AccessControlFactory_OwnerAdminDeployment",
     "inputs": [
       {
         "name": "accessControl",

@@ -14,14 +14,14 @@ contract TokenGatedGraphRule is TokenGatedRule, Initializable, IGraphRule {
     using AccessControlLib for IAccessControl;
     using AccessControlLib for address;
 
-    /// @custom:keccak lens.permission.SkipGate
-    uint256 constant PID__SKIP_GATE = uint256(0xeb7f30e4c97d5211e2534aa42375c26931bd55b57a8101e5eb7918daead714eb);
+    /// @custom:keccak sense.permission.SkipGate
+    uint256 constant PID__SKIP_GATE = uint256(0x9c121722c489db51d51806a75ad147e0ea1b081f6236c9d68afaa6100116d370);
 
-    /// @custom:keccak lens.param.accessControl
-    bytes32 constant PARAM__ACCESS_CONTROL = 0xcf3b0fab90208e4185bf857e0f943f6672abffb7d0898e0750beeeb991ae35fa;
+    /// @custom:keccak sense.param.accessControl
+    bytes32 constant PARAM__ACCESS_CONTROL = 0x60bed11e4162e3e9bcfb8044458f295705a04aa845c92624582efb6c988f9b9e;
 
-    /// @custom:keccak lens.storage.TokenGatedGraphRule
-    bytes32 constant STORAGE__TOKEN_GATED_GRAPH_RULE = 0xbdf324806e62b3df4c3e55f798b7473a94c68524a910db5d070e8da42e0eee94;
+    /// @custom:keccak sense.storage.TokenGatedGraphRule
+    bytes32 constant STORAGE__TOKEN_GATED_GRAPH_RULE = 0x9a2224483413814ca523ff41e477bbe261335bff3da3c67177e1e598e1d5b7e8;
 
     struct Configuration {
         address accessControl;
@@ -43,7 +43,7 @@ contract TokenGatedGraphRule is TokenGatedRule, Initializable, IGraphRule {
     }
 
     function initialize(address owner, string memory metadataURI) external initializer {
-        emit Events.Lens_PermissionId_Available(PID__SKIP_GATE, "lens.permission.SkipGate");
+        emit Events.Sense_PermissionId_Available(PID__SKIP_GATE, "sense.permission.SkipGate");
         TokenGatedRule._initialize(owner, metadataURI);
     }
 

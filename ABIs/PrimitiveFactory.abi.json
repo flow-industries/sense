@@ -13,7 +13,7 @@
         "internalType": "address"
       },
       {
-        "name": "lensFactory",
+        "name": "senseFactory",
         "type": "address",
         "internalType": "address"
       }

@@ -25,15 +25,15 @@ contract Graph is
 {
     // Resource IDs involved in the contract
 
-    /// @custom:keccak lens.permission.ChangeRules
-    uint256 constant PID__CHANGE_RULES = uint256(0x550b12ef6572134aefc5804fd2b13ab3d8451e067ad453f67afe134cffebd977);
-    /// @custom:keccak lens.permission.SetMetadata
-    uint256 constant PID__SET_METADATA = uint256(0xe40fdb273cda3c78f0d9b6d20f5378755989e26c60c89696e5eea644d84eefea);
-    /// @custom:keccak lens.permission.SetExtraData
-    uint256 constant PID__SET_EXTRA_DATA = uint256(0x9b4afa2e6d7162f878076bb1210736928cd607a384b985eca0dba5e94790e72a);
+    /// @custom:keccak sense.permission.ChangeRules
+    uint256 constant PID__CHANGE_RULES = uint256(0xde011e4a0a5ba313b0ac8a7e2b9d7ee3156d91c77a234d9be7f9ed14184deaec);
+    /// @custom:keccak sense.permission.SetMetadata
+    uint256 constant PID__SET_METADATA = uint256(0xc593734a442ec90a714cfb87bfb7aca283b763335df63d0001196ab1ff115f53);
+    /// @custom:keccak sense.permission.SetExtraData
+    uint256 constant PID__SET_EXTRA_DATA = uint256(0x89230884684683d91d892d3bd0c063380fe312b990f4c455be670b9b5b0c30c2);
 
-    /// @custom:keccak lens.entityType.Follow
-    bytes32 constant ENTITY_TYPE__FOLLOW = 0x36d2d2080fb90910eb85e01c8f8dd668252334986cbeed5f3f2a0d51ae9a49fb;
+    /// @custom:keccak sense.entityType.Follow
+    bytes32 constant ENTITY_TYPE__FOLLOW = 0x5e809f0654bd4585e0be718855e409ee378c64ed6d09db1cdf71b49cb7f6143d;
 
     constructor() {
         _disableInitializers();
@@ -47,18 +47,18 @@ contract Graph is
     function _initialize(string memory metadataURI) internal {
         _setMetadataURI(metadataURI);
         _emitPIDs();
-        emit Events.Lens_Contract_Deployed({contractType: "lens.contract.Graph", flavour: "lens.contract.Graph"});
+        emit Events.Sense_Contract_Deployed({contractType: "sense.contract.Graph", flavour: "sense.contract.Graph"});
     }
 
     function _emitMetadataURISet(string memory metadataURI, address /* source */ ) internal override {
-        emit Lens_Graph_MetadataURISet(metadataURI);
+        emit Sense_Graph_MetadataURISet(metadataURI);
     }
 
     function _emitPIDs() internal override {
         super._emitPIDs();
-        emit Events.Lens_PermissionId_Available(PID__CHANGE_RULES, "lens.permission.ChangeRules");
-        emit Events.Lens_PermissionId_Available(PID__SET_METADATA, "lens.permission.SetMetadata");
-        emit Events.Lens_PermissionId_Available(PID__SET_EXTRA_DATA, "lens.permission.SetExtraData");
+        emit Events.Sense_PermissionId_Available(PID__CHANGE_RULES, "sense.permission.ChangeRules");
+        emit Events.Sense_PermissionId_Available(PID__SET_METADATA, "sense.permission.SetMetadata");
+        emit Events.Sense_PermissionId_Available(PID__SET_EXTRA_DATA, "sense.permission.SetExtraData");
     }
 
     // Access Controlled functions
@@ -80,15 +80,15 @@ contract Graph is
     }
 
     function _emitExtraDataAddedEvent(KeyValue calldata extraDataAdded) internal override {
-        emit Lens_Graph_ExtraDataAdded(extraDataAdded.key, extraDataAdded.value, extraDataAdded.value);
+        emit Sense_Graph_ExtraDataAdded(extraDataAdded.key, extraDataAdded.value, extraDataAdded.value);
     }
 
     function _emitExtraDataUpdatedEvent(KeyValue calldata extraDataUpdated) internal override {
-        emit Lens_Graph_ExtraDataUpdated(extraDataUpdated.key, extraDataUpdated.value, extraDataUpdated.value);
+        emit Sense_Graph_ExtraDataUpdated(extraDataUpdated.key, extraDataUpdated.value, extraDataUpdated.value);
     }
 
     function _emitExtraDataRemovedEvent(KeyValue calldata extraDataRemoved) internal override {
-        emit Lens_Graph_ExtraDataRemoved(extraDataRemoved.key);
+        emit Sense_Graph_ExtraDataRemoved(extraDataRemoved.key);
     }
 
     // Public functions
@@ -107,7 +107,7 @@ contract Graph is
         address source = _processSourceStamp(_getFollowEntityType(accountToFollow), assignedFollowId, customParams);
         _graphProcessFollow(msg.sender, followerAccount, accountToFollow, customParams, graphRulesProcessingParams);
         _accountProcessFollow(msg.sender, followerAccount, accountToFollow, customParams, followRulesProcessingParams);
-        emit Lens_Graph_Followed(
+        emit Sense_Graph_Followed(
             followerAccount,
             accountToFollow,
             assignedFollowId,
@@ -136,7 +136,7 @@ contract Graph is
          * keep it until the follow token is burnt.
          */
         _clearSource(_getFollowEntityType(accountToUnfollow), followId);
-        emit Lens_Graph_Unfollowed(
+        emit Sense_Graph_Unfollowed(
             followerAccount, accountToUnfollow, followId, customParams, graphRulesProcessingParams, source
         );
         return followId;

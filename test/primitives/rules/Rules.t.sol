@@ -26,7 +26,7 @@ abstract contract RulesTest is FuzzZkTest {
 
     using MockAccessControlLib for address;
 
-    uint256 PID__CHANGE_RULES = uint256(keccak256("lens.permission.ChangeRules"));
+    uint256 PID__CHANGE_RULES = uint256(keccak256("sense.permission.ChangeRules"));
 
     MockRule rule;
     MockRule otherRule;

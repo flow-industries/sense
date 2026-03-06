@@ -21,7 +21,7 @@ contract FollowRulesChangesTest is RulesTest, BaseDeployments, RuleExecutionTest
 
         mockAccessControl = new MockAccessControl();
 
-        vm.prank(address(lensFactory));
+        vm.prank(address(senseFactory));
         graphForRules = graphFactory.deployGraph({
             metadataURI: "uri://graph",
             accessControl: mockAccessControl,

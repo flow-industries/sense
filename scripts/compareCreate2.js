@@ -45,7 +45,7 @@ function main() {
     if (info.address) {
       addressBookMap.set(name, {
         address: info.address.toLowerCase(),
-        presalt: info.lensCreate2PreSalt
+        presalt: info.senseCreate2PreSalt
       });
     }
   }

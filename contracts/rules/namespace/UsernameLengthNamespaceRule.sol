@@ -14,23 +14,23 @@ contract UsernameLengthNamespaceRule is OwnableMetadataBasedRule, Initializable,
     using AccessControlLib for IAccessControl;
     using AccessControlLib for address;
 
-    /// @custom:keccak lens.permission.SkipMinLengthRestriction
+    /// @custom:keccak sense.permission.SkipMinLengthRestriction
     uint256 constant PID__SKIP_MIN_LENGTH_RESTRICTION =
-        uint256(0x4e795d2b3487cc7a9b7d04dada8fb5fc0ccf8b049be6fa52eaf40ee7e08b79d6);
-    /// @custom:keccak lens.permission.SkipMaxLengthRestriction
+        uint256(0xee4356ed7332fd0dbf3b0921dc9b5ab4f0dca76f6a10af13634279c2af25c982);
+    /// @custom:keccak sense.permission.SkipMaxLengthRestriction
     uint256 constant PID__SKIP_MAX_LENGTH_RESTRICTION =
-        uint256(0x4e5453345605763b18b5158bae028643cd90ed224a334fccfc4c406ced5e34d2);
+        uint256(0x42a0c65a23ea799650863b1258137392414e3f36eb167b49fbc47f300091d94c);
 
-    /// @custom:keccak lens.param.accessControl
-    bytes32 constant PARAM__ACCESS_CONTROL = 0xcf3b0fab90208e4185bf857e0f943f6672abffb7d0898e0750beeeb991ae35fa;
-    /// @custom:keccak lens.param.minLength
-    bytes32 constant PARAM__MIN_LENGTH = 0x05e0174338b64de19b75800e83be51b0092b6235a3f8d74e5fe7255f433a341a;
-    /// @custom:keccak lens.param.maxLength
-    bytes32 constant PARAM__MAX_LENGTH = 0x1ca8667b94b405cf7da43e835d971ef185da6461852b8b81579a58637515aa69;
+    /// @custom:keccak sense.param.accessControl
+    bytes32 constant PARAM__ACCESS_CONTROL = 0x60bed11e4162e3e9bcfb8044458f295705a04aa845c92624582efb6c988f9b9e;
+    /// @custom:keccak sense.param.minLength
+    bytes32 constant PARAM__MIN_LENGTH = 0x17f8670260ecfb903b0dacb96c4a353c84032897694a93984e140756003f5a11;
+    /// @custom:keccak sense.param.maxLength
+    bytes32 constant PARAM__MAX_LENGTH = 0x27439a3f2ad55861c0fdb81b5b901747d1ecaed457fc7730f095486fc7173105;
 
-    /// @custom:keccak lens.storage.UsernameLengthNamespaceRule
+    /// @custom:keccak sense.storage.UsernameLengthNamespaceRule
     bytes32 constant STORAGE__USERNAME_LENGTH_NAMESPACE_RULE =
-        0x08a7202baa9f254e5fee08987a4c8a3a9177d81af0c772b263c686bccb0f6ac8;
+        0xddcd9f5b313e779b9cbd6aec5e4c407f9a28735d0b73f08f3fe41e6e513b9534;
 
     struct LengthRestrictions {
         uint8 min;
@@ -57,11 +57,11 @@ contract UsernameLengthNamespaceRule is OwnableMetadataBasedRule, Initializable,
     }
 
     function initialize(address owner, string memory metadataURI) external initializer {
-        emit Events.Lens_PermissionId_Available(
-            PID__SKIP_MIN_LENGTH_RESTRICTION, "lens.permission.SkipMinLengthRestriction"
+        emit Events.Sense_PermissionId_Available(
+            PID__SKIP_MIN_LENGTH_RESTRICTION, "sense.permission.SkipMinLengthRestriction"
         );
-        emit Events.Lens_PermissionId_Available(
-            PID__SKIP_MAX_LENGTH_RESTRICTION, "lens.permission.SkipMaxLengthRestriction"
+        emit Events.Sense_PermissionId_Available(
+            PID__SKIP_MAX_LENGTH_RESTRICTION, "sense.permission.SkipMaxLengthRestriction"
         );
         OwnableMetadataBasedRule._initialize(owner, metadataURI);
     }

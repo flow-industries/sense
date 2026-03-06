@@ -8,9 +8,9 @@ import {Errors} from "contracts/core/types/Errors.sol";
 import {Initializable} from "contracts/core/upgradeability/Initializable.sol";
 
 contract TokenGatedFollowRule is TokenGatedRule, Initializable, IFollowRule {
-    /// @custom:keccak lens.storage.TokenGatedFollowRule
+    /// @custom:keccak sense.storage.TokenGatedFollowRule
     bytes32 constant STORAGE__TOKEN_GATED_FOLLOW_RULE =
-        0xe97fbf5c7954b514ec4e26886a15690eccfbfbc3d218ff7d2972305cb75c4368;
+        0xeaad1a617f20e14811b60cc6aceee9c6c0e4f20c23f58b1bc349fdb2e83e8c19;
 
     struct Storage {
         mapping(

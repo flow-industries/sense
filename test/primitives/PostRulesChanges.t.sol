@@ -22,7 +22,7 @@ contract PostRulesChangesTest is RulesTest, BaseDeployments, RuleExecutionTest {
 
         mockAccessControl = new MockAccessControl();
 
-        vm.prank(address(lensFactory));
+        vm.prank(address(senseFactory));
         feedForRules = feedFactory.deployFeed({
             metadataURI: "uri://feed",
             accessControl: mockAccessControl,

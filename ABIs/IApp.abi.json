@@ -483,7 +483,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_App_DefaultFeedSet",
+    "name": "Sense_App_DefaultFeedSet",
     "inputs": [
       {
         "name": "feed",
@@ -496,7 +496,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_App_DefaultGroupSet",
+    "name": "Sense_App_DefaultGroupSet",
     "inputs": [
       {
         "name": "group",
@@ -509,7 +509,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_App_ExtraDataAdded",
+    "name": "Sense_App_ExtraDataAdded",
     "inputs": [
       {
         "name": "key",
@@ -534,7 +534,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_App_ExtraDataRemoved",
+    "name": "Sense_App_ExtraDataRemoved",
     "inputs": [
       {
         "name": "key",
@@ -547,7 +547,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_App_ExtraDataUpdated",
+    "name": "Sense_App_ExtraDataUpdated",
     "inputs": [
       {
         "name": "key",
@@ -572,7 +572,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_App_FeedAdded",
+    "name": "Sense_App_FeedAdded",
     "inputs": [
       {
         "name": "feed",
@@ -585,7 +585,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_App_FeedRemoved",
+    "name": "Sense_App_FeedRemoved",
     "inputs": [
       {
         "name": "feed",
@@ -598,7 +598,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_App_GraphAdded",
+    "name": "Sense_App_GraphAdded",
     "inputs": [
       {
         "name": "graph",
@@ -611,7 +611,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_App_GraphRemoved",
+    "name": "Sense_App_GraphRemoved",
     "inputs": [
       {
         "name": "graph",
@@ -624,7 +624,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_App_GroupAdded",
+    "name": "Sense_App_GroupAdded",
     "inputs": [
       {
         "name": "group",
@@ -637,7 +637,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_App_GroupRemoved",
+    "name": "Sense_App_GroupRemoved",
     "inputs": [
       {
         "name": "group",
@@ -650,7 +650,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_App_MetadataURISet",
+    "name": "Sense_App_MetadataURISet",
     "inputs": [
       {
         "name": "metadataURI",
@@ -663,7 +663,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_App_NamespaceAdded",
+    "name": "Sense_App_NamespaceAdded",
     "inputs": [
       {
         "name": "namespace",
@@ -676,7 +676,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_App_NamespaceRemoved",
+    "name": "Sense_App_NamespaceRemoved",
     "inputs": [
       {
         "name": "namespace",
@@ -689,7 +689,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_App_PaymasterAdded",
+    "name": "Sense_App_PaymasterAdded",
     "inputs": [
       {
         "name": "paymaster",
@@ -702,7 +702,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_App_PaymasterRemoved",
+    "name": "Sense_App_PaymasterRemoved",
     "inputs": [
       {
         "name": "paymaster",
@@ -715,7 +715,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_App_SignerAdded",
+    "name": "Sense_App_SignerAdded",
     "inputs": [
       {
         "name": "signer",
@@ -728,7 +728,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_App_SignerRemoved",
+    "name": "Sense_App_SignerRemoved",
     "inputs": [
       {
         "name": "signer",
@@ -741,7 +741,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_App_SourceStampVerificationSet",
+    "name": "Sense_App_SourceStampVerificationSet",
     "inputs": [
       {
         "name": "isEnabled",
@@ -754,7 +754,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_App_TreasurySet",
+    "name": "Sense_App_TreasurySet",
     "inputs": [
       {
         "name": "treasury",

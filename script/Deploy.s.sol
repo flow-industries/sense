@@ -8,7 +8,7 @@ import {IAccessControl} from "contracts/core/interfaces/IAccessControl.sol";
 import {ITokenURIProvider} from "contracts/core/interfaces/ITokenURIProvider.sol";
 
 import {RoleBasedAccessControl} from "contracts/core/access/RoleBasedAccessControl.sol";
-import {LensUsernameTokenURIProvider} from "contracts/core/primitives/namespace/LensUsernameTokenURIProvider.sol";
+import {SenseUsernameTokenURIProvider} from "contracts/core/primitives/namespace/SenseUsernameTokenURIProvider.sol";
 
 import {App} from "@extensions/primitives/app/App.sol";
 import {Account} from "@extensions/account/Account.sol";
@@ -25,7 +25,7 @@ import {FeedFactory} from "@extensions/factories/FeedFactory.sol";
 import {GraphFactory} from "@extensions/factories/GraphFactory.sol";
 import {GroupFactory} from "@extensions/factories/GroupFactory.sol";
 import {NamespaceFactory} from "@extensions/factories/NamespaceFactory.sol";
-import {LensFactory, FactoryConstructorParams, RuleConstructorParams} from "@extensions/factories/LensFactory.sol";
+import {SenseFactory, FactoryConstructorParams, RuleConstructorParams} from "@extensions/factories/SenseFactory.sol";
 
 import {Lock} from "contracts/core/upgradeability/Lock.sol";
 import {Beacon} from "contracts/core/upgradeability/Beacon.sol";
@@ -85,7 +85,7 @@ contract MyScript is Script {
     address groupFactoryImpl;
     address namespaceFactoryImpl;
 
-    LensFactory lensFactory;
+    SenseFactory senseFactory;
 
     address accountBlockingRule;
     address groupGatedFeedRule;
@@ -147,7 +147,7 @@ contract MyScript is Script {
             )
         );
 
-        lensFactory = new LensFactory({
+        senseFactory = new SenseFactory({
             factories: FactoryConstructorParams({
                 accessControlFactory: accessControlFactory,
                 accountFactory: accountFactory,
@@ -173,7 +173,7 @@ contract MyScript is Script {
 
     function _deployImplementations() internal {
         simpleAccessControl = IAccessControl(new RoleBasedAccessControl({owner: address(this)}));
-        simpleTokenURIProvider = new LensUsernameTokenURIProvider();
+        simpleTokenURIProvider = new SenseUsernameTokenURIProvider();
 
         appImpl = address(new App());
 
@@ -197,10 +197,10 @@ contract MyScript is Script {
         accessControlFactoryImpl = address(new AccessControlFactory(accessControlLock));
         appFactoryImpl = address(new AppFactory(appBeacon, proxyAdminLock));
         accountFactoryImpl = address(new AccountFactory(accountBeacon, proxyAdminLock));
-        feedFactoryImpl = address(new FeedFactory(feedBeacon, proxyAdminLock, address(lensFactory)));
-        graphFactoryImpl = address(new GraphFactory(graphBeacon, proxyAdminLock, address(lensFactory)));
-        groupFactoryImpl = address(new GroupFactory(groupBeacon, proxyAdminLock, address(lensFactory)));
-        namespaceFactoryImpl = address(new NamespaceFactory(namespaceBeacon, proxyAdminLock, address(lensFactory)));
+        feedFactoryImpl = address(new FeedFactory(feedBeacon, proxyAdminLock, address(senseFactory)));
+        graphFactoryImpl = address(new GraphFactory(graphBeacon, proxyAdminLock, address(senseFactory)));
+        groupFactoryImpl = address(new GroupFactory(groupBeacon, proxyAdminLock, address(senseFactory)));
+        namespaceFactoryImpl = address(new NamespaceFactory(namespaceBeacon, proxyAdminLock, address(senseFactory)));
     }
 
     function _deployFactoryProxies() internal {

@@ -97,22 +97,22 @@ export const verifyDeployedContract = async (data: {
   });
 };
 
-export const verifyLensFactoryDeployedPrimitive = async (data: {
+export const verifySenseFactoryDeployedPrimitive = async (data: {
   tx: any;
-  lensContractArtifactName: string;
+  senseContractArtifactName: string;
   metadataURIConstructorParam: string;
 }) => {
   const txReceipt = (await data.tx.wait()) as ethers.TransactionReceipt;
 
   const eventInterface = new ethers.Interface([
-    'event Lens_Contract_Deployed(string contractType, string flavour)',
+    'event Sense_Contract_Deployed(string contractType, string flavour)',
   ]);
 
   // Parse event logs
   const events = txReceipt.logs.map((log) => {
     try {
       const decodedLog = eventInterface.decodeEventLog(
-        'Lens_Contract_Deployed',
+        'Sense_Contract_Deployed',
         log.data,
         log.topics
       );
@@ -124,12 +124,12 @@ export const verifyLensFactoryDeployedPrimitive = async (data: {
   });
 
   const deployedAddress = events.filter(
-    (e) => e?.contractType === `lens.contract.${data.lensContractArtifactName}`
+    (e) => e?.contractType === `sense.contract.${data.senseContractArtifactName}`
   )[0]!.address;
-  const accessControlAddress = events.filter((e) => e?.contractType === 'lens.contract.AccessControl')[0]?.address;
+  const accessControlAddress = events.filter((e) => e?.contractType === 'sense.contract.AccessControl')[0]?.address;
 
   if (accessControlAddress) {
-    const deployedArtifact = await hre.artifacts.readArtifact(data.lensContractArtifactName);
+    const deployedArtifact = await hre.artifacts.readArtifact(data.senseContractArtifactName);
 
     await verifyDeployedContract({
       address: deployedAddress,
@@ -147,18 +147,18 @@ interface ParsedEvent {
   address: string;
 }
 
-export function parseLensContractDeployedEventsFromReceipt(
+export function parseSenseContractDeployedEventsFromReceipt(
   txReceipt: ethers.TransactionReceipt
 ): ParsedEvent[] {
   const eventInterface = new ethers.Interface([
-    'event Lens_Contract_Deployed(string contractType, string flavour)',
+    'event Sense_Contract_Deployed(string contractType, string flavour)',
   ]);
 
   // Parse event logs
   const events = txReceipt.logs.reduce<ParsedEvent[]>((acc, log) => {
     try {
       const decodedLog = eventInterface.decodeEventLog(
-        'Lens_Contract_Deployed',
+        'Sense_Contract_Deployed',
         log.data,
         log.topics
       );
@@ -177,7 +177,7 @@ export function parseLensContractDeployedEventsFromReceipt(
 }
 
 export const getAddressFromEvents = (events: ParsedEvent[], primitiveName: string) => {
-  return events.filter((e) => e?.contractType === `lens.contract.${primitiveName}`)[0]!.address;
+  return events.filter((e) => e?.contractType === `sense.contract.${primitiveName}`)[0]!.address;
 };
 
 export async function verifyPrimitive(

@@ -234,7 +234,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_AccessControl_AccessAdded",
+    "name": "Sense_AccessControl_AccessAdded",
     "inputs": [
       {
         "name": "roleId",
@@ -265,7 +265,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_AccessControl_AccessRemoved",
+    "name": "Sense_AccessControl_AccessRemoved",
     "inputs": [
       {
         "name": "roleId",
@@ -290,7 +290,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_AccessControl_AccessUpdated",
+    "name": "Sense_AccessControl_AccessUpdated",
     "inputs": [
       {
         "name": "roleId",
@@ -321,7 +321,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_AccessControl_RoleGranted",
+    "name": "Sense_AccessControl_RoleGranted",
     "inputs": [
       {
         "name": "account",
@@ -340,7 +340,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_AccessControl_RoleRevoked",
+    "name": "Sense_AccessControl_RoleRevoked",
     "inputs": [
       {
         "name": "account",

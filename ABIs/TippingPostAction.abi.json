@@ -244,7 +244,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Ownable_OwnershipTransferred",
+    "name": "Sense_Ownable_OwnershipTransferred",
     "inputs": [
       {
         "name": "previousOwner",
@@ -263,7 +263,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_PostAction_MetadataURISet",
+    "name": "Sense_PostAction_MetadataURISet",
     "inputs": [
       {
         "name": "metadataURI",

@@ -19,8 +19,8 @@ abstract contract RuleBasedGraph is IGraph, RuleBasedPrimitive {
         mapping(address => RulesStorage) followRulesStorage;
     }
 
-    /// @custom:keccak lens.storage.RuleBasedGraph
-    bytes32 constant STORAGE__RULE_BASED_GRAPH = 0x6644773a6cb3d68b635cf6054580d77eff2d2b0b6851802f2c6d1adbf85026f9;
+    /// @custom:keccak sense.storage.RuleBasedGraph
+    bytes32 constant STORAGE__RULE_BASED_GRAPH = 0x373b88846340fd67ecdecfbabd8adfe1fe3c489e3cab05b636e8951006df3bbd;
 
     function $ruleBasedStorage() private pure returns (RuleBasedStorage storage _storage) {
         assembly {
@@ -105,9 +105,9 @@ abstract contract RuleBasedGraph is IGraph, RuleBasedPrimitive {
         KeyValue[] memory ruleParams
     ) internal override {
         if (wasAlreadyConfigured) {
-            emit IGraph.Lens_Graph_RuleReconfigured(ruleAddress, configSalt, ruleParams);
+            emit IGraph.Sense_Graph_RuleReconfigured(ruleAddress, configSalt, ruleParams);
         } else {
-            emit IGraph.Lens_Graph_RuleConfigured(ruleAddress, configSalt, ruleParams);
+            emit IGraph.Sense_Graph_RuleConfigured(ruleAddress, configSalt, ruleParams);
         }
     }
 
@@ -119,9 +119,9 @@ abstract contract RuleBasedGraph is IGraph, RuleBasedPrimitive {
         bytes4 ruleSelector
     ) internal override {
         if (enabled) {
-            emit Lens_Graph_RuleSelectorEnabled(ruleAddress, configSalt, isRequired, ruleSelector);
+            emit Sense_Graph_RuleSelectorEnabled(ruleAddress, configSalt, isRequired, ruleSelector);
         } else {
-            emit Lens_Graph_RuleSelectorDisabled(ruleAddress, configSalt, isRequired, ruleSelector);
+            emit Sense_Graph_RuleSelectorDisabled(ruleAddress, configSalt, isRequired, ruleSelector);
         }
     }
 
@@ -134,9 +134,9 @@ abstract contract RuleBasedGraph is IGraph, RuleBasedPrimitive {
     ) internal override {
         address account = address(uint160(entityId));
         if (wasAlreadyConfigured) {
-            emit IGraph.Lens_Graph_Follow_RuleReconfigured(account, ruleAddress, configSalt, ruleParams);
+            emit IGraph.Sense_Graph_Follow_RuleReconfigured(account, ruleAddress, configSalt, ruleParams);
         } else {
-            emit IGraph.Lens_Graph_Follow_RuleConfigured(account, ruleAddress, configSalt, ruleParams);
+            emit IGraph.Sense_Graph_Follow_RuleConfigured(account, ruleAddress, configSalt, ruleParams);
         }
     }
 
@@ -150,9 +150,9 @@ abstract contract RuleBasedGraph is IGraph, RuleBasedPrimitive {
     ) internal override {
         address account = address(uint160(entityId));
         if (enabled) {
-            emit IGraph.Lens_Graph_Follow_RuleSelectorEnabled(account, ruleAddress, configSalt, isRequired, selector);
+            emit IGraph.Sense_Graph_Follow_RuleSelectorEnabled(account, ruleAddress, configSalt, isRequired, selector);
         } else {
-            emit IGraph.Lens_Graph_Follow_RuleSelectorDisabled(account, ruleAddress, configSalt, isRequired, selector);
+            emit IGraph.Sense_Graph_Follow_RuleSelectorDisabled(account, ruleAddress, configSalt, isRequired, selector);
         }
     }
 

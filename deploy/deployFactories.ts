@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import {
-  deployLensContractAsProxy,
+  deploySenseContractAsProxy,
   ContractType,
   ContractInfo,
   loadContractAddressFromAddressBook,
-} from './lensUtils';
+} from './senseUtils';
 import { assert, Contract, ethers, ZeroAddress } from 'ethers';
 import { utils } from 'zksync-ethers';
 import { getWallet } from './utils';
@@ -39,7 +39,7 @@ export default async function deployFactories(
     );
     console.log(`Nonce ${i} address: ${address}`);
   }
-  let predictedLensFactoryAddress = await contractDeployer.getNewAddressCreate.staticCall(
+  let predictedSenseFactoryAddress = await contractDeployer.getNewAddressCreate.staticCall(
     deployer.address,
     DEPLOYING_MIGRATION ? nonce + 15 : nonce + 18
   );
@@ -77,7 +77,7 @@ export default async function deployFactories(
       constructorArguments: [
         loadContractAddressFromAddressBook('FeedBeacon'),
         loadContractAddressFromAddressBook('FeedLock'),
-        predictedLensFactoryAddress,
+        predictedSenseFactoryAddress,
       ],
     },
     {
@@ -87,7 +87,7 @@ export default async function deployFactories(
       constructorArguments: [
         loadContractAddressFromAddressBook('GraphBeacon'),
         loadContractAddressFromAddressBook('GraphLock'),
-        predictedLensFactoryAddress,
+        predictedSenseFactoryAddress,
       ],
     },
     {
@@ -97,7 +97,7 @@ export default async function deployFactories(
       constructorArguments: [
         loadContractAddressFromAddressBook('GroupBeacon'),
         loadContractAddressFromAddressBook('GroupLock'),
-        predictedLensFactoryAddress,
+        predictedSenseFactoryAddress,
       ],
     },
     {
@@ -107,13 +107,13 @@ export default async function deployFactories(
       constructorArguments: [
         loadContractAddressFromAddressBook('NamespaceBeacon'),
         loadContractAddressFromAddressBook('NamespaceLock'),
-        predictedLensFactoryAddress,
+        predictedSenseFactoryAddress,
       ],
     },
   ];
 
   const rules: ContractInfo[] = [
-    // Prerequisite rules for LensFactory
+    // Prerequisite rules for SenseFactory
     {
       contractName: 'AccountBlockingRule',
       contractType: ContractType.Rule,
@@ -144,7 +144,7 @@ export default async function deployFactories(
   const deployedContracts: Record<string, ContractInfo> = {};
 
   for (const factory of factories) {
-    deployedContracts[factory.name ?? factory.contractName] = await deployLensContractAsProxy(
+    deployedContracts[factory.name ?? factory.contractName] = await deploySenseContractAsProxy(
       factory,
       factoriesProxyOwner
     );
@@ -160,7 +160,7 @@ export default async function deployFactories(
       metadataURI,
     ]);
     for (const rule of rules) {
-      deployedContracts[rule.contractName] = await deployLensContractAsProxy(
+      deployedContracts[rule.contractName] = await deploySenseContractAsProxy(
         rule,
         rulesOwner,
         initializeEncodedCall
@@ -168,9 +168,9 @@ export default async function deployFactories(
     }
   }
 
-  // lens factory
-  const lensFactory_artifactName = DEPLOYING_MIGRATION ? 'MigrationLensFactory' : 'LensFactory';
-  const lensFactory_args = [
+  // sense factory
+  const senseFactory_artifactName = DEPLOYING_MIGRATION ? 'MigrationSenseFactory' : 'SenseFactory';
+  const senseFactory_args = [
     {
       accessControlFactory: deployedContracts['AccessControlFactory'].address,
       accountFactory: deployedContracts['AccountFactory'].address,
@@ -199,25 +199,25 @@ export default async function deployFactories(
     },
   ];
 
-  const wasLensFactoryDeployed = loadContractAddressFromAddressBook('LensFactory') !== undefined;
+  const wasSenseFactoryDeployed = loadContractAddressFromAddressBook('SenseFactory') !== undefined;
 
-  const lensFactoryInfo = await deployLensContractAsProxy(
+  const senseFactoryInfo = await deploySenseContractAsProxy(
     {
-      name: 'LensFactory',
-      contractName: lensFactory_artifactName,
+      name: 'SenseFactory',
+      contractName: senseFactory_artifactName,
       contractType: ContractType.Factory,
-      constructorArguments: lensFactory_args,
+      constructorArguments: senseFactory_args,
     },
     factoriesProxyOwner
   );
 
-  if (wasLensFactoryDeployed == false) {
+  if (wasSenseFactoryDeployed == false) {
     console.log(
-      `LensFactory address: ${lensFactoryInfo.address} <<< ??? >>> ${predictedLensFactoryAddress} Predicted LensFactory address`
+      `SenseFactory address: ${senseFactoryInfo.address} <<< ??? >>> ${predictedSenseFactoryAddress} Predicted SenseFactory address`
     );
     assert(
-      lensFactoryInfo.address === predictedLensFactoryAddress,
-      'Predicted LensFactory address doesnt match the actual deployed address',
+      senseFactoryInfo.address === predictedSenseFactoryAddress,
+      'Predicted SenseFactory address doesnt match the actual deployed address',
       'VALUE_MISMATCH'
     );
   }

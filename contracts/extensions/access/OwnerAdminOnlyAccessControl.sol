@@ -10,10 +10,10 @@ import {ILock} from "contracts/core/interfaces/ILock.sol";
 contract OwnerAdminOnlyAccessControl is RoleBasedAccessControl {
     ILock immutable LOCK;
 
-    /// @custom:keccak lens.role.Admin
-    uint256 constant ADMIN_ROLE_ID = uint256(0xfcbeadd75a96b5f8140d8c80f7c8d81ccbd7c4caa9592217bc8936b9eaabee75);
-    /// @custom:keccak lens.contract.AccessControl.OwnerAdminOnlyAccessControl
-    bytes32 constant OWNER_ADMIN_ONLY_CONTRACT_TYPE = 0x366c180b93c016d94aa781dd984842068840b0dc26dec0c4bf64de7c26ee02bb;
+    /// @custom:keccak sense.role.Admin
+    uint256 constant ADMIN_ROLE_ID = uint256(0x71c974ef9fdb491e0205241d7438e2a707f089c8d115d0101d9f8b73f6745f88);
+    /// @custom:keccak sense.contract.AccessControl.OwnerAdminOnlyAccessControl
+    bytes32 constant OWNER_ADMIN_ONLY_CONTRACT_TYPE = 0x07aa4da7d7ae721c5bdd2e33039a00ac0bd7c1a9ac609c56acba46799ea97017;
 
     constructor(address owner, address lock) RoleBasedAccessControl(owner) {
         _setAccess(ADMIN_ROLE_ID, ANY_CONTRACT_ADDRESS, ANY_PERMISSION_ID, Access.GRANTED);
@@ -49,10 +49,10 @@ contract OwnerAdminOnlyAccessControl is RoleBasedAccessControl {
         return OWNER_ADMIN_ONLY_CONTRACT_TYPE;
     }
 
-    function _emitLensContractDeployedEvent() internal virtual override {
-        emit Events.Lens_Contract_Deployed({
-            contractType: "lens.contract.AccessControl",
-            flavour: "lens.contract.AccessControl.OwnerAdminOnlyAccessControl"
+    function _emitSenseContractDeployedEvent() internal virtual override {
+        emit Events.Sense_Contract_Deployed({
+            contractType: "sense.contract.AccessControl",
+            flavour: "sense.contract.AccessControl.OwnerAdminOnlyAccessControl"
         });
     }
 }

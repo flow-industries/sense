@@ -7,8 +7,8 @@ import {Errors} from "contracts/core/types/Errors.sol";
 abstract contract BaseAction {
     address immutable ACTION_HUB;
 
-    /// @custom:keccak lens.storage.Action.configured
-    bytes32 constant STORAGE__ACTION_CONFIGURED = 0x852bead036b7ef35b8026346140cc688bafe817a6c3491812e6d994b1bcda6d9;
+    /// @custom:keccak sense.storage.Action.configured
+    bytes32 constant STORAGE__ACTION_CONFIGURED = 0xc34061333567c7fe551ec11e2c0831b1687f1353e81f3ef4af3f3d9a07e291ff;
 
     modifier onlyActionHub() {
         require(msg.sender == ACTION_HUB, Errors.InvalidMsgSender());

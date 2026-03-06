@@ -10,7 +10,7 @@ import {IPostRule} from "@core/interfaces/IPostRule.sol";
 import {KeyValue} from "@core/types/Types.sol";
 import {RuleChange} from "@core/types/Types.sol";
 import {CreatePostParams, EditPostParams} from "@core/interfaces/IFeed.sol";
-import {LensRulePaymentHandler} from "@extensions/fees/LensRulePaymentHandler.sol";
+import {SenseRulePaymentHandler} from "@extensions/fees/SenseRulePaymentHandler.sol";
 import {NATIVE_TOKEN} from "@core/types/Constants.sol";
 
 interface IPrimitiveRule {
@@ -18,7 +18,7 @@ interface IPrimitiveRule {
 }
 
 contract MockRule is
-    LensRulePaymentHandler,
+    SenseRulePaymentHandler,
     INamespaceRule,
     IGraphRule,
     IFeedRule,

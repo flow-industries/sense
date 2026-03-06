@@ -217,7 +217,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Lock_LockStatusSet",
+    "name": "Sense_Lock_LockStatusSet",
     "inputs": [
       {
         "name": "locked",
@@ -230,7 +230,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Lock_LockStatusSet",
+    "name": "Sense_Lock_LockStatusSet",
     "inputs": [
       {
         "name": "target",
@@ -249,7 +249,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Ownable_OwnershipTransferred",
+    "name": "Sense_Ownable_OwnershipTransferred",
     "inputs": [
       {
         "name": "previousOwner",

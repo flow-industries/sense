@@ -9,15 +9,12 @@ import 'hardhat-contract-sizer';
 import 'hardhat-ignore-warnings';
 
 const config: HardhatUserConfig = {
-  defaultNetwork: 'lensSepoliaTestnet',
+  defaultNetwork: 'mainnet',
   networks: {
-    lensSepoliaTestnet: {
-      url: 'https://rpc.testnet.lens.dev',
-      chainId: 37111,
-      zksync: true,
-      ethNetwork: 'sepolia',
-      verifyURL: 'https://api-explorer-verify.staging.lens.zksync.dev/contract_verification',
-      enableVerifyURL: true,
+    mainnet: {
+      chainId: 1,
+      url: `https://eth-mainnet.g.alchemy.com/v2/${process.env.MAINNET_ALCHEMY_API_KEY}`,
+      zksync: false,
     },
     dockerizedNode: {
       url: 'http://localhost:3050',
@@ -28,20 +25,6 @@ const config: HardhatUserConfig = {
       url: 'http://127.0.0.1:8011',
       ethNetwork: 'localhost', // in-memory node doesn't support eth node; removing this line will cause an error
       zksync: true,
-    },
-    zkstackMigrationNode: {
-      url: 'http://localhost:3050',
-      chainId: 271,
-      zksync: true,
-      ethNetwork: 'sepolia',
-    },
-    lensMainnet: {
-      chainId: 232,
-      url: "https://api.lens.matterhosted.dev/",
-      ethNetwork: `https://eth-sepolia.g.alchemy.com/v2/${process.env.SEPOLIA_ALCHEMY_API_KEY}`, // dont think you need this
-      zksync: true,
-      verifyURL:
-        "https://api-explorer-verify.lens.matterhosted.dev/contract_verification",
     },
     hardhat: {
       zksync: true,

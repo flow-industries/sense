@@ -14,28 +14,28 @@ contract MembershipApprovalGroupRule is OwnableMetadataBasedRule, Initializable,
     using AccessControlLib for IAccessControl;
     using AccessControlLib for address;
 
-    event Lens_ApprovalGroupRule_MembershipRequested(
+    event Sense_ApprovalGroupRule_MembershipRequested(
         address indexed group, bytes32 indexed configSalt, address indexed account
     );
-    event Lens_ApprovalGroupRule_MembershipRequestCancelled(
+    event Sense_ApprovalGroupRule_MembershipRequestCancelled(
         address indexed group, bytes32 indexed configSalt, address indexed account
     );
-    event Lens_ApprovalGroupRule_MembershipApproved(
+    event Sense_ApprovalGroupRule_MembershipApproved(
         address indexed group, bytes32 indexed configSalt, address indexed account, address approvedBy
     );
-    event Lens_ApprovalGroupRule_MembershipRejected(
+    event Sense_ApprovalGroupRule_MembershipRejected(
         address indexed group, bytes32 indexed configSalt, address indexed account, address rejectedBy
     );
 
-    /// @custom:keccak lens.permission.ApproveMember
-    uint256 constant PID__APPROVE_MEMBER = uint256(0x6dee95fe4c317d653a8497c1c8ce08e19bdee16c90d0ec8d1795b29ff85811b6);
+    /// @custom:keccak sense.permission.ApproveMember
+    uint256 constant PID__APPROVE_MEMBER = uint256(0x84cc5d3213761f9bf88f59e14e95fd410a9d936932353dbbd7990475bd6739e1);
 
-    /// @custom:keccak lens.param.accessControl
-    bytes32 constant PARAM__ACCESS_CONTROL = 0xcf3b0fab90208e4185bf857e0f943f6672abffb7d0898e0750beeeb991ae35fa;
+    /// @custom:keccak sense.param.accessControl
+    bytes32 constant PARAM__ACCESS_CONTROL = 0x60bed11e4162e3e9bcfb8044458f295705a04aa845c92624582efb6c988f9b9e;
 
-    /// @custom:keccak lens.storage.MembershipApprovalGroupRule
+    /// @custom:keccak sense.storage.MembershipApprovalGroupRule
     bytes32 constant STORAGE__MEMBERSHIP_APPROVAL_GROUP_RULE =
-        0x84c95d75b5982bc41a348cb285db156a54787aed88de53b4912c86f03f073b79;
+        0x30a288049a3a5a11dd194c58587101d28d76b83c3e1ea6946f2529a0789ff22e;
 
     struct Storage {
         mapping(address group => mapping(bytes32 configSalt => address accessControl)) accessControl;
@@ -54,7 +54,7 @@ contract MembershipApprovalGroupRule is OwnableMetadataBasedRule, Initializable,
     }
 
     function initialize(address owner, string memory metadataURI) external initializer {
-        emit Events.Lens_PermissionId_Available(PID__APPROVE_MEMBER, "lens.permission.ApproveMember");
+        emit Events.Sense_PermissionId_Available(PID__APPROVE_MEMBER, "sense.permission.ApproveMember");
 
         OwnableMetadataBasedRule._initialize(owner, metadataURI);
     }
@@ -65,7 +65,7 @@ contract MembershipApprovalGroupRule is OwnableMetadataBasedRule, Initializable,
     {
         require($storage().isMembershipRequested[group][msg.sender][configSalt] == false, Errors.AlreadyExists());
         $storage().isMembershipRequested[group][msg.sender][configSalt] = true;
-        emit Lens_ApprovalGroupRule_MembershipRequested(group, configSalt, msg.sender);
+        emit Sense_ApprovalGroupRule_MembershipRequested(group, configSalt, msg.sender);
     }
 
     function cancelMembershipRequest(bytes32 configSalt, address group, KeyValue[] calldata /* params */ )
@@ -74,7 +74,7 @@ contract MembershipApprovalGroupRule is OwnableMetadataBasedRule, Initializable,
     {
         require($storage().isMembershipRequested[group][msg.sender][configSalt], Errors.DoesNotExist());
         delete $storage().isMembershipRequested[group][msg.sender][configSalt];
-        emit Lens_ApprovalGroupRule_MembershipRequestCancelled(group, configSalt, msg.sender);
+        emit Sense_ApprovalGroupRule_MembershipRequestCancelled(group, configSalt, msg.sender);
     }
 
     function rejectMembershipRequest(bytes32 configSalt, address group, address account) external {
@@ -92,7 +92,7 @@ contract MembershipApprovalGroupRule is OwnableMetadataBasedRule, Initializable,
     function _rejectMembershipRequest(bytes32 configSalt, address group, address account) internal {
         require($storage().isMembershipRequested[group][account][configSalt], Errors.DoesNotExist());
         delete $storage().isMembershipRequested[group][account][configSalt];
-        emit Lens_ApprovalGroupRule_MembershipRejected(group, configSalt, account, msg.sender);
+        emit Sense_ApprovalGroupRule_MembershipRejected(group, configSalt, account, msg.sender);
     }
 
     function configure(bytes32 configSalt, KeyValue[] calldata ruleParams) external override {
@@ -117,7 +117,7 @@ contract MembershipApprovalGroupRule is OwnableMetadataBasedRule, Initializable,
         require($storage().isMembershipRequested[msg.sender][account][configSalt], Errors.DoesNotExist());
         delete $storage().isMembershipRequested[msg.sender][account][configSalt];
         $storage().accessControl[msg.sender][configSalt].requireAccess(originalMsgSender, PID__APPROVE_MEMBER);
-        emit Lens_ApprovalGroupRule_MembershipApproved(msg.sender, configSalt, account, originalMsgSender);
+        emit Sense_ApprovalGroupRule_MembershipApproved(msg.sender, configSalt, account, originalMsgSender);
     }
 
     function processJoining(

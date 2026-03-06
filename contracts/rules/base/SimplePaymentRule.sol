@@ -6,15 +6,15 @@ import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol
 import {OwnableMetadataBasedRule} from "contracts/rules/base/OwnableMetadataBasedRule.sol";
 import {Errors} from "contracts/core/types/Errors.sol";
 import {TrustBasedRule} from "contracts/rules/base/TrustBasedRule.sol";
-import {LensRulePaymentHandler} from "contracts/extensions/fees/LensRulePaymentHandler.sol";
+import {SenseRulePaymentHandler} from "contracts/extensions/fees/SenseRulePaymentHandler.sol";
 import {RecipientData} from "contracts/core/types/Types.sol";
 import {NATIVE_TOKEN} from "contracts/core/types/Constants.sol";
 
-abstract contract SimplePaymentRule is LensRulePaymentHandler, TrustBasedRule, OwnableMetadataBasedRule {
+abstract contract SimplePaymentRule is SenseRulePaymentHandler, TrustBasedRule, OwnableMetadataBasedRule {
     using SafeERC20 for IERC20;
 
-    /// @custom:keccak lens.param.paymentConfiguration
-    bytes32 constant PARAM__PAYMENT_CONFIG = 0x1d614931e4da442dfded7a7b2023927603d40081577686bb6fd4debb2fd73fc0;
+    /// @custom:keccak sense.param.paymentConfiguration
+    bytes32 constant PARAM__PAYMENT_CONFIG = 0xb1ff977c36ec5c448c9f50ab093ba344b05412b0c8c10b8dc2fe80508f72000b;
 
     struct PaymentConfiguration {
         address token;

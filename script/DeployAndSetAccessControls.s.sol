@@ -18,9 +18,9 @@ import {IOwnable} from "contracts/core/interfaces/IOwnable.sol";
 contract DeployAndSetAccessControls is Script {
     uint256 constant PID__CHANGE_RULES = uint256(0x550b12ef6572134aefc5804fd2b13ab3d8451e067ad453f67afe134cffebd977);
 
-    address constant LENS_GLOBAL_NAMESPACE = address(0x1aA55B9042f08f45825dC4b651B64c9F98Af4615);
-    address constant LENS_GLOBAL_FEED = address(0xcB5E109FFC0E15565082d78E68dDDf2573703580);
-    address constant LENS_GLOBAL_GRAPH = address(0x433025d9718302E7B2e1853D712d96F00764513F);
+    address constant SENSE_GLOBAL_NAMESPACE = address(0x1aA55B9042f08f45825dC4b651B64c9F98Af4615);
+    address constant SENSE_GLOBAL_FEED = address(0xcB5E109FFC0E15565082d78E68dDDf2573703580);
+    address constant SENSE_GLOBAL_GRAPH = address(0x433025d9718302E7B2e1853D712d96F00764513F);
 
     address constant ACCESS_CONTROL_FACTORY = address(0x0d028419c270C2d366929f459418a4905D1B778F);
 
@@ -40,19 +40,19 @@ contract DeployAndSetAccessControls is Script {
         IAccessControl namespaceAc =
             AccessControlFactory(ACCESS_CONTROL_FACTORY).deployOwnerAdminOnlyAccessControl(acOwner, acAdmins);
         console.log("[ OK ] - Namespace Access Control deployed at: ", address(namespaceAc));
-        AccessControlled(LENS_GLOBAL_NAMESPACE).setAccessControl(namespaceAc);
+        AccessControlled(SENSE_GLOBAL_NAMESPACE).setAccessControl(namespaceAc);
         console.log("[ OK ] - Namespace Access Control set \n\n");
 
         IAccessControl feedAc =
             AccessControlFactory(ACCESS_CONTROL_FACTORY).deployOwnerAdminOnlyAccessControl(acOwner, acAdmins);
         console.log("[ OK ] - Feed Access Control deployed at: ", address(feedAc));
-        AccessControlled(LENS_GLOBAL_FEED).setAccessControl(feedAc);
+        AccessControlled(SENSE_GLOBAL_FEED).setAccessControl(feedAc);
         console.log("[ OK ] - Feed Access Control set \n\n");
 
         IAccessControl graphAc =
             AccessControlFactory(ACCESS_CONTROL_FACTORY).deployOwnerAdminOnlyAccessControl(acOwner, acAdmins);
         console.log("[ OK ] - Graph Access Control deployed at: ", address(graphAc));
-        AccessControlled(LENS_GLOBAL_GRAPH).setAccessControl(graphAc);
+        AccessControlled(SENSE_GLOBAL_GRAPH).setAccessControl(graphAc);
         console.log("[ OK ] - Graph Access Control set \n\n");
 
         vm.stopBroadcast();
@@ -76,7 +76,7 @@ contract DeployAndSetAccessControls is Script {
 
         bool hasAccess = IAccessControl(namespaceAc).hasAccess({
             account: acAdmins[0],
-            contractAddress: LENS_GLOBAL_NAMESPACE,
+            contractAddress: SENSE_GLOBAL_NAMESPACE,
             permissionId: PID__CHANGE_RULES
         });
 
@@ -90,7 +90,7 @@ contract DeployAndSetAccessControls is Script {
 
         hasAccess = IAccessControl(feedAc).hasAccess({
             account: acAdmins[0],
-            contractAddress: LENS_GLOBAL_FEED,
+            contractAddress: SENSE_GLOBAL_FEED,
             permissionId: PID__CHANGE_RULES
         });
 
@@ -102,7 +102,7 @@ contract DeployAndSetAccessControls is Script {
 
         hasAccess = IAccessControl(graphAc).hasAccess({
             account: acAdmins[0],
-            contractAddress: LENS_GLOBAL_GRAPH,
+            contractAddress: SENSE_GLOBAL_GRAPH,
             permissionId: PID__CHANGE_RULES
         });
 

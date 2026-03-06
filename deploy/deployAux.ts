@@ -6,12 +6,12 @@ import {
   saveContractToAddressBook,
   loadContractFromAddressBook,
   loadContractAddressFromAddressBook,
-  deployLensContractAsProxy,
-} from './lensUtils';
+  deploySenseContractAsProxy,
+} from './senseUtils';
 import * as hre from 'hardhat';
 import {
   getWallet,
-  parseLensContractDeployedEventsFromReceipt,
+  parseSenseContractDeployedEventsFromReceipt,
   getAddressFromEvents,
   verifyPrimitive,
 } from './utils';
@@ -39,33 +39,33 @@ export interface AppInitialProperties {
   treasury: string;
 }
 
-export async function deployLensPrimitives(primitivesOwner: string, DEPLOYING_MIGRATION: boolean) {
-  const lensFactoryAddress = loadAddressBook()['LensFactory'].address;
-  if (!lensFactoryAddress) {
-    throw new Error('LensFactory not found in address book');
+export async function deploySensePrimitives(primitivesOwner: string, DEPLOYING_MIGRATION: boolean) {
+  const senseFactoryAddress = loadAddressBook()['SenseFactory'].address;
+  if (!senseFactoryAddress) {
+    throw new Error('SenseFactory not found in address book');
   }
-  console.log(`Running script to interact with LensFactory at ${lensFactoryAddress}`);
+  console.log(`Running script to interact with SenseFactory at ${senseFactoryAddress}`);
 
   // Load compiled contract info
-  const lensFactoryArtifact = await hre.artifacts.readArtifact('LensFactory');
+  const senseFactoryArtifact = await hre.artifacts.readArtifact('SenseFactory');
 
   // Initialize contract instance for interaction
-  const lensFactory = new ethers.Contract(
-    lensFactoryAddress,
-    lensFactoryArtifact.abi,
+  const senseFactory = new ethers.Contract(
+    senseFactoryAddress,
+    senseFactoryArtifact.abi,
     getWallet() // Interact with the contract on behalf of this wallet
   );
 
   let account;
   let group = ZeroAddress;
   if (!DEPLOYING_MIGRATION) {
-    account = await deployLensAccount(lensFactory, primitivesOwner);
-    group = await deployLensGroup(lensFactory, primitivesOwner);
+    account = await deploySenseAccount(senseFactory, primitivesOwner);
+    group = await deploySenseGroup(senseFactory, primitivesOwner);
   }
 
-  const feed = await deployLensFeed(lensFactory, primitivesOwner);
-  const graph = await deployLensGraph(lensFactory, primitivesOwner);
-  const namespace = await deployLensNamespace(lensFactory, primitivesOwner);
+  const feed = await deploySenseFeed(senseFactory, primitivesOwner);
+  const graph = await deploySenseGraph(senseFactory, primitivesOwner);
+  const namespace = await deploySenseNamespace(senseFactory, primitivesOwner);
 
   if (!DEPLOYING_MIGRATION) {
     const initialProperties: AppInitialProperties = {
@@ -79,16 +79,16 @@ export async function deployLensPrimitives(primitivesOwner: string, DEPLOYING_MI
       treasury: getWallet().address,
     };
 
-    const app = await deployLensApp(lensFactory, initialProperties, primitivesOwner);
+    const app = await deploySenseApp(senseFactory, initialProperties, primitivesOwner);
   }
 }
 
-async function deployLensAccount(
-  lensFactory: ethers.Contract,
+async function deploySenseAccount(
+  senseFactory: ethers.Contract,
   primitivesOwner: string
 ): Promise<string> {
   const contractName = 'Account';
-  const name = 'LensExampleAccount';
+  const name = 'SenseExampleAccount';
   const existingContract = loadContractFromAddressBook(name);
   if (existingContract && existingContract.address) {
     console.log(`${contractName} already deployed at ${existingContract.address}. Skipping...`);
@@ -96,7 +96,7 @@ async function deployLensAccount(
   }
 
   console.log('Deploying ' + name);
-  const transaction = await lensFactory.deployAccount(
+  const transaction = await senseFactory.deployAccount(
     metadataURI,
     primitivesOwner,
     [],
@@ -106,7 +106,7 @@ async function deployLensAccount(
   );
 
   const txReceipt = (await transaction.wait()) as ethers.TransactionReceipt;
-  const events = parseLensContractDeployedEventsFromReceipt(txReceipt);
+  const events = parseSenseContractDeployedEventsFromReceipt(txReceipt);
   const accountAddress = getAddressFromEvents(events, contractName);
 
   // await verifyPrimitive('Account', accountAddress, [
@@ -128,12 +128,12 @@ async function deployLensAccount(
   return accountAddress;
 }
 
-async function deployLensFeed(
-  lensFactory: ethers.Contract,
+async function deploySenseFeed(
+  senseFactory: ethers.Contract,
   primitivesOwner: string
 ): Promise<string> {
   const contractName = 'Feed';
-  const name = 'LensGlobal' + contractName;
+  const name = 'SenseGlobal' + contractName;
   const existingContract = loadContractFromAddressBook(name);
   if (existingContract && existingContract.address) {
     console.log(`${name} already deployed at ${existingContract.address}. Skipping...`);
@@ -141,10 +141,10 @@ async function deployLensFeed(
   }
 
   console.log('Deploying ' + name);
-  const transaction = await lensFactory.deployFeed(metadataURI, primitivesOwner, [], [], []);
+  const transaction = await senseFactory.deployFeed(metadataURI, primitivesOwner, [], [], []);
 
   const txReceipt = (await transaction.wait()) as ethers.TransactionReceipt;
-  const events = parseLensContractDeployedEventsFromReceipt(txReceipt);
+  const events = parseSenseContractDeployedEventsFromReceipt(txReceipt);
   const primitiveAddress = getAddressFromEvents(events, contractName);
   // const accessControlAddress = getAddressFromEvents(events, 'access-control');
 
@@ -160,12 +160,12 @@ async function deployLensFeed(
   return primitiveAddress;
 }
 
-async function deployLensGroup(
-  lensFactory: ethers.Contract,
+async function deploySenseGroup(
+  senseFactory: ethers.Contract,
   primitivesOwner: string
 ): Promise<string> {
   const contractName = 'Group';
-  const name = 'LensGlobal' + contractName;
+  const name = 'SenseGlobal' + contractName;
   const existingContract = loadContractFromAddressBook(name);
   if (existingContract && existingContract.address) {
     console.log(`${name} already deployed at ${existingContract.address}. Skipping...`);
@@ -173,7 +173,7 @@ async function deployLensGroup(
   }
 
   console.log('Deploying ' + name);
-  const transaction = await lensFactory.deployGroup(
+  const transaction = await senseFactory.deployGroup(
     metadataURI,
     primitivesOwner,
     [],
@@ -184,7 +184,7 @@ async function deployLensGroup(
   );
 
   const txReceipt = (await transaction.wait()) as ethers.TransactionReceipt;
-  const events = parseLensContractDeployedEventsFromReceipt(txReceipt);
+  const events = parseSenseContractDeployedEventsFromReceipt(txReceipt);
   const primitiveAddress = getAddressFromEvents(events, contractName);
   // const accessControlAddress = getAddressFromEvents(events, 'access-control');
 
@@ -200,12 +200,12 @@ async function deployLensGroup(
   return primitiveAddress;
 }
 
-async function deployLensGraph(
-  lensFactory: ethers.Contract,
+async function deploySenseGraph(
+  senseFactory: ethers.Contract,
   primitivesOwner: string
 ): Promise<string> {
   const contractName = 'Graph';
-  const name = 'LensGlobal' + contractName;
+  const name = 'SenseGlobal' + contractName;
   const existingContract = loadContractFromAddressBook(name);
   if (existingContract && existingContract.address) {
     console.log(`${name} already deployed at ${existingContract.address}. Skipping...`);
@@ -213,10 +213,10 @@ async function deployLensGraph(
   }
 
   console.log('Deploying ' + name);
-  const transaction = await lensFactory.deployGraph(metadataURI, primitivesOwner, [], [], []);
+  const transaction = await senseFactory.deployGraph(metadataURI, primitivesOwner, [], [], []);
 
   const txReceipt = (await transaction.wait()) as ethers.TransactionReceipt;
-  const events = parseLensContractDeployedEventsFromReceipt(txReceipt);
+  const events = parseSenseContractDeployedEventsFromReceipt(txReceipt);
   const primitiveAddress = getAddressFromEvents(events, contractName);
   // const accessControlAddress = getAddressFromEvents(events, 'access-control');
 
@@ -232,12 +232,12 @@ async function deployLensGraph(
   return primitiveAddress;
 }
 
-export async function deployLensNamespace(
-  lensFactory: ethers.Contract,
+export async function deploySenseNamespace(
+  senseFactory: ethers.Contract,
   primitivesOwner: string
 ): Promise<string> {
   const contractName = 'Namespace';
-  const name = 'LensGlobal' + contractName;
+  const name = 'SenseGlobal' + contractName;
   const existingContract = loadContractFromAddressBook(name);
   if (existingContract && existingContract.address) {
     console.log(`${name} already deployed at ${existingContract.address}. Skipping...`);
@@ -245,11 +245,11 @@ export async function deployLensNamespace(
   }
 
   console.log('Deploying ' + name);
-  const namespace = 'lens';
-  const nftName = 'Lens Usernames';
-  const nftSymbol = 'LU';
+  const namespace = 'sense';
+  const nftName = 'Sense Usernames';
+  const nftSymbol = 'SU';
 
-  const transaction = await lensFactory.deployNamespace(
+  const transaction = await senseFactory.deployNamespace(
     namespace,
     metadataURI,
     primitivesOwner,
@@ -261,10 +261,10 @@ export async function deployLensNamespace(
   );
 
   const txReceipt = (await transaction.wait()) as ethers.TransactionReceipt;
-  const events = parseLensContractDeployedEventsFromReceipt(txReceipt);
+  const events = parseSenseContractDeployedEventsFromReceipt(txReceipt);
   const primitiveAddress = getAddressFromEvents(events, contractName);
   // const accessControlAddress = getAddressFromEvents(events, 'access-control');
-  // const lensUsernameTokenURIProviderAddress = getAddressFromEvents(
+  // const senseUsernameTokenURIProviderAddress = getAddressFromEvents(
   //   events,
   //   'username-token-uri-provider'
   // );
@@ -275,7 +275,7 @@ export async function deployLensNamespace(
   //   accessControlAddress,
   //   nftName,
   //   nftSymbol,
-  //   lensUsernameTokenURIProviderAddress,
+  //   senseUsernameTokenURIProviderAddress,
   // ]);
 
   saveContractToAddressBook({
@@ -288,13 +288,13 @@ export async function deployLensNamespace(
   return primitiveAddress;
 }
 
-export async function deployLensApp(
-  lensFactory: ethers.Contract,
+export async function deploySenseApp(
+  senseFactory: ethers.Contract,
   initialProperties: AppInitialProperties,
   primitivesOwner: string
 ): Promise<string> {
   const contractName = 'App';
-  const name = 'LensGlobal' + contractName;
+  const name = 'SenseGlobal' + contractName;
   const existingContract = loadContractFromAddressBook(name);
   if (existingContract && existingContract.address) {
     console.log(`${name} already deployed at ${existingContract.address}. Skipping...`);
@@ -304,7 +304,7 @@ export async function deployLensApp(
   console.log('Deploying ' + name);
   console.log('Using the following initial properties:');
   console.log(initialProperties);
-  const transaction = await lensFactory.deployApp(
+  const transaction = await senseFactory.deployApp(
     metadataURI,
     false,
     primitivesOwner,
@@ -315,7 +315,7 @@ export async function deployLensApp(
 
   const txReceipt = (await transaction.wait()) as ethers.TransactionReceipt;
 
-  const events = parseLensContractDeployedEventsFromReceipt(txReceipt);
+  const events = parseSenseContractDeployedEventsFromReceipt(txReceipt);
   const primitiveAddress = getAddressFromEvents(events, contractName);
   // const accessControlAddress = getAddressFromEvents(events, 'access-control');
 
@@ -337,7 +337,7 @@ export async function deployLensApp(
   return primitiveAddress;
 }
 
-export async function deployLensAccessControl(primitivesOwner: string) {
+export async function deploySenseAccessControl(primitivesOwner: string) {
   const contractName = 'OwnerAdminOnlyAccessControl';
   const contractType = 'AccessControl';
   const existingContract = loadContractFromAddressBook(contractName);
@@ -367,7 +367,7 @@ export async function deployLensAccessControl(primitivesOwner: string) {
   );
 
   const txReceipt = (await transaction.wait()) as ethers.TransactionReceipt;
-  const events = parseLensContractDeployedEventsFromReceipt(txReceipt);
+  const events = parseSenseContractDeployedEventsFromReceipt(txReceipt);
   const accessControlAddress = getAddressFromEvents(events, contractType);
 
   const accessControlLock = loadContractAddressFromAddressBook('AccessControlLock');
@@ -389,7 +389,7 @@ export async function deployLensAccessControl(primitivesOwner: string) {
   return accessControlAddress;
 }
 
-export async function deployLensActionHub(
+export async function deploySenseActionHub(
   proxyOwner: string,
   treasuryAddress: string,
   treasuryFeeBps: number
@@ -406,7 +406,7 @@ export async function deployLensActionHub(
   const actionHub_artifactName = 'ActionHub';
   const actionHub_args: any[] = [treasuryAddress, treasuryFeeBps];
 
-  const actionHub = await deployLensContractAsProxy(
+  const actionHub = await deploySenseContractAsProxy(
     {
       contractName: actionHub_artifactName,
       contractType: ContractType.Aux,

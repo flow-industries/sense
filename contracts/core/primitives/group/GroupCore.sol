@@ -13,8 +13,8 @@ library GroupCore {
         mapping(address => Membership) memberships;
     }
 
-    /// @custom:keccak lens.storage.GroupCore
-    bytes32 constant STORAGE__GROUP_CORE = 0x21ab408a492cf8beda2879363dd3a4ec8ba15c85532aa540e0e12415acdd09ed;
+    /// @custom:keccak sense.storage.GroupCore
+    bytes32 constant STORAGE__GROUP_CORE = 0xf4de5e590c0d485ce381c6f1834c5514d951e8c83925c83f03096f68ac7ced39;
 
     function $storage() internal pure returns (Storage storage _storage) {
         assembly {

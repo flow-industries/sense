@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import {
-  deployLensContract,
+  deploySenseContract,
   ContractType,
   ContractInfo,
   loadContractAddressFromAddressBook,
-} from './lensUtils';
+} from './senseUtils';
 
 export async function deployLock(lockType: string, lockOwner: string): Promise<void> {
-  const lock = await deployLensContract({
+  const lock = await deploySenseContract({
     name: lockType,
     contractName: 'Lock',
     contractType: ContractType.Aux,
@@ -57,6 +57,6 @@ export async function deployBeacons(beaconOwner: string): Promise<void> {
   ];
 
   for (const contract of contracts) {
-    await deployLensContract(contract);
+    await deploySenseContract(contract);
   }
 }

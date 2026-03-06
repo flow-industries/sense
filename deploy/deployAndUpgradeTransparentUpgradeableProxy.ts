@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-import { deployLensContract, ContractType, ContractInfo, loadContractAddressFromAddressBook, loadContractFromAddressBook, saveContractToAddressBook } from './lensUtils';
+import { deploySenseContract, ContractType, ContractInfo, loadContractAddressFromAddressBook, loadContractFromAddressBook, saveContractToAddressBook } from './senseUtils';
 import { getWallet } from './utils';
 import * as hre from 'hardhat';
 import { ethers } from 'ethers';
@@ -57,7 +57,7 @@ async function deploy() {
     throw new Error(`Old implementation in the Address Book (${oldImplementationInTheAddressBook}) is not the same as the old implementation in the Proxy (${oldImplementation}).\nMaybe it was upgraded before? Or address book is outdated?`);
   }
 
-  const deployedImplementation = await deployLensContract(
+  const deployedImplementation = await deploySenseContract(
     contractToUpgrade,
     true
   );

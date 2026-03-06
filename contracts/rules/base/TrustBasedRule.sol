@@ -4,11 +4,11 @@ pragma solidity ^0.8.26;
 import {Errors} from "contracts/core/types/Errors.sol";
 
 abstract contract TrustBasedRule {
-    event Lens_Rule_Trusted(address indexed account, address indexed trustedAddress);
-    event Lens_Rule_Untrusted(address indexed account, address indexed untrustedAddress);
+    event Sense_Rule_Trusted(address indexed account, address indexed trustedAddress);
+    event Sense_Rule_Untrusted(address indexed account, address indexed untrustedAddress);
 
-    /// @custom:keccak lens.storage.TrustBasedRule.isTrusted
-    bytes32 constant STORAGE__IS_TRUSTED = 0x463a00e6fc84151780a21ba2127d78a0c153372a15d5669ad3912100980952bc;
+    /// @custom:keccak sense.storage.TrustBasedRule.isTrusted
+    bytes32 constant STORAGE__IS_TRUSTED = 0xf8a2a247a350dfb01827b367489c01f44e203bea3b996c63651e4e7e438a4210;
 
     function $isTrusted() private pure returns (mapping(address => mapping(address => bool)) storage _storage) {
         assembly {
@@ -19,9 +19,9 @@ abstract contract TrustBasedRule {
     function setTrust(address target, bool isTrusted) external virtual {
         $isTrusted()[msg.sender][target] = isTrusted;
         if (isTrusted) {
-            emit Lens_Rule_Trusted(msg.sender, target);
+            emit Sense_Rule_Trusted(msg.sender, target);
         } else {
-            emit Lens_Rule_Untrusted(msg.sender, target);
+            emit Sense_Rule_Untrusted(msg.sender, target);
         }
     }
 

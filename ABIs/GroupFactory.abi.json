@@ -13,7 +13,7 @@
         "internalType": "address"
       },
       {
-        "name": "lensFactory",
+        "name": "senseFactory",
         "type": "address",
         "internalType": "address"
       }
@@ -141,7 +141,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_GroupFactory_Deployment",
+    "name": "Sense_GroupFactory_Deployment",
     "inputs": [
       {
         "name": "group",

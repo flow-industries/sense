@@ -19,7 +19,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Rule_Trusted",
+    "name": "Sense_Rule_Trusted",
     "inputs": [
       {
         "name": "account",
@@ -38,7 +38,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Rule_Untrusted",
+    "name": "Sense_Rule_Untrusted",
     "inputs": [
       {
         "name": "account",

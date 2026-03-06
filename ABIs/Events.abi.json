@@ -1,7 +1,7 @@
 [
   {
     "type": "event",
-    "name": "Lens_Contract_Deployed",
+    "name": "Sense_Contract_Deployed",
     "inputs": [
       {
         "name": "contractType",
@@ -20,7 +20,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_PermissionId_Available",
+    "name": "Sense_PermissionId_Available",
     "inputs": [
       {
         "name": "permissionId",

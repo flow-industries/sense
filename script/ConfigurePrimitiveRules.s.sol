@@ -20,9 +20,9 @@ import {INamespaceRule} from "contracts/core/interfaces/INamespaceRule.sol";
 ///   forge script script/ConfigurePrimitiveRules.s.sol --rpc-url https://api.lens.matterhosted.dev/ --zksync -vvvvv
 /// Then add the --broadcast flag to actually send the transactions to the network.
 contract ConfigurePrimitiveRules is Script {
-    address constant LENS_GLOBAL_NAMESPACE = address(0x1aA55B9042f08f45825dC4b651B64c9F98Af4615);
-    address constant LENS_GLOBAL_FEED = address(0xcB5E109FFC0E15565082d78E68dDDf2573703580);
-    address constant LENS_GLOBAL_GRAPH = address(0x433025d9718302E7B2e1853D712d96F00764513F);
+    address constant SENSE_GLOBAL_NAMESPACE = address(0x1aA55B9042f08f45825dC4b651B64c9F98Af4615);
+    address constant SENSE_GLOBAL_FEED = address(0xcB5E109FFC0E15565082d78E68dDDf2573703580);
+    address constant SENSE_GLOBAL_GRAPH = address(0x433025d9718302E7B2e1853D712d96F00764513F);
 
     address constant ACCOUNT_BLOCKING_RULE = address(0x3B766408f14141F4B567681A1c29CFB58D1C1574);
 
@@ -54,7 +54,7 @@ contract ConfigurePrimitiveRules is Script {
         console.log("- - - - - - - -");
 
         Rule[] memory namespaceRules =
-            INamespace(LENS_GLOBAL_NAMESPACE).getNamespaceRules(INamespaceRule.processCreation.selector, true);
+            INamespace(SENSE_GLOBAL_NAMESPACE).getNamespaceRules(INamespaceRule.processCreation.selector, true);
         if (namespaceRules.length == 0) {
             console.log("No namespace rules found");
         }
@@ -64,7 +64,7 @@ contract ConfigurePrimitiveRules is Script {
 
         console.log("- - - - - - - -");
 
-        Rule[] memory feedRules = IFeed(LENS_GLOBAL_FEED).getFeedRules(IFeedRule.processCreatePost.selector, true);
+        Rule[] memory feedRules = IFeed(SENSE_GLOBAL_FEED).getFeedRules(IFeedRule.processCreatePost.selector, true);
         if (namespaceRules.length == 0) {
             console.log("No feed rules found");
         }
@@ -74,7 +74,7 @@ contract ConfigurePrimitiveRules is Script {
 
         console.log("- - - - - - - -");
 
-        Rule[] memory graphRules = IGraph(LENS_GLOBAL_GRAPH).getGraphRules(IGraphRule.processFollow.selector, true);
+        Rule[] memory graphRules = IGraph(SENSE_GLOBAL_GRAPH).getGraphRules(IGraphRule.processFollow.selector, true);
         if (namespaceRules.length == 0) {
             console.log("No graph rules found");
         }
@@ -86,7 +86,7 @@ contract ConfigurePrimitiveRules is Script {
     }
 
     function _changeNamespaceRules() internal {
-        address accessControl = address(IAccessControlled(LENS_GLOBAL_NAMESPACE).getAccessControl());
+        address accessControl = address(IAccessControlled(SENSE_GLOBAL_NAMESPACE).getAccessControl());
 
         RuleSelectorChange[] memory selectorChanges = new RuleSelectorChange[](1);
         // All rules are using the same selector changes in this case.
@@ -103,7 +103,7 @@ contract ConfigurePrimitiveRules is Script {
         });
 
         KeyValue[] memory reservedRuleParams = new KeyValue[](1);
-        reservedRuleParams[0] = KeyValue({key: keccak256("lens.param.accessControl"), value: abi.encode(accessControl)});
+        reservedRuleParams[0] = KeyValue({key: keccak256("sense.param.accessControl"), value: abi.encode(accessControl)});
 
         ruleChanges[1] = RuleChange({
             ruleAddress: USERNAME_RESERVED_NAMESPACE_RULE,
@@ -113,9 +113,9 @@ contract ConfigurePrimitiveRules is Script {
         });
 
         KeyValue[] memory lengthRuleParams = new KeyValue[](3);
-        lengthRuleParams[0] = KeyValue({key: keccak256("lens.param.accessControl"), value: abi.encode(accessControl)});
-        lengthRuleParams[1] = KeyValue({key: keccak256("lens.param.minLength"), value: abi.encode(uint8(5))});
-        lengthRuleParams[2] = KeyValue({key: keccak256("lens.param.maxLength"), value: abi.encode(uint8(26))});
+        lengthRuleParams[0] = KeyValue({key: keccak256("sense.param.accessControl"), value: abi.encode(accessControl)});
+        lengthRuleParams[1] = KeyValue({key: keccak256("sense.param.minLength"), value: abi.encode(uint8(5))});
+        lengthRuleParams[2] = KeyValue({key: keccak256("sense.param.maxLength"), value: abi.encode(uint8(26))});
 
         ruleChanges[2] = RuleChange({
             ruleAddress: USERNAME_LENGTH_NAMESPACE_RULE,
@@ -126,7 +126,7 @@ contract ConfigurePrimitiveRules is Script {
 
         console.log("Changing namespace rules...");
 
-        INamespace(LENS_GLOBAL_NAMESPACE).changeNamespaceRules(ruleChanges);
+        INamespace(SENSE_GLOBAL_NAMESPACE).changeNamespaceRules(ruleChanges);
     }
 
     function _changeFeedRules() internal {
@@ -144,7 +144,7 @@ contract ConfigurePrimitiveRules is Script {
 
         console.log("Changing feed rules...");
 
-        IFeed(LENS_GLOBAL_FEED).changeFeedRules(ruleChanges);
+        IFeed(SENSE_GLOBAL_FEED).changeFeedRules(ruleChanges);
     }
 
     function _changeGraphRules() internal {
@@ -162,6 +162,6 @@ contract ConfigurePrimitiveRules is Script {
 
         console.log("Changing graph rules...");
 
-        IGraph(LENS_GLOBAL_GRAPH).changeGraphRules(ruleChanges);
+        IGraph(SENSE_GLOBAL_GRAPH).changeGraphRules(ruleChanges);
     }
 }

@@ -21,7 +21,7 @@ contract Impl {
     }
 
     function returnString() public pure returns (string memory) {
-        return "gm lens friends!";
+        return "gm sense friends!";
     }
 
     function returnImplAddress() public returns (address) {
@@ -241,7 +241,7 @@ contract LegacyBeaconProxyTest is ZkTest {
         assertEq(Impl(address(proxy)).returnImplAddress(), someImpl);
         assertEq(proxy.proxy__getImplementation(), someImpl);
         assertEq(Impl(address(proxy)).returnInteger(), 69);
-        assertEq(Impl(address(proxy)).returnString(), "gm lens friends!");
+        assertEq(Impl(address(proxy)).returnString(), "gm sense friends!");
         assertEq(Impl(address(proxy)).getStorageValue(), 0);
         Impl(address(proxy)).setStorageValue(42);
         assertEq(Impl(address(proxy)).getStorageValue(), 42);
@@ -268,7 +268,7 @@ contract LegacyBeaconProxyTest is ZkTest {
         assertEq(Impl(address(proxy)).returnImplAddress(), someImpl);
         assertEq(proxy.proxy__getImplementation(), someImpl);
         assertEq(Impl(address(proxy)).returnInteger(), 69);
-        assertEq(Impl(address(proxy)).returnString(), "gm lens friends!");
+        assertEq(Impl(address(proxy)).returnString(), "gm sense friends!");
         assertEq(Impl(address(proxy)).getStorageValue(), 0);
         Impl(address(proxy)).setStorageValue(42);
         assertEq(Impl(address(proxy)).getStorageValue(), 42);

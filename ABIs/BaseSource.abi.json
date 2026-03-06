@@ -72,7 +72,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Source_NonceUsed",
+    "name": "Sense_Source_NonceUsed",
     "inputs": [
       {
         "name": "nonce",

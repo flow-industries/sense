@@ -15,16 +15,16 @@ struct Role {
 }
 
 interface IRoleBasedAccessControl is IAccessControl {
-    event Lens_AccessControl_RoleGranted(address indexed account, uint256 indexed roleId);
-    event Lens_AccessControl_RoleRevoked(address indexed account, uint256 indexed roleId);
+    event Sense_AccessControl_RoleGranted(address indexed account, uint256 indexed roleId);
+    event Sense_AccessControl_RoleRevoked(address indexed account, uint256 indexed roleId);
 
-    event Lens_AccessControl_AccessAdded(
+    event Sense_AccessControl_AccessAdded(
         uint256 indexed roleId, address indexed contractAddress, uint256 indexed permissionId, bool granted
     );
-    event Lens_AccessControl_AccessUpdated(
+    event Sense_AccessControl_AccessUpdated(
         uint256 indexed roleId, address indexed contractAddress, uint256 indexed permissionId, bool granted
     );
-    event Lens_AccessControl_AccessRemoved(
+    event Sense_AccessControl_AccessRemoved(
         uint256 indexed roleId, address indexed contractAddress, uint256 indexed permissionId
     );
 

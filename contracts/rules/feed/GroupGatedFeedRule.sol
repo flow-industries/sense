@@ -10,12 +10,12 @@ import {OwnableMetadataBasedRule} from "contracts/rules/base/OwnableMetadataBase
 import {Errors} from "contracts/core/types/Errors.sol";
 import {Initializable} from "contracts/core/upgradeability/Initializable.sol";
 
-/// @custom:keccak lens.param.group
-bytes32 constant PARAM__GROUP = 0xa92ea569d1a9f915f96759ba7cea5f135d011c442b0508dbef76a309e55f4458;
-/// @custom:keccak lens.param.repliesRestricted
-bytes32 constant PARAM__REPLIES_RESTRICTED = 0x4ce0155a596c1a9d5bcefb32cdbf357c849ac621a9b91d222b367cf53fe79a6f;
-/// @custom:keccak lens.storage.GroupGatedFeedRule
-bytes32 constant STORAGE__GROUP_GATED_FEED_RULE = 0xf4ecd2b7d1de7a29eac43757726b4a4fdd06e8b20a6cf006b5e3a936579b66d3;
+/// @custom:keccak sense.param.group
+bytes32 constant PARAM__GROUP = 0xdb0318b58d3d4af6266a695d509c507a8b3e5368108e3767b31e56520226e1aa;
+/// @custom:keccak sense.param.repliesRestricted
+bytes32 constant PARAM__REPLIES_RESTRICTED = 0x23eac1188784468413bdf97e250704295c67776c2a06aa5476f1bf4c61022456;
+/// @custom:keccak sense.storage.GroupGatedFeedRule
+bytes32 constant STORAGE__GROUP_GATED_FEED_RULE = 0xc546a3b31e75c3e2403f8f71e7338365bfb5293827ac0a3df19c8a4248b7639c;
 
 contract GroupGatedFeedRule is IFeedRule, OwnableMetadataBasedRule, Initializable {
     struct Configuration {

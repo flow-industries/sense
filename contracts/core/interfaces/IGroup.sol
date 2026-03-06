@@ -11,19 +11,19 @@ struct Membership {
 }
 
 interface IGroup is IMetadataBased {
-    event Lens_Group_RuleConfigured(address indexed rule, bytes32 indexed configSalt, KeyValue[] configParams);
+    event Sense_Group_RuleConfigured(address indexed rule, bytes32 indexed configSalt, KeyValue[] configParams);
 
-    event Lens_Group_RuleReconfigured(address indexed rule, bytes32 indexed configSalt, KeyValue[] configParams);
+    event Sense_Group_RuleReconfigured(address indexed rule, bytes32 indexed configSalt, KeyValue[] configParams);
 
-    event Lens_Group_RuleSelectorEnabled(
+    event Sense_Group_RuleSelectorEnabled(
         address indexed rule, bytes32 indexed configSalt, bool isRequired, bytes4 ruleSelector
     );
 
-    event Lens_Group_RuleSelectorDisabled(
+    event Sense_Group_RuleSelectorDisabled(
         address indexed rule, bytes32 indexed configSalt, bool isRequired, bytes4 ruleSelector
     );
 
-    event Lens_Group_MemberAdded(
+    event Sense_Group_MemberAdded(
         address indexed account,
         uint256 indexed membershipId,
         KeyValue[] customParams,
@@ -31,7 +31,7 @@ interface IGroup is IMetadataBased {
         address indexed source
     );
 
-    event Lens_Group_MemberRemoved(
+    event Sense_Group_MemberRemoved(
         address indexed account,
         uint256 indexed membershipId,
         KeyValue[] customParams,
@@ -39,7 +39,7 @@ interface IGroup is IMetadataBased {
         address indexed source
     );
 
-    event Lens_Group_MemberJoined(
+    event Sense_Group_MemberJoined(
         address indexed account,
         uint256 indexed membershipId,
         KeyValue[] customParams,
@@ -47,7 +47,7 @@ interface IGroup is IMetadataBased {
         address indexed source
     );
 
-    event Lens_Group_MemberLeft(
+    event Sense_Group_MemberLeft(
         address indexed account,
         uint256 indexed membershipId,
         KeyValue[] customParams,
@@ -55,13 +55,13 @@ interface IGroup is IMetadataBased {
         address indexed source
     );
 
-    event Lens_Group_ExtraDataAdded(bytes32 indexed key, bytes value, bytes indexed valueIndexed);
+    event Sense_Group_ExtraDataAdded(bytes32 indexed key, bytes value, bytes indexed valueIndexed);
 
-    event Lens_Group_ExtraDataUpdated(bytes32 indexed key, bytes value, bytes indexed valueIndexed);
+    event Sense_Group_ExtraDataUpdated(bytes32 indexed key, bytes value, bytes indexed valueIndexed);
 
-    event Lens_Group_ExtraDataRemoved(bytes32 indexed key);
+    event Sense_Group_ExtraDataRemoved(bytes32 indexed key);
 
-    event Lens_Group_MetadataURISet(string metadataURI);
+    event Sense_Group_MetadataURISet(string metadataURI);
 
     function initialize(string memory metadataURI, IAccessControl accessControl, address foundingMember) external;
 

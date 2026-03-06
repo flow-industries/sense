@@ -2,7 +2,7 @@
 pragma solidity ^0.8.26;
 
 import "forge-std/Test.sol";
-import {LensUsernameTokenURIProvider} from "contracts/core/primitives/namespace/LensUsernameTokenURIProvider.sol";
+import {SenseUsernameTokenURIProvider} from "contracts/core/primitives/namespace/SenseUsernameTokenURIProvider.sol";
 import {IERC721Namespace} from "contracts/core/interfaces/IERC721Namespace.sol";
 import {INamespace} from "contracts/core/interfaces/INamespace.sol";
 import "@openzeppelin/contracts-upgradeable/utils/StringsUpgradeable.sol";
@@ -10,24 +10,24 @@ import "@openzeppelin/contracts-upgradeable/utils/StringsUpgradeable.sol";
 contract TokenURITest is Test {
     using StringsUpgradeable for uint256;
 
-    LensUsernameTokenURIProvider uriProvider;
+    SenseUsernameTokenURIProvider uriProvider;
 
     function setUp() public {
-        uriProvider = new LensUsernameTokenURIProvider();
+        uriProvider = new SenseUsernameTokenURIProvider();
     }
 
     function testW() public {
         for (uint256 i = 1; i < 70; i++) {
-            _testSingleCase("lens", _getUsername(i));
+            _testSingleCase("sense", _getUsername(i));
         }
     }
 
     function testSingleCase() public {
-        _testSingleCase("lens", "satoshi");
-        _testSingleCase("lens", "stani");
-        _testSingleCase("lens", "donosonaumczuk");
-        _testSingleCase("lens", "lens");
-        _testSingleCase("lens", "averylongusernamehahahawellmaybenotthatlong");
+        _testSingleCase("sense", "satoshi");
+        _testSingleCase("sense", "stani");
+        _testSingleCase("sense", "donosonaumczuk");
+        _testSingleCase("sense", "sense");
+        _testSingleCase("sense", "averylongusernamehahahawellmaybenotthatlong");
         _testSingleCase("orb", "jordan");
         _testSingleCase("orb", "customer23");
         _testSingleCase("somelongerapp", "vitalik");

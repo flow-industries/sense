@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-import { ContractType, ContractInfo, deployLensContract } from './lensUtils';
+import { ContractType, ContractInfo, deploySenseContract } from './senseUtils';
 
 async function deploy() {
   //////////////// SETUP /////////////////
   const contractToDeploy: ContractInfo =
     {
-      name: 'LensFactoryImpl',
-      contractName: 'LensFactory',
+      name: 'SenseFactoryImpl',
+      contractName: 'SenseFactory',
       contractType: ContractType.Implementation,
       constructorArguments: [
         {
@@ -31,7 +31,7 @@ async function deploy() {
     };
   ////////////////////////////////////////
 
-  const deployedImplementation = await deployLensContract(
+  const deployedImplementation = await deploySenseContract(
     contractToDeploy,
     true
   );

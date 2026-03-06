@@ -4,7 +4,7 @@ pragma solidity ^0.8.26;
 import {ISimpleCollectAction, CollectActionData} from "contracts/actions/post/collect/ISimpleCollectAction.sol";
 import {IFeed, Post} from "contracts/core/interfaces/IFeed.sol";
 import {IGraph} from "contracts/core/interfaces/IGraph.sol";
-import {LensCollectedPost} from "contracts/actions/post/collect/LensCollectedPost.sol";
+import {SenseCollectedPost} from "contracts/actions/post/collect/SenseCollectedPost.sol";
 import {OwnableMetadataBasedPostAction} from "contracts/actions/post/base/OwnableMetadataBasedPostAction.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
@@ -12,14 +12,14 @@ import {KeyValue, RecipientData} from "contracts/core/types/Types.sol";
 import {Errors} from "contracts/core/types/Errors.sol";
 import {Initializable} from "contracts/core/upgradeability/Initializable.sol";
 import {BPS_MAX} from "contracts/core/types/Constants.sol";
-import {LensPaymentHandler} from "contracts/extensions/fees/LensPaymentHandler.sol";
+import {SensePaymentHandler} from "contracts/extensions/fees/SensePaymentHandler.sol";
 
 error InvalidSplits();
 error InvalidRecipient();
 
 contract SimpleCollectAction is
     ISimpleCollectAction,
-    LensPaymentHandler,
+    SensePaymentHandler,
     OwnableMetadataBasedPostAction,
     Initializable
 {
@@ -29,8 +29,8 @@ contract SimpleCollectAction is
         mapping(address => mapping(uint256 => CollectActionData)) collectData;
     }
 
-    /// @custom:keccak lens.storage.SimpleCollectAction.CollectActionStorage
-    bytes32 constant STORAGE__SIMPLE_COLLECT_ACTION = 0xa818dbc25de051abcaa7f2eef0c43fdf86f365dfc6389654719cb8486eace5a5;
+    /// @custom:keccak sense.storage.SimpleCollectAction.CollectActionStorage
+    bytes32 constant STORAGE__SIMPLE_COLLECT_ACTION = 0x49db47c207b52846fc2d94f5fd9fe21e55514ed27e6d66bf82bf14930f88f1a4;
 
     function $collectDataStorage() private pure returns (CollectActionStorage storage _storage) {
         assembly {
@@ -38,24 +38,24 @@ contract SimpleCollectAction is
         }
     }
 
-    /// @custom:keccak lens.param.amount
-    bytes32 constant PARAM__AMOUNT = 0xc8a06abcb0f2366f32dc2741bdf075c3215e3108918311ec0ac742f1ffd37f49;
-    /// @custom:keccak lens.param.token
-    bytes32 constant PARAM__TOKEN = 0xee737c77be2981e91c179485406e6d793521b20aca5e2137b6c497949a74bc94;
-    /// @custom:keccak lens.param.collectLimit
-    bytes32 constant PARAM__COLLECT_LIMIT = 0xa3a202292a3a2b62eecfeb02565126445fa5c792f06c6222157d3244eca405d5;
-    /// @custom:keccak lens.param.endTimestamp
-    bytes32 constant PARAM__END_TIMESTAMP = 0xe2a4a768f409ba480a321a7d36ec9da16e9eae60a25bb0aeccf334822cc859a8;
-    /// @custom:keccak lens.param.recipients
-    bytes32 constant PARAM__RECIPIENTS = 0x7f7e01c87d5278dd08505253491cf5d6b30930036f6afa2ae22a980882f2cac1;
-    /// @custom:keccak lens.param.referralFee
-    bytes32 constant PARAM__REFERRAL_FEE = 0x6dff2c1710f2154b19d8cf5d6f7d8f5b3909222c3cdd8801486403e4d423b1b6;
-    /// @custom:keccak lens.param.graph
-    bytes32 constant PARAM__FOLLOWER_ONLY_GRAPH = 0x7d50408405f482949cd317ab452b66f1104c85a1708ae5be893385b1c898c6d9;
-    /// @custom:keccak lens.param.isImmutable
-    bytes32 constant PARAM__IS_IMMUTABLE = 0x4d1cad3e438026974130ac84979964dd6019eace55216c3de16bc79e36a4c44b;
-    /// @custom:keccak lens.param.referrals
-    bytes32 constant PARAM__REFERRALS = 0x183a1b7fdb9626f5ae4e8cac88ee13cc03b29800d2690f61e2a2566f76d8773f;
+    /// @custom:keccak sense.param.amount
+    bytes32 constant PARAM__AMOUNT = 0xeaa3dd19eab22ecc64759d4cd79f6f6e9243d88ba532ea00ded4283b5ad9ae6e;
+    /// @custom:keccak sense.param.token
+    bytes32 constant PARAM__TOKEN = 0x2779023769d78afea1ea6190f63ff520931d95692776fa9186e2a883072b8e44;
+    /// @custom:keccak sense.param.collectLimit
+    bytes32 constant PARAM__COLLECT_LIMIT = 0xc535915c924fbdff6d1785de94f0bb026dfa4e25289656af69fe8e76cbb98443;
+    /// @custom:keccak sense.param.endTimestamp
+    bytes32 constant PARAM__END_TIMESTAMP = 0xca479e98808b460ea40b346aab9bf34fc24b4b90d3bd39ae78398b277b65c2a3;
+    /// @custom:keccak sense.param.recipients
+    bytes32 constant PARAM__RECIPIENTS = 0xbcfbed296bc161e8c204c236e33069bf82db78cbc29e0d8a15c012f9a3bb7fb7;
+    /// @custom:keccak sense.param.referralFee
+    bytes32 constant PARAM__REFERRAL_FEE = 0x572859a2dfb962d4fd0391f169e5e52f8a5fdf3edd1e793981e717e9c443039f;
+    /// @custom:keccak sense.param.graph
+    bytes32 constant PARAM__FOLLOWER_ONLY_GRAPH = 0x8575ce699158cf9c5056247d9d6a1a15a40d5cf266e79cdb75157cc07c83f5a3;
+    /// @custom:keccak sense.param.isImmutable
+    bytes32 constant PARAM__IS_IMMUTABLE = 0x333d2bbf9e5aa7e32321e9f27b7f06c443b7db1f65da37851dd44aaf97e00088;
+    /// @custom:keccak sense.param.referrals
+    bytes32 constant PARAM__REFERRALS = 0xe101986198b5c30a6ffb015105ee63311b35d0a2d7768694589fc3d6dc5ba469;
 
     /**
      * @notice A struct containing the params to configure this Collect Module on a post.
@@ -74,7 +74,7 @@ contract SimpleCollectAction is
      *          - Deleting the post will disable further collection.
      *         Note: This immutability is only guaranteed if the URI is hosted on immutable storage. Mutability inherent
      *         to the chosen storage technology exceeds the on-chain verification capabilities.
-     *         (*) WYSIWYG is not preserved for Legacy LensCollectedPost collections. Those will have a snapshot of the
+     *         (*) WYSIWYG is not preserved for Legacy SenseCollectedPost collections. Those will have a snapshot of the
      *           post at configuration time and, if the post was edited, the NFT would still have same snapshot.
      *           This decision was made to prevent legacy collections from breaking on editing.
      */
@@ -126,8 +126,8 @@ contract SimpleCollectAction is
 
         if (storedData.collectionAddress == address(0)) {
             // This is an Initial collect configuration - we just store the data and
-            // create and deploy the Lens Collected Post contract.
-            address collectionAddress = address(new LensCollectedPost(feed, postId, configData.isImmutable));
+            // create and deploy the Sense Collected Post contract.
+            address collectionAddress = address(new SenseCollectedPost(feed, postId, configData.isImmutable));
             _storeCollectParams(feed, postId, configData, collectionAddress);
         } else {
             // Editing existing collect action config (it may or may not have collects made already)
@@ -145,7 +145,7 @@ contract SimpleCollectAction is
                 storedData.endTimestamp = configData.endTimestamp;
                 if (storedData.currentCollects == 0) {
                     // Re-deploy collection as a fix for some broken mutable (i.e. isImmutable = false) collections.
-                    storedData.collectionAddress = address(new LensCollectedPost(feed, postId, configData.isImmutable));
+                    storedData.collectionAddress = address(new SenseCollectedPost(feed, postId, configData.isImmutable));
                 } else if (configData.isImmutable == true) {
                     // Tries to turn existing collection immutable, which is not supported for older collections.
                     _tryTurnImmutable(feed, postId, storedData.collectionAddress);
@@ -162,7 +162,7 @@ contract SimpleCollectAction is
             // Call will fail anyways when the collection tries to take the content URI snapshot #0.
             revert Errors.UnexpectedValue();
         } else {
-            (bool callSucceeded,) = collectionAddress.call(abi.encodeCall(LensCollectedPost.turnImmutable, ()));
+            (bool callSucceeded,) = collectionAddress.call(abi.encodeCall(SenseCollectedPost.turnImmutable, ()));
             if (!callSucceeded) {
                 // Collection is from an older version that does not support turning immutable.
                 revert Errors.UnsupportedOperation();
@@ -185,7 +185,7 @@ contract SimpleCollectAction is
 
         _processCollect(originalMsgSender, feed, postId, executionParams);
 
-        LensCollectedPost(storedData.collectionAddress).mint(originalMsgSender, tokenId);
+        SenseCollectedPost(storedData.collectionAddress).mint(originalMsgSender, tokenId);
 
         return abi.encode(tokenId);
     }

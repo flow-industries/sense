@@ -31,7 +31,7 @@ contract GraphTest is RulesTest, BaseDeployments, RuleExecutionTest {
         BaseDeployments.setUp();
 
         graph = IGraph(
-            lensFactory.deployGraph({
+            senseFactory.deployGraph({
                 metadataURI: "some metadata uri",
                 owner: graphOwner,
                 admins: _emptyAddressArray(),
@@ -42,7 +42,7 @@ contract GraphTest is RulesTest, BaseDeployments, RuleExecutionTest {
 
         mockAccessControl = new MockAccessControl();
 
-        vm.prank(address(lensFactory));
+        vm.prank(address(senseFactory));
         graphForRules = graphFactory.deployGraph({
             metadataURI: "uri://graph",
             accessControl: mockAccessControl,
@@ -153,7 +153,7 @@ contract GraphTest is RulesTest, BaseDeployments, RuleExecutionTest {
 
         // Expect customParams to be emitted in the following event
         vm.expectEmit(true, true, true, true);
-        emit IGraph.Lens_Graph_Followed({
+        emit IGraph.Sense_Graph_Followed({
             followerAccount: follower,
             accountToFollow: target,
             followId: expectedFollowId,
@@ -219,7 +219,7 @@ contract GraphTest is RulesTest, BaseDeployments, RuleExecutionTest {
 
         // Expect customParams to be emitted in the unfollowing event
         vm.expectEmit(true, true, true, true);
-        emit IGraph.Lens_Graph_Unfollowed({
+        emit IGraph.Sense_Graph_Unfollowed({
             followerAccount: follower,
             accountToUnfollow: target,
             followId: followId,
@@ -621,7 +621,7 @@ contract GraphTest2 is RulesTest, BaseDeployments, RuleExecutionTest {
         BaseDeployments.setUp();
 
         graph = IGraph(
-            lensFactory.deployGraph({
+            senseFactory.deployGraph({
                 metadataURI: "some metadata uri",
                 owner: graphOwner,
                 admins: _emptyAddressArray(),
@@ -632,7 +632,7 @@ contract GraphTest2 is RulesTest, BaseDeployments, RuleExecutionTest {
 
         mockAccessControl = new MockAccessControl();
 
-        vm.prank(address(lensFactory));
+        vm.prank(address(senseFactory));
         graphForRules = graphFactory.deployGraph({
             metadataURI: "uri://graph",
             accessControl: mockAccessControl,
@@ -976,7 +976,7 @@ contract GraphTest2 is RulesTest, BaseDeployments, RuleExecutionTest {
 
         // Expect the Follow event with the extra data
         vm.expectEmit(true, true, true, true);
-        emit IGraph.Lens_Graph_Followed({
+        emit IGraph.Sense_Graph_Followed({
             followerAccount: follower,
             accountToFollow: target,
             followId: 1, // First follow will have ID 1
@@ -1012,7 +1012,7 @@ contract GraphTest2 is RulesTest, BaseDeployments, RuleExecutionTest {
 
         // Expect the Follow event with empty extra data
         vm.expectEmit(true, true, true, true);
-        emit IGraph.Lens_Graph_Followed({
+        emit IGraph.Sense_Graph_Followed({
             followerAccount: follower,
             accountToFollow: target,
             followId: 1, // First follow will have ID 1
@@ -1129,7 +1129,7 @@ contract GraphTest2 is RulesTest, BaseDeployments, RuleExecutionTest {
         string memory newMetadataURI = "uri://new-metadata-uri";
         assertNotEq(IMetadataBased(address(graphForRules)).getMetadataURI(), newMetadataURI);
         mockAccessControl.mockAccess(
-            addressWithPID, address(graphForRules), uint256(keccak256("lens.permission.SetMetadata")), true
+            addressWithPID, address(graphForRules), uint256(keccak256("sense.permission.SetMetadata")), true
         );
         vm.prank(addressWithPID);
         IMetadataBased(address(graphForRules)).setMetadataURI(newMetadataURI);
@@ -1141,7 +1141,7 @@ contract GraphTest2 is RulesTest, BaseDeployments, RuleExecutionTest {
         string memory newMetadataURI = "uri://new-metadata-uri";
         assertNotEq(oldMetadataURI, newMetadataURI);
         mockAccessControl.mockAccess(
-            addressWithoutPID, address(graphForRules), uint256(keccak256("lens.permission.SetMetadata")), false
+            addressWithoutPID, address(graphForRules), uint256(keccak256("sense.permission.SetMetadata")), false
         );
         vm.prank(addressWithoutPID);
         vm.expectRevert(Errors.AccessDenied.selector);

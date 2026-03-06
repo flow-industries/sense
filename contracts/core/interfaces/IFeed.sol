@@ -38,7 +38,7 @@ struct Post {
 }
 
 interface IFeed is IMetadataBased {
-    event Lens_Feed_PostCreated(
+    event Sense_Feed_PostCreated(
         uint256 indexed postId,
         address indexed author,
         uint256 localSequentialId,
@@ -51,7 +51,7 @@ interface IFeed is IMetadataBased {
         address indexed source
     );
 
-    event Lens_Feed_PostEdited(
+    event Sense_Feed_PostEdited(
         uint256 indexed postId,
         address indexed author,
         EditPostParams newPostParams,
@@ -62,35 +62,35 @@ interface IFeed is IMetadataBased {
         address indexed source
     );
 
-    event Lens_Feed_PostDeleted(
+    event Sense_Feed_PostDeleted(
         uint256 indexed postId, address indexed author, KeyValue[] customParams, address indexed source
     );
 
-    event Lens_Feed_ExtraDataAdded(bytes32 indexed key, bytes value, bytes indexed valueIndexed);
-    event Lens_Feed_ExtraDataUpdated(bytes32 indexed key, bytes value, bytes indexed valueIndexed);
-    event Lens_Feed_ExtraDataRemoved(bytes32 indexed key);
+    event Sense_Feed_ExtraDataAdded(bytes32 indexed key, bytes value, bytes indexed valueIndexed);
+    event Sense_Feed_ExtraDataUpdated(bytes32 indexed key, bytes value, bytes indexed valueIndexed);
+    event Sense_Feed_ExtraDataRemoved(bytes32 indexed key);
 
-    event Lens_Feed_RuleConfigured(address indexed rule, bytes32 indexed configSalt, KeyValue[] configParams);
+    event Sense_Feed_RuleConfigured(address indexed rule, bytes32 indexed configSalt, KeyValue[] configParams);
 
-    event Lens_Feed_RuleReconfigured(address indexed rule, bytes32 indexed configSalt, KeyValue[] configParams);
+    event Sense_Feed_RuleReconfigured(address indexed rule, bytes32 indexed configSalt, KeyValue[] configParams);
 
-    event Lens_Feed_RuleSelectorEnabled(
+    event Sense_Feed_RuleSelectorEnabled(
         address indexed rule, bytes32 indexed configSalt, bool isRequired, bytes4 ruleSelector
     );
 
-    event Lens_Feed_RuleSelectorDisabled(
+    event Sense_Feed_RuleSelectorDisabled(
         address indexed rule, bytes32 indexed configSalt, bool isRequired, bytes4 ruleSelector
     );
 
-    event Lens_Feed_Post_RuleConfigured(
+    event Sense_Feed_Post_RuleConfigured(
         uint256 indexed postId, address author, address indexed rule, bytes32 indexed configSalt, KeyValue[] configParams
     );
 
-    event Lens_Feed_Post_RuleReconfigured(
+    event Sense_Feed_Post_RuleReconfigured(
         uint256 indexed postId, address author, address indexed rule, bytes32 indexed configSalt, KeyValue[] configParams
     );
 
-    event Lens_Feed_Post_RuleSelectorEnabled(
+    event Sense_Feed_Post_RuleSelectorEnabled(
         uint256 indexed postId,
         address author,
         address indexed rule,
@@ -99,7 +99,7 @@ interface IFeed is IMetadataBased {
         bytes4 ruleSelector
     );
 
-    event Lens_Feed_Post_RuleSelectorDisabled(
+    event Sense_Feed_Post_RuleSelectorDisabled(
         uint256 indexed postId,
         address author,
         address indexed rule,
@@ -108,15 +108,15 @@ interface IFeed is IMetadataBased {
         bytes4 ruleSelector
     );
 
-    event Lens_Feed_Post_ExtraDataAdded(
+    event Sense_Feed_Post_ExtraDataAdded(
         uint256 indexed postId, bytes32 indexed key, bytes value, bytes indexed valueIndexed
     );
-    event Lens_Feed_Post_ExtraDataUpdated(
+    event Sense_Feed_Post_ExtraDataUpdated(
         uint256 indexed postId, bytes32 indexed key, bytes value, bytes indexed valueIndexed
     );
-    event Lens_Feed_Post_ExtraDataRemoved(uint256 indexed postId, bytes32 indexed key);
+    event Sense_Feed_Post_ExtraDataRemoved(uint256 indexed postId, bytes32 indexed key);
 
-    event Lens_Feed_MetadataURISet(string metadataURI);
+    event Sense_Feed_MetadataURISet(string metadataURI);
 
     function initialize(string memory metadataURI, IAccessControl accessControl) external;
 

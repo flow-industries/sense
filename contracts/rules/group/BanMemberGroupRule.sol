@@ -15,24 +15,24 @@ contract BanMemberGroupRule is OwnableMetadataBasedRule, Initializable, IGroupRu
     using AccessControlLib for IAccessControl;
     using AccessControlLib for address;
 
-    event Lens_BanMemberGroupRule_MemberBanned(address indexed group, address indexed bannedAccount, address bannedBy);
-    event Lens_BanMemberGroupRule_MemberUnbanned(
+    event Sense_BanMemberGroupRule_MemberBanned(address indexed group, address indexed bannedAccount, address bannedBy);
+    event Sense_BanMemberGroupRule_MemberUnbanned(
         address indexed group, address indexed unbannedAccount, address unbannedBy
     );
 
-    /// @custom:keccak lens.permission.BanMember
-    uint256 public constant PID__BAN_MEMBER = uint256(0x9d308cac09fdd9a84cb1807d1735d96bcdf3e6b148cee46755a39c858ee0157f);
-    /// @custom:keccak lens.permission.UnbanMember
+    /// @custom:keccak sense.permission.BanMember
+    uint256 public constant PID__BAN_MEMBER = uint256(0xaf31e8d9940e5b03249813e4baab1f01daa7078bc9f5c4f3d531037c68a0b6eb);
+    /// @custom:keccak sense.permission.UnbanMember
     uint256 public constant PID__UNBAN_MEMBER =
-        uint256(0x22ca63d52e89aec5edc4f87f1dec7197ab8f39c6eb711100459646e6634f5b3b);
+        uint256(0x129dec3080b4ca4095f9e190fc4d29e2495dbcf7fda2914a3f69f9ad38c03b73);
 
-    /// @custom:keccak lens.param.accessControl
-    bytes32 public constant PARAM__ACCESS_CONTROL = 0xcf3b0fab90208e4185bf857e0f943f6672abffb7d0898e0750beeeb991ae35fa;
-    /// @custom:keccak lens.param.banMember
-    bytes32 public constant PARAM__BAN_MEMBER = 0xc18b1794d154829be8985d985e210a3ff29be11c97069d5a0558da13bdbf2277;
+    /// @custom:keccak sense.param.accessControl
+    bytes32 public constant PARAM__ACCESS_CONTROL = 0x60bed11e4162e3e9bcfb8044458f295705a04aa845c92624582efb6c988f9b9e;
+    /// @custom:keccak sense.param.banMember
+    bytes32 public constant PARAM__BAN_MEMBER = 0xac71932fb703ea33d908cf1ccd9dd167238d47b02e7673055d55a65d09ea8a24;
 
-    /// @custom:keccak lens.storage.BanMemberGroupRule
-    bytes32 constant STORAGE__BAN_MEMBER_GROUP_RULE = 0xfc8259e2136310e755e652fc047e16f4f64316c44ed3d7415b132e658362671a;
+    /// @custom:keccak sense.storage.BanMemberGroupRule
+    bytes32 constant STORAGE__BAN_MEMBER_GROUP_RULE = 0x24b18f6aac227a2338ac5585b6c852dc187a0734b1c689e78e3b4e1dc2a750de;
 
     struct Storage {
         mapping(address group => address accessControl) groupAccessControl;
@@ -50,8 +50,8 @@ contract BanMemberGroupRule is OwnableMetadataBasedRule, Initializable, IGroupRu
     }
 
     function initialize(address owner, string memory metadataURI) external initializer {
-        emit Events.Lens_PermissionId_Available(PID__BAN_MEMBER, "lens.permission.BanMember");
-        emit Events.Lens_PermissionId_Available(PID__UNBAN_MEMBER, "lens.permission.UnbanMember");
+        emit Events.Sense_PermissionId_Available(PID__BAN_MEMBER, "sense.permission.BanMember");
+        emit Events.Sense_PermissionId_Available(PID__UNBAN_MEMBER, "sense.permission.UnbanMember");
         OwnableMetadataBasedRule._initialize(owner, metadataURI);
     }
 
@@ -158,12 +158,12 @@ contract BanMemberGroupRule is OwnableMetadataBasedRule, Initializable, IGroupRu
 
     function _unban(address group, address account, address unbannedBy) internal {
         $storage().isMemberBanned[group][account] = false;
-        emit Lens_BanMemberGroupRule_MemberUnbanned(group, account, unbannedBy);
+        emit Sense_BanMemberGroupRule_MemberUnbanned(group, account, unbannedBy);
     }
 
     function _ban(address group, address account, address bannedBy) internal {
         $storage().isMemberBanned[group][account] = true;
-        emit Lens_BanMemberGroupRule_MemberBanned(group, account, bannedBy);
+        emit Sense_BanMemberGroupRule_MemberBanned(group, account, bannedBy);
     }
 
     function _requireNotBanned(address group, address account) internal view {

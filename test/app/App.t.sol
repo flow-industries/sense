@@ -19,7 +19,7 @@ contract AppTest is Test, BaseDeployments {
 
     function testCanInitializeWithValues() public {
         app = App(
-            lensFactory.deployApp({
+            senseFactory.deployApp({
                 metadataURI: "",
                 sourceStampVerificationEnabled: false,
                 owner: address(this),
@@ -41,7 +41,7 @@ contract AppTest is Test, BaseDeployments {
 
     function testCanInitializeEmpty() public {
         app = App(
-            lensFactory.deployApp({
+            senseFactory.deployApp({
                 metadataURI: "",
                 sourceStampVerificationEnabled: false,
                 owner: address(this),

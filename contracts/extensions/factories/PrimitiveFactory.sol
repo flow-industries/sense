@@ -10,17 +10,17 @@ contract PrimitiveFactory {
     address internal immutable PRIMITIVE_BEACON;
     address internal immutable PROXY_ADMIN_LOCK;
 
-    address internal immutable LENS_FACTORY;
+    address internal immutable SENSE_FACTORY;
 
-    modifier onlyLensFactory() {
-        require(msg.sender == LENS_FACTORY, Errors.AccessDenied());
+    modifier onlySenseFactory() {
+        require(msg.sender == SENSE_FACTORY, Errors.AccessDenied());
         _;
     }
 
-    constructor(address primitiveBeacon, address proxyAdminLock, address lensFactory) {
+    constructor(address primitiveBeacon, address proxyAdminLock, address senseFactory) {
         TEMPORARY_ACCESS_CONTROL = new PermissionlessAccessControl();
         PRIMITIVE_BEACON = primitiveBeacon;
         PROXY_ADMIN_LOCK = proxyAdminLock;
-        LENS_FACTORY = lensFactory;
+        SENSE_FACTORY = senseFactory;
     }
 }

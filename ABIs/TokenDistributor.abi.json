@@ -254,7 +254,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Ownable_OwnershipTransferred",
+    "name": "Sense_Ownable_OwnershipTransferred",
     "inputs": [
       {
         "name": "previousOwner",
@@ -273,7 +273,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_TokenDistributor_DistributionCreated",
+    "name": "Sense_TokenDistributor_DistributionCreated",
     "inputs": [
       {
         "name": "distributionId",
@@ -316,7 +316,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_TokenDistributor_DistributionEnded",
+    "name": "Sense_TokenDistributor_DistributionEnded",
     "inputs": [
       {
         "name": "distributionId",
@@ -335,7 +335,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_TokenDistributor_SignerUpdated",
+    "name": "Sense_TokenDistributor_SignerUpdated",
     "inputs": [
       {
         "name": "oldSigner",
@@ -354,7 +354,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_TokenDistributor_TransferFailed",
+    "name": "Sense_TokenDistributor_TransferFailed",
     "inputs": [
       {
         "name": "distributionId",
@@ -385,7 +385,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_TokenDistributor_TransferSucceeded",
+    "name": "Sense_TokenDistributor_TransferSucceeded",
     "inputs": [
       {
         "name": "distributionId",

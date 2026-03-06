@@ -6,7 +6,7 @@ import {SourceStamp} from "contracts/core/types/Types.sol";
 import {Errors} from "contracts/core/types/Errors.sol";
 
 abstract contract BaseSource is ISource {
-    event Lens_Source_NonceUsed(uint256 nonce);
+    event Sense_Source_NonceUsed(uint256 nonce);
 
     bytes2 internal immutable EIP191_VERSION_BYTE_0X01_HEADER = 0x1901;
     string constant EIP712_DOMAIN_VERSION = "1";
@@ -21,8 +21,8 @@ abstract contract BaseSource is ISource {
         mapping(uint256 => bool) wasSourceStampNonceUsed;
     }
 
-    /// @custom:keccak lens.storage.BaseSource
-    bytes32 constant STORAGE__BASE_SOURCE = 0xfd9714e424fa7160703dd063d878378eed95e0eeb9e0b16afb8b33322bd268de;
+    /// @custom:keccak sense.storage.BaseSource
+    bytes32 constant STORAGE__BASE_SOURCE = 0x2a8d4d221fd87699f5377e989d89428d194af9bd855ef3936d431dedbf972683;
 
     function $baseSourceStorage() private pure returns (BaseSourceStorage storage _storage) {
         assembly {
@@ -38,7 +38,7 @@ abstract contract BaseSource is ISource {
         require($baseSourceStorage().wasSourceStampNonceUsed[nonce] == false, Errors.RedundantStateChange());
         require(_isValidSourceStampSigner(msg.sender), Errors.InvalidMsgSender());
         $baseSourceStorage().wasSourceStampNonceUsed[nonce] = true;
-        emit Lens_Source_NonceUsed(nonce);
+        emit Sense_Source_NonceUsed(nonce);
     }
 
     function _validateSource(SourceStamp calldata sourceStamp) internal virtual {
@@ -59,7 +59,7 @@ abstract contract BaseSource is ISource {
         }
         address signer = ecrecover(digest, v, r, s);
         require(_isValidSourceStampSigner(signer), Errors.WrongSigner());
-        emit Lens_Source_NonceUsed(sourceStamp.nonce);
+        emit Sense_Source_NonceUsed(sourceStamp.nonce);
     }
 
     function _isValidSourceStampSigner(address signer) internal virtual returns (bool);
@@ -87,7 +87,7 @@ abstract contract BaseSource is ISource {
         return keccak256(
             abi.encode(
                 EIP712_DOMAIN_TYPEHASH,
-                keccak256("Lens Source"),
+                keccak256("Sense Source"),
                 EIP712_DOMAIN_VERSION_HASH,
                 block.chainid,
                 address(this)

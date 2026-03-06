@@ -17,8 +17,8 @@ abstract contract RuleBasedGroup is IGroup, RuleBasedPrimitive {
         RulesStorage groupRulesStorage;
     }
 
-    /// @custom:keccak lens.storage.RuleBasedGroup
-    bytes32 constant STORAGE__RULE_BASED_GROUP = 0x99daa1bc32e51d43348d6cfb165a280fbe2c093a37fe63320452612b9fb73547;
+    /// @custom:keccak sense.storage.RuleBasedGroup
+    bytes32 constant STORAGE__RULE_BASED_GROUP = 0x52dca7a6c2dea981b2ff0c26641be872c799c22454a228ab8527699a5bae5d35;
 
     function $ruleBasedStorage() private pure returns (RuleBasedStorage storage _storage) {
         assembly {
@@ -74,9 +74,9 @@ abstract contract RuleBasedGroup is IGroup, RuleBasedPrimitive {
         KeyValue[] memory ruleParams
     ) internal override {
         if (wasAlreadyConfigured) {
-            emit IGroup.Lens_Group_RuleReconfigured(ruleAddress, configSalt, ruleParams);
+            emit IGroup.Sense_Group_RuleReconfigured(ruleAddress, configSalt, ruleParams);
         } else {
-            emit IGroup.Lens_Group_RuleConfigured(ruleAddress, configSalt, ruleParams);
+            emit IGroup.Sense_Group_RuleConfigured(ruleAddress, configSalt, ruleParams);
         }
     }
 
@@ -88,9 +88,9 @@ abstract contract RuleBasedGroup is IGroup, RuleBasedPrimitive {
         bytes4 ruleSelector
     ) internal override {
         if (enabled) {
-            emit Lens_Group_RuleSelectorEnabled(ruleAddress, configSalt, isRequired, ruleSelector);
+            emit Sense_Group_RuleSelectorEnabled(ruleAddress, configSalt, isRequired, ruleSelector);
         } else {
-            emit Lens_Group_RuleSelectorDisabled(ruleAddress, configSalt, isRequired, ruleSelector);
+            emit Sense_Group_RuleSelectorDisabled(ruleAddress, configSalt, isRequired, ruleSelector);
         }
     }
 

@@ -14,21 +14,21 @@ import {KeyValue} from "contracts/core/types/Types.sol";
 contract TokenDistributor is Ownable, Initializable {
     using SafeERC20 for IERC20;
 
-    event Lens_TokenDistributor_SignerUpdated(address indexed oldSigner, address indexed newSigner);
+    event Sense_TokenDistributor_SignerUpdated(address indexed oldSigner, address indexed newSigner);
 
-    event Lens_TokenDistributor_TransferSucceeded(
+    event Sense_TokenDistributor_TransferSucceeded(
         uint256 indexed distributionId, bytes32 indexed batchId, address indexed recipient, uint256 amount
     );
 
-    event Lens_TokenDistributor_TransferFailed(
+    event Sense_TokenDistributor_TransferFailed(
         uint256 indexed distributionId, bytes32 indexed batchId, address indexed recipient, uint256 amount
     );
 
-    event Lens_TokenDistributor_DistributionCreated(
+    event Sense_TokenDistributor_DistributionCreated(
         uint256 indexed distributionId, address indexed token, uint256 amount, KeyValue[] params
     );
 
-    event Lens_TokenDistributor_DistributionEnded(uint256 indexed distributionId, uint256 withdrawnAmount);
+    event Sense_TokenDistributor_DistributionEnded(uint256 indexed distributionId, uint256 withdrawnAmount);
 
     struct Distribution {
         address token;
@@ -52,8 +52,8 @@ contract TokenDistributor is Ownable, Initializable {
         "DistributeTokens(uint256 distributionId,bytes32 batchId,TokenTransfer[] transfers,uint256 deadline)TokenTransfer(address recipient,uint256 amount)"
     );
 
-    /// @custom:keccak lens.storage.TokenDistributor
-    bytes32 constant STORAGE__TOKEN_DISTRIBUTOR = 0xdd92edd48247ec39dc282ea36076573b8a79476fbc92e4fa49507c701d8fcdd7;
+    /// @custom:keccak sense.storage.TokenDistributor
+    bytes32 constant STORAGE__TOKEN_DISTRIBUTOR = 0x46a0c1531d2db7be9cc966a2756b74d7e8f00980a101626483de4fe312f91302;
 
     function $storage() internal pure returns (TokenDistributorStorage storage _storage) {
         assembly {
@@ -73,7 +73,7 @@ contract TokenDistributor is Ownable, Initializable {
     function updateSigner(address newSigner) external onlyOwner {
         address oldSigner = $storage().signer;
         $storage().signer = newSigner;
-        emit Lens_TokenDistributor_SignerUpdated(oldSigner, newSigner);
+        emit Sense_TokenDistributor_SignerUpdated(oldSigner, newSigner);
     }
 
     function createDistribution(address token, uint256 amount, KeyValue[] calldata params)
@@ -88,7 +88,7 @@ contract TokenDistributor is Ownable, Initializable {
         $storage().distributions[distributionId] =
             Distribution({token: token, initialAmount: amount, remainingAmount: amount});
         // So far, KeyValue params are only bypassed to the event for indexers to use.
-        emit Lens_TokenDistributor_DistributionCreated(distributionId, token, amount, params);
+        emit Sense_TokenDistributor_DistributionCreated(distributionId, token, amount, params);
         return distributionId;
     }
 
@@ -97,7 +97,7 @@ contract TokenDistributor is Ownable, Initializable {
         require(amountToWithdraw > 0, Errors.RedundantStateChange());
         $storage().distributions[distributionId].remainingAmount = 0;
         _distributeTokensTo($storage().distributions[distributionId].token, msg.sender, amountToWithdraw);
-        emit Lens_TokenDistributor_DistributionEnded(distributionId, amountToWithdraw);
+        emit Sense_TokenDistributor_DistributionEnded(distributionId, amountToWithdraw);
     }
 
     function distributeTokens(
@@ -119,11 +119,11 @@ contract TokenDistributor is Ownable, Initializable {
         for (uint256 i = 0; i < transfers.length; i++) {
             if (_tryDistributeTokensTo(token, transfers[i].recipient, transfers[i].amount)) {
                 distributedAmount += transfers[i].amount;
-                emit Lens_TokenDistributor_TransferSucceeded(
+                emit Sense_TokenDistributor_TransferSucceeded(
                     distributionId, batchId, transfers[i].recipient, transfers[i].amount
                 );
             } else {
-                emit Lens_TokenDistributor_TransferFailed(
+                emit Sense_TokenDistributor_TransferFailed(
                     distributionId, batchId, transfers[i].recipient, transfers[i].amount
                 );
             }
@@ -133,7 +133,7 @@ contract TokenDistributor is Ownable, Initializable {
             $storage().distributions[distributionId].remainingAmount += amountToDistribute - distributedAmount;
         } else if ($storage().distributions[distributionId].remainingAmount == 0) {
             // Distribution ended naturally by distributing all the initially allocated tokens.
-            emit Lens_TokenDistributor_DistributionEnded(distributionId, 0);
+            emit Sense_TokenDistributor_DistributionEnded(distributionId, 0);
         }
     }
 

@@ -6,7 +6,7 @@ import {MetadataBased} from "contracts/core/base/MetadataBased.sol";
 import {BasePostAction} from "contracts/actions/post/base/BasePostAction.sol";
 
 abstract contract OwnableMetadataBasedPostAction is BasePostAction, Ownable, MetadataBased {
-    event Lens_PostAction_MetadataURISet(string metadataURI);
+    event Sense_PostAction_MetadataURISet(string metadataURI);
 
     constructor(address actionHub, address owner, string memory metadataURI) BasePostAction(actionHub) {
         _transferOwnership(owner);
@@ -19,7 +19,7 @@ abstract contract OwnableMetadataBasedPostAction is BasePostAction, Ownable, Met
     }
 
     function _emitMetadataURISet(string memory metadataURI, address /* source */ ) internal virtual override {
-        emit Lens_PostAction_MetadataURISet(metadataURI);
+        emit Sense_PostAction_MetadataURISet(metadataURI);
     }
 
     function _beforeMetadataURIUpdate(string memory /* metadataURI */ ) internal virtual override onlyOwner {

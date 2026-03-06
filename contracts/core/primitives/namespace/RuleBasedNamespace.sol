@@ -17,8 +17,8 @@ abstract contract RuleBasedNamespace is INamespace, RuleBasedPrimitive {
         RulesStorage namespaceRulesStorage;
     }
 
-    /// @custom:keccak lens.storage.RuleBasedNamespace
-    bytes32 constant STORAGE__RULE_BASED_NAMESPACE = 0x2b39616f97e9eef16558dd56193aaab38d2eb87d6444b98781a13eea228ddaae;
+    /// @custom:keccak sense.storage.RuleBasedNamespace
+    bytes32 constant STORAGE__RULE_BASED_NAMESPACE = 0xb55458af48669d8d352c0df831f74ed81495d27d613a88118d064dc3ec772927;
 
     function $ruleBasedStorage() private pure returns (RuleBasedStorage storage _storage) {
         assembly {
@@ -74,9 +74,9 @@ abstract contract RuleBasedNamespace is INamespace, RuleBasedPrimitive {
         KeyValue[] memory ruleParams
     ) internal override {
         if (wasAlreadyConfigured) {
-            emit INamespace.Lens_Namespace_RuleReconfigured(ruleAddress, configSalt, ruleParams);
+            emit INamespace.Sense_Namespace_RuleReconfigured(ruleAddress, configSalt, ruleParams);
         } else {
-            emit INamespace.Lens_Namespace_RuleConfigured(ruleAddress, configSalt, ruleParams);
+            emit INamespace.Sense_Namespace_RuleConfigured(ruleAddress, configSalt, ruleParams);
         }
     }
 
@@ -88,9 +88,9 @@ abstract contract RuleBasedNamespace is INamespace, RuleBasedPrimitive {
         bytes4 ruleSelector
     ) internal override {
         if (enabled) {
-            emit Lens_Namespace_RuleSelectorEnabled(ruleAddress, configSalt, isRequired, ruleSelector);
+            emit Sense_Namespace_RuleSelectorEnabled(ruleAddress, configSalt, isRequired, ruleSelector);
         } else {
-            emit Lens_Namespace_RuleSelectorDisabled(ruleAddress, configSalt, isRequired, ruleSelector);
+            emit Sense_Namespace_RuleSelectorDisabled(ruleAddress, configSalt, isRequired, ruleSelector);
         }
     }
 

@@ -5,7 +5,7 @@ import {IVersionedBeacon} from "contracts/core/interfaces/IVersionedBeacon.sol";
 import {Errors} from "contracts/core/types/Errors.sol";
 
 /**
- * BeaconProxy implementation used by Lens canonical Namespace, Feed, and Graph, before changes to BeaconProxy were made.
+ * BeaconProxy implementation used by Sense canonical Namespace, Feed, and Graph, before changes to BeaconProxy were made.
  */
 contract BeaconProxy {
     event Upgraded(address indexed implementation);

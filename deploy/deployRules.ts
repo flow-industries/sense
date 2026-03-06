@@ -4,9 +4,9 @@ import { ContractRunner, ethers, Wallet } from 'ethers';
 import {
   ContractType,
   ContractInfo,
-  deployLensContractAsProxy,
+  deploySenseContractAsProxy,
   deployImplAndUpgradeTransparentProxy,
-} from './lensUtils';
+} from './senseUtils';
 
 const contracts: ContractInfo[] = [
   // {
@@ -122,7 +122,7 @@ export async function deployRules(rulesOwner: string): Promise<void> {
   ]);
 
   for (const contract of contracts) {
-    await deployLensContractAsProxy(contract, rulesOwner, initializeEncodedCall);
+    await deploySenseContractAsProxy(contract, rulesOwner, initializeEncodedCall);
   }
 }
 

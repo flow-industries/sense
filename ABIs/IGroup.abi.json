@@ -582,7 +582,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Group_ExtraDataAdded",
+    "name": "Sense_Group_ExtraDataAdded",
     "inputs": [
       {
         "name": "key",
@@ -607,7 +607,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Group_ExtraDataRemoved",
+    "name": "Sense_Group_ExtraDataRemoved",
     "inputs": [
       {
         "name": "key",
@@ -620,7 +620,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Group_ExtraDataUpdated",
+    "name": "Sense_Group_ExtraDataUpdated",
     "inputs": [
       {
         "name": "key",
@@ -645,7 +645,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Group_MemberAdded",
+    "name": "Sense_Group_MemberAdded",
     "inputs": [
       {
         "name": "account",
@@ -723,7 +723,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Group_MemberJoined",
+    "name": "Sense_Group_MemberJoined",
     "inputs": [
       {
         "name": "account",
@@ -801,7 +801,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Group_MemberLeft",
+    "name": "Sense_Group_MemberLeft",
     "inputs": [
       {
         "name": "account",
@@ -879,7 +879,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Group_MemberRemoved",
+    "name": "Sense_Group_MemberRemoved",
     "inputs": [
       {
         "name": "account",
@@ -957,7 +957,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Group_MetadataURISet",
+    "name": "Sense_Group_MetadataURISet",
     "inputs": [
       {
         "name": "metadataURI",
@@ -970,7 +970,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Group_RuleConfigured",
+    "name": "Sense_Group_RuleConfigured",
     "inputs": [
       {
         "name": "rule",
@@ -1007,7 +1007,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Group_RuleReconfigured",
+    "name": "Sense_Group_RuleReconfigured",
     "inputs": [
       {
         "name": "rule",
@@ -1044,7 +1044,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Group_RuleSelectorDisabled",
+    "name": "Sense_Group_RuleSelectorDisabled",
     "inputs": [
       {
         "name": "rule",
@@ -1075,7 +1075,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Group_RuleSelectorEnabled",
+    "name": "Sense_Group_RuleSelectorEnabled",
     "inputs": [
       {
         "name": "rule",

@@ -15,16 +15,16 @@ contract GroupGatedGraphRule is OwnableMetadataBasedRule, Initializable, IGraphR
     using AccessControlLib for IAccessControl;
     using AccessControlLib for address;
 
-    /// @custom:keccak lens.permission.SkipGate
-    uint256 constant PID__SKIP_GATE = uint256(0xeb7f30e4c97d5211e2534aa42375c26931bd55b57a8101e5eb7918daead714eb);
+    /// @custom:keccak sense.permission.SkipGate
+    uint256 constant PID__SKIP_GATE = uint256(0x9c121722c489db51d51806a75ad147e0ea1b081f6236c9d68afaa6100116d370);
 
-    /// @custom:keccak lens.param.accessControl
-    bytes32 constant PARAM__ACCESS_CONTROL = 0xcf3b0fab90208e4185bf857e0f943f6672abffb7d0898e0750beeeb991ae35fa;
-    /// @custom:keccak lens.param.group
-    bytes32 constant PARAM__GROUP = 0xa92ea569d1a9f915f96759ba7cea5f135d011c442b0508dbef76a309e55f4458;
+    /// @custom:keccak sense.param.accessControl
+    bytes32 constant PARAM__ACCESS_CONTROL = 0x60bed11e4162e3e9bcfb8044458f295705a04aa845c92624582efb6c988f9b9e;
+    /// @custom:keccak sense.param.group
+    bytes32 constant PARAM__GROUP = 0xdb0318b58d3d4af6266a695d509c507a8b3e5368108e3767b31e56520226e1aa;
 
-    /// @custom:keccak lens.storage.GroupGatedGraphRule
-    bytes32 constant STORAGE__GROUP_GATED_GRAPH_RULE = 0x0cd40a3a3781a5f1ef9fef9277b4fdc1082fe349c1d9788798b746bdd9228091;
+    /// @custom:keccak sense.storage.GroupGatedGraphRule
+    bytes32 constant STORAGE__GROUP_GATED_GRAPH_RULE = 0x6ba2537dd7faa397a70a98c1b427f1ac28278c3acd3e9fb2162b49da2afac187;
 
     struct Configuration {
         address accessControl;
@@ -46,7 +46,7 @@ contract GroupGatedGraphRule is OwnableMetadataBasedRule, Initializable, IGraphR
     }
 
     function initialize(address owner, string memory metadataURI) external initializer {
-        emit Events.Lens_PermissionId_Available(PID__SKIP_GATE, "lens.permission.SkipGate");
+        emit Events.Sense_PermissionId_Available(PID__SKIP_GATE, "sense.permission.SkipGate");
         OwnableMetadataBasedRule._initialize(owner, metadataURI);
     }
 

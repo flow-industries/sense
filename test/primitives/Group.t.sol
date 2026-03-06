@@ -26,7 +26,7 @@ contract GroupTest is RulesTest, BaseDeployments, RuleExecutionTest {
     MockAccessControl mockAccessControl;
     address groupForRules;
 
-    event Lens_Group_MemberAdded(
+    event Sense_Group_MemberAdded(
         address indexed account,
         uint256 indexed membershipId,
         KeyValue[] customParams,
@@ -34,7 +34,7 @@ contract GroupTest is RulesTest, BaseDeployments, RuleExecutionTest {
         address indexed source
     );
 
-    event Lens_Group_MemberRemoved(
+    event Sense_Group_MemberRemoved(
         address indexed account,
         uint256 indexed membershipId,
         KeyValue[] customParams,
@@ -42,7 +42,7 @@ contract GroupTest is RulesTest, BaseDeployments, RuleExecutionTest {
         address indexed source
     );
 
-    event Lens_Group_MemberJoined(
+    event Sense_Group_MemberJoined(
         address indexed account,
         uint256 indexed membershipId,
         KeyValue[] customParams,
@@ -50,7 +50,7 @@ contract GroupTest is RulesTest, BaseDeployments, RuleExecutionTest {
         address indexed source
     );
 
-    event Lens_Group_MemberLeft(
+    event Sense_Group_MemberLeft(
         address indexed account,
         uint256 indexed membershipId,
         KeyValue[] customParams,
@@ -62,7 +62,7 @@ contract GroupTest is RulesTest, BaseDeployments, RuleExecutionTest {
         BaseDeployments.setUp();
 
         group = IGroup(
-            lensFactory.deployGroup({
+            senseFactory.deployGroup({
                 metadataURI: "some metadata uri",
                 owner: groupOwner,
                 admins: _emptyAddressArray(),
@@ -73,7 +73,7 @@ contract GroupTest is RulesTest, BaseDeployments, RuleExecutionTest {
         );
 
         factoryDeployedGroup = IGroup(
-            lensFactory.deployGroup({
+            senseFactory.deployGroup({
                 metadataURI: "some metadata uri",
                 owner: groupOwner,
                 admins: _emptyAddressArray(),
@@ -85,7 +85,7 @@ contract GroupTest is RulesTest, BaseDeployments, RuleExecutionTest {
 
         mockAccessControl = new MockAccessControl();
 
-        vm.prank(address(lensFactory));
+        vm.prank(address(senseFactory));
         groupForRules = groupFactory.deployGroup({
             metadataURI: "uri://group",
             accessControl: mockAccessControl,
@@ -236,7 +236,7 @@ contract GroupTest is RulesTest, BaseDeployments, RuleExecutionTest {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    function test_AddMember_LensFactoryConfiguration_MsgSenderIsOwner(address newMember) public {
+    function test_AddMember_SenseFactoryConfiguration_MsgSenderIsOwner(address newMember) public {
         vm.assume(newMember != address(0));
         assumeNotForgeAddress(newMember);
 
@@ -256,7 +256,7 @@ contract GroupTest is RulesTest, BaseDeployments, RuleExecutionTest {
         );
 
         vm.expectEmit(true, true, true, true);
-        emit Lens_Group_MemberAdded(
+        emit Sense_Group_MemberAdded(
             newMember, expectedMembershipId, _emptyKeyValueArray(), _emptyRuleProcessingParamsArray(), address(0)
         );
 
@@ -270,7 +270,7 @@ contract GroupTest is RulesTest, BaseDeployments, RuleExecutionTest {
         assertTrue(group.isMember(newMember));
     }
 
-    function test_AddMember_LensFactoryConfiguration_MsgSenderWithoutAddMemberPID(address msgSender, address newMember)
+    function test_AddMember_SenseFactoryConfiguration_MsgSenderWithoutAddMemberPID(address msgSender, address newMember)
         public
     {
         vm.assume(newMember != address(0));
@@ -332,7 +332,7 @@ contract GroupTest is RulesTest, BaseDeployments, RuleExecutionTest {
         );
 
         vm.expectEmit(true, true, true, true);
-        emit Lens_Group_MemberAdded(
+        emit Sense_Group_MemberAdded(
             newMember, expectedMembershipId, _emptyKeyValueArray(), _emptyRuleProcessingParamsArray(), address(0)
         );
 
@@ -369,14 +369,14 @@ contract GroupTest is RulesTest, BaseDeployments, RuleExecutionTest {
         vm.assume(group.isMember(memberToRemove) == false);
     }
 
-    function test_RemoveMember_LensFactoryConfiguration_MsgSenderIsOwner(address memberToRemove) public {
+    function test_RemoveMember_SenseFactoryConfiguration_MsgSenderIsOwner(address memberToRemove) public {
         vm.assume(memberToRemove != address(0));
 
         _forceMemberIntoGroup(memberToRemove);
         uint256 expectedMembershipId = group.getMembershipId(memberToRemove);
 
         vm.expectEmit(true, true, true, true);
-        emit Lens_Group_MemberRemoved(
+        emit Sense_Group_MemberRemoved(
             memberToRemove, expectedMembershipId, _emptyKeyValueArray(), _emptyRuleProcessingParamsArray(), address(0)
         );
 
@@ -397,7 +397,7 @@ contract GroupTest is RulesTest, BaseDeployments, RuleExecutionTest {
         uint256 expectedMembershipId = group.getNumberOfMembers() + 1;
 
         vm.expectEmit(true, true, true, true);
-        emit Lens_Group_MemberJoined(
+        emit Sense_Group_MemberJoined(
             newMember, expectedMembershipId, _emptyKeyValueArray(), _emptyRuleProcessingParamsArray(), address(0)
         );
 
@@ -419,7 +419,7 @@ contract GroupTest is RulesTest, BaseDeployments, RuleExecutionTest {
         uint256 expectedMembershipId = group.getMembershipId(memberToLeave);
 
         vm.expectEmit(true, true, true, true);
-        emit Lens_Group_MemberLeft(
+        emit Sense_Group_MemberLeft(
             memberToLeave, expectedMembershipId, _emptyKeyValueArray(), _emptyRuleProcessingParamsArray(), address(0)
         );
 
@@ -442,7 +442,7 @@ contract GroupTest2 is RulesTest, BaseDeployments, RuleExecutionTest {
     MockAccessControl mockAccessControl;
     address groupForRules;
 
-    event Lens_Group_MemberAdded(
+    event Sense_Group_MemberAdded(
         address indexed account,
         uint256 indexed membershipId,
         KeyValue[] customParams,
@@ -450,7 +450,7 @@ contract GroupTest2 is RulesTest, BaseDeployments, RuleExecutionTest {
         address indexed source
     );
 
-    event Lens_Group_MemberRemoved(
+    event Sense_Group_MemberRemoved(
         address indexed account,
         uint256 indexed membershipId,
         KeyValue[] customParams,
@@ -458,7 +458,7 @@ contract GroupTest2 is RulesTest, BaseDeployments, RuleExecutionTest {
         address indexed source
     );
 
-    event Lens_Group_MemberJoined(
+    event Sense_Group_MemberJoined(
         address indexed account,
         uint256 indexed membershipId,
         KeyValue[] customParams,
@@ -466,7 +466,7 @@ contract GroupTest2 is RulesTest, BaseDeployments, RuleExecutionTest {
         address indexed source
     );
 
-    event Lens_Group_MemberLeft(
+    event Sense_Group_MemberLeft(
         address indexed account,
         uint256 indexed membershipId,
         KeyValue[] customParams,
@@ -478,7 +478,7 @@ contract GroupTest2 is RulesTest, BaseDeployments, RuleExecutionTest {
         BaseDeployments.setUp();
 
         group = IGroup(
-            lensFactory.deployGroup({
+            senseFactory.deployGroup({
                 metadataURI: "some metadata uri",
                 owner: groupOwner,
                 admins: _emptyAddressArray(),
@@ -489,7 +489,7 @@ contract GroupTest2 is RulesTest, BaseDeployments, RuleExecutionTest {
         );
 
         factoryDeployedGroup = IGroup(
-            lensFactory.deployGroup({
+            senseFactory.deployGroup({
                 metadataURI: "some metadata uri",
                 owner: groupOwner,
                 admins: _emptyAddressArray(),
@@ -501,7 +501,7 @@ contract GroupTest2 is RulesTest, BaseDeployments, RuleExecutionTest {
 
         mockAccessControl = new MockAccessControl();
 
-        vm.prank(address(lensFactory));
+        vm.prank(address(senseFactory));
         groupForRules = groupFactory.deployGroup({
             metadataURI: "uri://group",
             accessControl: mockAccessControl,
@@ -906,7 +906,7 @@ contract GroupTest2 is RulesTest, BaseDeployments, RuleExecutionTest {
         string memory newMetadataURI = "uri://new-metadata-uri";
         assertNotEq(IMetadataBased(address(group)).getMetadataURI(), newMetadataURI);
         mockAccessControl.mockAccess(
-            addressWithPID, address(group), uint256(keccak256("lens.permission.SetMetadata")), true
+            addressWithPID, address(group), uint256(keccak256("sense.permission.SetMetadata")), true
         );
         vm.prank(addressWithPID);
         IMetadataBased(address(group)).setMetadataURI(newMetadataURI);
@@ -918,7 +918,7 @@ contract GroupTest2 is RulesTest, BaseDeployments, RuleExecutionTest {
         string memory newMetadataURI = "uri://new-metadata-uri";
         assertNotEq(oldMetadataURI, newMetadataURI);
         mockAccessControl.mockAccess(
-            addressWithoutPID, address(group), uint256(keccak256("lens.permission.SetMetadata")), false
+            addressWithoutPID, address(group), uint256(keccak256("sense.permission.SetMetadata")), false
         );
         vm.prank(addressWithoutPID);
         vm.expectRevert(Errors.AccessDenied.selector);

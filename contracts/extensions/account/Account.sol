@@ -120,11 +120,11 @@ contract Account is
         mapping(address manager => mapping(uint256 key => mapping(address currency => uint256 allowance))) allowance;
     }
 
-    /// @custom:keccak lens.storage.Account
-    bytes32 constant STORAGE__ACCOUNT = 0xf08a5e3d2dd76739ff9f91dc2ff8af2860b120d00f7938b9baa4607e3fee9019;
+    /// @custom:keccak sense.storage.Account
+    bytes32 constant STORAGE__ACCOUNT = 0xb7992e58727cf3217d45bd957bfac7489258318098043c975e733b0f5943b2ed;
 
-    /// @custom:keccak lens.param.graph
-    bytes32 constant PARAM__GRAPH = 0x7d50408405f482949cd317ab452b66f1104c85a1708ae5be893385b1c898c6d9;
+    /// @custom:keccak sense.param.graph
+    bytes32 constant PARAM__GRAPH = 0x8575ce699158cf9c5056247d9d6a1a15a40d5cf266e79cdb75157cc07c83f5a3;
 
     address immutable GHO;
     address immutable WGHO;
@@ -170,23 +170,23 @@ contract Account is
         } else {
             _setMetadataURI(metadataURI);
         }
-        emit Events.Lens_Contract_Deployed({contractType: "lens.contract.Account", flavour: "lens.contract.Account"});
+        emit Events.Sense_Contract_Deployed({contractType: "sense.contract.Account", flavour: "sense.contract.Account"});
     }
 
     function _emitMetadataURISet(string memory metadataURI, address source) internal override {
-        emit Lens_Account_MetadataURISet(metadataURI, source);
+        emit Sense_Account_MetadataURISet(metadataURI, source);
     }
 
     function _emitExtraDataAddedEvent(KeyValue calldata extraDataAdded) internal override {
-        emit Lens_Account_ExtraDataAdded(extraDataAdded.key, extraDataAdded.value, extraDataAdded.value);
+        emit Sense_Account_ExtraDataAdded(extraDataAdded.key, extraDataAdded.value, extraDataAdded.value);
     }
 
     function _emitExtraDataUpdatedEvent(KeyValue calldata extraDataUpdated) internal override {
-        emit Lens_Account_ExtraDataUpdated(extraDataUpdated.key, extraDataUpdated.value, extraDataUpdated.value);
+        emit Sense_Account_ExtraDataUpdated(extraDataUpdated.key, extraDataUpdated.value, extraDataUpdated.value);
     }
 
     function _emitExtraDataRemovedEvent(KeyValue calldata extraDataRemoved) internal override {
-        emit Lens_Account_ExtraDataRemoved(extraDataRemoved.key);
+        emit Sense_Account_ExtraDataRemoved(extraDataRemoved.key);
     }
 
     function setMetadataURI(string calldata metadataURI, SourceStamp calldata sourceStamp) external override {
@@ -335,7 +335,7 @@ contract Account is
             _clearAllAllowances(accountManager);
         }
         $storage().managerStorage[accountManager].updatePermissionsTo(accountManagerPermissions);
-        emit Lens_Account_AccountManagerUpdated(accountManager, accountManagerPermissions);
+        emit Sense_Account_AccountManagerUpdated(accountManager, accountManagerPermissions);
     }
 
     function changeAllowance(AllowanceChange[] calldata allowanceChanges) external override onlyOwner {
@@ -375,13 +375,13 @@ contract Account is
 
     function _clearAllAllowances(address manager) internal {
         $storage().managerStorage[manager].allowanceKey++;
-        emit Lens_Account_AllAllowancesCleared(manager);
+        emit Sense_Account_AllAllowancesCleared(manager);
     }
 
     function _increaseAllowance(address spender, address currency, uint256 byAmount) internal returns (uint256) {
         uint256 allowanceKey = $storage().managerStorage[spender].allowanceKey;
         uint256 newAllowance = $storage().allowance[spender][allowanceKey][currency] += byAmount;
-        emit Lens_Account_AllowanceIncreased(spender, currency, newAllowance);
+        emit Sense_Account_AllowanceIncreased(spender, currency, newAllowance);
         return newAllowance;
     }
 
@@ -405,7 +405,7 @@ contract Account is
         } else {
             newAllowance = $storage().allowance[spender][allowanceKey][currency] -= byAmount;
         }
-        emit Lens_Account_AllowanceDecreased(spender, currency, newAllowance);
+        emit Sense_Account_AllowanceDecreased(spender, currency, newAllowance);
         return newAllowance;
     }
 
@@ -463,7 +463,7 @@ contract Account is
             _spendAllowance(msg.sender, GHO, msg.value);
         }
         bytes memory returnData = target.handledcall(value, data);
-        emit Lens_Account_TransactionExecuted(target, value, data, msg.sender);
+        emit Sense_Account_TransactionExecuted(target, value, data, msg.sender);
         return returnData;
     }
 
@@ -593,12 +593,12 @@ contract Account is
         require(accountManager != address(0), Errors.InvalidParameter());
         require(accountManager != address(this), Errors.InvalidParameter());
         $storage().managerStorage[accountManager].updatePermissionsTo(permissions);
-        emit Lens_Account_AccountManagerAdded(accountManager, permissions);
+        emit Sense_Account_AccountManagerAdded(accountManager, permissions);
     }
 
     function _removeAccountManager(address accountManager) internal {
         $storage().managerStorage[accountManager].clearPermissions();
-        emit Lens_Account_AccountManagerRemoved(accountManager);
+        emit Sense_Account_AccountManagerRemoved(accountManager);
         _clearAllAllowances(accountManager);
     }
 
@@ -657,7 +657,7 @@ contract Account is
         }
         address oldOwner = owner();
         super._transferOwnership(newOwner);
-        emit Lens_Account_OwnershipTransferred(oldOwner, newOwner);
+        emit Sense_Account_OwnershipTransferred(oldOwner, newOwner);
     }
 
     function supportsInterface(bytes4 interfaceId)

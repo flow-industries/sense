@@ -37,8 +37,8 @@ library AppCore {
         mapping(bytes32 => bytes) extraData;
     }
 
-    /// @custom:keccak lens.storage.AppCore
-    bytes32 constant STORAGE__APP_CORE = 0x00d742ba6838b80a9db3f3500fd0588118c5ae3a7f39bc9da201d6bdb2a0151a;
+    /// @custom:keccak sense.storage.AppCore
+    bytes32 constant STORAGE__APP_CORE = 0xccf5c0359ab919ee483abb342c70dc957ffd1429b28f21b03fc948ea9507d748;
 
     function $storage() internal pure returns (Storage storage _storage) {
         assembly {

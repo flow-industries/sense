@@ -11,35 +11,35 @@ struct Follow {
 }
 
 interface IGraph is IMetadataBased {
-    event Lens_Graph_RuleConfigured(address indexed rule, bytes32 indexed configSalt, KeyValue[] configParams);
+    event Sense_Graph_RuleConfigured(address indexed rule, bytes32 indexed configSalt, KeyValue[] configParams);
 
-    event Lens_Graph_RuleReconfigured(address indexed rule, bytes32 indexed configSalt, KeyValue[] configParams);
+    event Sense_Graph_RuleReconfigured(address indexed rule, bytes32 indexed configSalt, KeyValue[] configParams);
 
-    event Lens_Graph_RuleSelectorEnabled(
+    event Sense_Graph_RuleSelectorEnabled(
         address indexed rule, bytes32 indexed configSalt, bool isRequired, bytes4 ruleSelector
     );
 
-    event Lens_Graph_RuleSelectorDisabled(
+    event Sense_Graph_RuleSelectorDisabled(
         address indexed rule, bytes32 indexed configSalt, bool isRequired, bytes4 ruleSelector
     );
 
-    event Lens_Graph_Follow_RuleConfigured(
+    event Sense_Graph_Follow_RuleConfigured(
         address indexed account, address indexed rule, bytes32 indexed configSalt, KeyValue[] configParams
     );
 
-    event Lens_Graph_Follow_RuleReconfigured(
+    event Sense_Graph_Follow_RuleReconfigured(
         address indexed account, address indexed rule, bytes32 indexed configSalt, KeyValue[] configParams
     );
 
-    event Lens_Graph_Follow_RuleSelectorEnabled(
+    event Sense_Graph_Follow_RuleSelectorEnabled(
         address indexed account, address indexed rule, bytes32 indexed configSalt, bool isRequired, bytes4 ruleSelector
     );
 
-    event Lens_Graph_Follow_RuleSelectorDisabled(
+    event Sense_Graph_Follow_RuleSelectorDisabled(
         address indexed account, address indexed rule, bytes32 indexed configSalt, bool isRequired, bytes4 ruleSelector
     );
 
-    event Lens_Graph_Followed(
+    event Sense_Graph_Followed(
         address indexed followerAccount,
         address indexed accountToFollow,
         uint256 followId,
@@ -50,7 +50,7 @@ interface IGraph is IMetadataBased {
         KeyValue[] extraData
     );
 
-    event Lens_Graph_Unfollowed(
+    event Sense_Graph_Unfollowed(
         address indexed followerAccount,
         address indexed accountToUnfollow,
         uint256 followId,
@@ -59,11 +59,11 @@ interface IGraph is IMetadataBased {
         address indexed source
     );
 
-    event Lens_Graph_ExtraDataAdded(bytes32 indexed key, bytes value, bytes indexed valueIndexed);
-    event Lens_Graph_ExtraDataUpdated(bytes32 indexed key, bytes value, bytes indexed valueIndexed);
-    event Lens_Graph_ExtraDataRemoved(bytes32 indexed key);
+    event Sense_Graph_ExtraDataAdded(bytes32 indexed key, bytes value, bytes indexed valueIndexed);
+    event Sense_Graph_ExtraDataUpdated(bytes32 indexed key, bytes value, bytes indexed valueIndexed);
+    event Sense_Graph_ExtraDataRemoved(bytes32 indexed key);
 
-    event Lens_Graph_MetadataURISet(string metadataURI);
+    event Sense_Graph_MetadataURISet(string metadataURI);
 
     function initialize(string memory metadataURI, IAccessControl accessControl) external;
 

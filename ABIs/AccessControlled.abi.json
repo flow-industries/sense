@@ -27,7 +27,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_AccessControlAdded",
+    "name": "Sense_AccessControlAdded",
     "inputs": [
       {
         "name": "accessControl",
@@ -46,7 +46,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_AccessControlUpdated",
+    "name": "Sense_AccessControlUpdated",
     "inputs": [
       {
         "name": "accessControl",

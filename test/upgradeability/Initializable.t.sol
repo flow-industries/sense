@@ -12,8 +12,8 @@ contract InitializableContract is Initializable {
 }
 
 contract InitializableTest is Test {
-    /// @custom:keccak lens.storage.Initializable
-    bytes32 constant STORAGE__INITIALIZABLE = 0xbd2c04feebbff2d29fe1b04edf9a1d94ba7a836bad797bdd99c9e722e172cdd0;
+    /// @custom:keccak sense.storage.Initializable
+    bytes32 constant STORAGE__INITIALIZABLE = 0x3805ec31188b48de19b24fe807be883cdf9143a448aec45b97c9b6c1ecb14e9d;
 
     bytes32 constant TRUE = bytes32(uint256(1));
     bytes32 constant FALSE = bytes32(uint256(0));

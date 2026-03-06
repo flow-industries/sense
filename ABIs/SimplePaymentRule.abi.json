@@ -90,7 +90,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Ownable_OwnershipTransferred",
+    "name": "Sense_Ownable_OwnershipTransferred",
     "inputs": [
       {
         "name": "previousOwner",
@@ -109,7 +109,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Rule_MetadataURISet",
+    "name": "Sense_Rule_MetadataURISet",
     "inputs": [
       {
         "name": "metadataURI",
@@ -122,7 +122,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Rule_Trusted",
+    "name": "Sense_Rule_Trusted",
     "inputs": [
       {
         "name": "account",
@@ -141,7 +141,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Rule_Untrusted",
+    "name": "Sense_Rule_Untrusted",
     "inputs": [
       {
         "name": "account",

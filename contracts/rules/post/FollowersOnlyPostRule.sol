@@ -11,18 +11,18 @@ import {Errors} from "contracts/core/types/Errors.sol";
 import {Initializable} from "contracts/core/upgradeability/Initializable.sol";
 
 contract FollowersOnlyPostRule is OwnableMetadataBasedRule, Initializable, IPostRule {
-    /// @custom:keccak lens.param.graph
-    bytes32 constant PARAM__GRAPH = 0x7d50408405f482949cd317ab452b66f1104c85a1708ae5be893385b1c898c6d9;
-    /// @custom:keccak lens.param.repliesRestricted
-    bytes32 constant PARAM__REPLIES_RESTRICTED = 0x4ce0155a596c1a9d5bcefb32cdbf357c849ac621a9b91d222b367cf53fe79a6f;
-    /// @custom:keccak lens.param.repostsRestricted
-    bytes32 constant PARAM__REPOSTS_RESTRICTED = 0x4888fd5474d5999daba89bdcba85aa57b7a2ed60bdcccee0a949f2da51050bbd;
-    /// @custom:keccak lens.param.quotesRestricted
-    bytes32 constant PARAM__QUOTES_RESTRICTED = 0x323cbd3bdd5537df3af23e8d4c6c6bb31c9fa33346759abf247f998a32cda0a2;
+    /// @custom:keccak sense.param.graph
+    bytes32 constant PARAM__GRAPH = 0x8575ce699158cf9c5056247d9d6a1a15a40d5cf266e79cdb75157cc07c83f5a3;
+    /// @custom:keccak sense.param.repliesRestricted
+    bytes32 constant PARAM__REPLIES_RESTRICTED = 0x23eac1188784468413bdf97e250704295c67776c2a06aa5476f1bf4c61022456;
+    /// @custom:keccak sense.param.repostsRestricted
+    bytes32 constant PARAM__REPOSTS_RESTRICTED = 0x7a03013eb54c247271463cc6b72fd462bb83563f6e5473563a7893cd3d01e4ab;
+    /// @custom:keccak sense.param.quotesRestricted
+    bytes32 constant PARAM__QUOTES_RESTRICTED = 0x6f899e4dcf7c634d266270d965ce42da1860bad227c45c862ae3e4640da657b0;
 
-    /// @custom:keccak lens.storage.FollowersOnlyPostRule
+    /// @custom:keccak sense.storage.FollowersOnlyPostRule
     bytes32 constant STORAGE__FOLLOWERS_ONLY_POST_RULE =
-        0x72122f9a33a0e5d62090bb94e554ef20898123fa69fd6696be30406d0bbc2d36;
+        0xbf6aa7e0c78e0c7eb1eff7e10c7ab77cf28dfc0a53233a93dc09f905a02f3ea7;
 
     struct Configuration {
         address graph;

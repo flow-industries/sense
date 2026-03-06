@@ -9,10 +9,10 @@ import {ProxyAdmin} from "contracts/core/upgradeability/ProxyAdmin.sol";
 import {PrimitiveFactory} from "contracts/extensions/factories/PrimitiveFactory.sol";
 
 contract GroupFactory is PrimitiveFactory {
-    event Lens_GroupFactory_Deployment(address indexed group, string metadataURI);
+    event Sense_GroupFactory_Deployment(address indexed group, string metadataURI);
 
-    constructor(address primitiveBeacon, address proxyAdminLock, address lensFactory)
-        PrimitiveFactory(primitiveBeacon, proxyAdminLock, lensFactory)
+    constructor(address primitiveBeacon, address proxyAdminLock, address senseFactory)
+        PrimitiveFactory(primitiveBeacon, proxyAdminLock, senseFactory)
     {}
 
     function deployGroup(
@@ -22,14 +22,14 @@ contract GroupFactory is PrimitiveFactory {
         RuleChange[] calldata ruleChanges,
         KeyValue[] calldata extraData,
         address foundingMember
-    ) external onlyLensFactory returns (address) {
+    ) external onlySenseFactory returns (address) {
         address proxyAdmin = address(new ProxyAdmin(proxyAdminOwner, PROXY_ADMIN_LOCK));
         Group group = Group(address(new BeaconProxy(proxyAdmin, PRIMITIVE_BEACON)));
         group.initialize(metadataURI, TEMPORARY_ACCESS_CONTROL, foundingMember);
         group.changeGroupRules(ruleChanges);
         group.setExtraData(extraData);
         group.setAccessControl(accessControl);
-        emit Lens_GroupFactory_Deployment(address(group), metadataURI);
+        emit Sense_GroupFactory_Deployment(address(group), metadataURI);
         return address(group);
     }
 }

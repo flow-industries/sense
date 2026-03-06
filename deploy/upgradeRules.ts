@@ -8,7 +8,7 @@ import {
   getTransparentUpgradeableProxyImplementationAddress,
   getContractBytecodeHashByAddress,
   getArtifactBytecodeHash
-} from './lensUtils';
+} from './senseUtils';
 import { getWallet } from './utils';
 
 async function deploy() {
@@ -105,9 +105,9 @@ async function deploy() {
   if (!namespaceFactory) {
     throw new Error('NamespaceFactory not found in address book');
   }
-  const lensFactory = loadContractAddressFromAddressBook('LensFactory');
-  if (!lensFactory) {
-    throw new Error('LensFactory not found in address book');
+  const senseFactory = loadContractAddressFromAddressBook('SenseFactory');
+  if (!senseFactory) {
+    throw new Error('SenseFactory not found in address book');
   }
 
   const accountBlockingRule = loadContractAddressFromAddressBook('AccountBlockingRule');
@@ -155,25 +155,25 @@ async function deploy() {
       {
           contractName: 'FeedFactory',
           contractType: ContractType.Factory,
-          constructorArguments: [feedBeacon, feedLock, lensFactory]
+          constructorArguments: [feedBeacon, feedLock, senseFactory]
       },
       {
           contractName: 'GraphFactory',
           contractType: ContractType.Factory,
-          constructorArguments: [graphBeacon, graphLock, lensFactory]
+          constructorArguments: [graphBeacon, graphLock, senseFactory]
       },
       {
           contractName: 'GroupFactory',
           contractType: ContractType.Factory,
-          constructorArguments: [groupBeacon, groupLock, lensFactory]
+          constructorArguments: [groupBeacon, groupLock, senseFactory]
       },
       {
           contractName: 'NamespaceFactory',
           contractType: ContractType.Factory,
-          constructorArguments: [namespaceBeacon, namespaceLock, lensFactory]
+          constructorArguments: [namespaceBeacon, namespaceLock, senseFactory]
       },
       {
-          contractName: 'LensFactory',
+          contractName: 'SenseFactory',
           contractType: ContractType.Factory,
           constructorArguments: [{
               accessControlFactory,

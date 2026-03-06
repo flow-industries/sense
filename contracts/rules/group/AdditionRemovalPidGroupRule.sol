@@ -14,17 +14,17 @@ contract AdditionRemovalPidGroupRule is OwnableMetadataBasedRule, Initializable,
     using AccessControlLib for IAccessControl;
     using AccessControlLib for address;
 
-    /// @custom:keccak lens.param.accessControl
-    bytes32 public constant PARAM__ACCESS_CONTROL = 0xcf3b0fab90208e4185bf857e0f943f6672abffb7d0898e0750beeeb991ae35fa;
+    /// @custom:keccak sense.param.accessControl
+    bytes32 public constant PARAM__ACCESS_CONTROL = 0x60bed11e4162e3e9bcfb8044458f295705a04aa845c92624582efb6c988f9b9e;
 
-    /// @custom:keccak lens.permission.AddMember
-    uint256 constant PID__ADD_MEMBER = uint256(0x19ef038b2d9618004143e998c9c636d9796ef58a03b5e2351e9f8d8446b0c2ab);
-    /// @custom:keccak lens.permission.RemoveMember
-    uint256 constant PID__REMOVE_MEMBER = uint256(0x8c204b72f1086f607fac077224053e94d5f8a69311195889c42430ffa8646e23);
+    /// @custom:keccak sense.permission.AddMember
+    uint256 constant PID__ADD_MEMBER = uint256(0x7975da81c3eb15a487a022674de548c87768be7c96c68d8f8560ea96b553a09c);
+    /// @custom:keccak sense.permission.RemoveMember
+    uint256 constant PID__REMOVE_MEMBER = uint256(0xdd20b5712d56709059ba6d5be4805add03a675fa6ffe2d8d6cb116b14fa6101f);
 
-    /// @custom:keccak lens.storage.AdditionRemovalPidGroupRule
+    /// @custom:keccak sense.storage.AdditionRemovalPidGroupRule
     bytes32 constant STORAGE__ADDITION_REMOVAL_PID_GROUP_RULE =
-        0x875e2cb3a840696bfd4b902a7075335bfafa204e802c28025d62922181ad12b2;
+        0x3f6804c35b0bfe854fdeae6a157c686693c424e799a260b775cee23106030340;
 
     struct Storage {
         mapping(address group => mapping(bytes32 configSalt => address accessControl)) accessControl;
@@ -41,8 +41,8 @@ contract AdditionRemovalPidGroupRule is OwnableMetadataBasedRule, Initializable,
     }
 
     function initialize(address owner, string memory metadataURI) external initializer {
-        emit Events.Lens_PermissionId_Available(PID__ADD_MEMBER, "lens.permission.AddMember");
-        emit Events.Lens_PermissionId_Available(PID__REMOVE_MEMBER, "lens.permission.RemoveMember");
+        emit Events.Sense_PermissionId_Available(PID__ADD_MEMBER, "sense.permission.AddMember");
+        emit Events.Sense_PermissionId_Available(PID__REMOVE_MEMBER, "sense.permission.RemoveMember");
         OwnableMetadataBasedRule._initialize(owner, metadataURI);
     }
 

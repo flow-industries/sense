@@ -1,0 +1,61 @@
+// SPDX-License-Identifier: GPL-3.0-only
+pragma solidity ^0.8.26;
+
+import {Errors} from "contracts/core/types/Errors.sol";
+import {SENSE_CREATE_2_ADDRESS, ISenseCreate2} from "contracts/core/upgradeability/SenseCreate2.sol";
+import {CONTRACT__SENSE_NATIVE_PAYMENT_HELPER} from "contracts/core/types/Constants.sol";
+
+interface ISenseNativePaymentHelper {
+    function transferNative(address to, uint256 amount) external;
+    function refundNative(address to) external;
+}
+
+/**
+ * @title SenseNativePaymentHelper
+ * @notice This contract is used to help with native token payments during rules fund distribution.
+ * @dev We assume that native token is sent here by the primitive at the beginning of the tx before processing rules.
+ * Then, each rule permissionlessly spends funds until depleted.
+ * At the end of the tx, if there are any remaining funds, they can be claimed back.
+ * This contract avoids the complexity of sending native tokens back and forth between the primitive and the rules.
+ */
+contract SenseNativePaymentHelper {
+    receive() external payable {}
+
+    function transferNative(address to, uint256 amount) external {
+        require(amount <= address(this).balance, Errors.NotEnoughBalance());
+        _transferNative(to, amount);
+    }
+
+    function refundNative(address to) external {
+        uint256 amount = address(this).balance;
+        if (amount > 0) {
+            _transferNative(to, amount);
+        }
+    }
+
+    function _transferNative(address to, uint256 amount) internal {
+        (bool callSucceeded,) = to.call{value: amount}("");
+        require(callSucceeded, Errors.FailedToTransferNative());
+    }
+}
+
+abstract contract PayableUsingNativePaymentHelper {
+    ISenseNativePaymentHelper immutable SENSE_NATIVE_PAYMENT_HELPER;
+
+    constructor() {
+        SENSE_NATIVE_PAYMENT_HELPER = ISenseNativePaymentHelper(
+            ISenseCreate2(SENSE_CREATE_2_ADDRESS).getAddress(CONTRACT__SENSE_NATIVE_PAYMENT_HELPER)
+        );
+    }
+
+    modifier usingNativePaymentHelper() {
+        if (msg.value > 0) {
+            (bool callSucceeded,) = address(SENSE_NATIVE_PAYMENT_HELPER).call{value: msg.value}("");
+            require(callSucceeded, Errors.FailedToTransferNative());
+        }
+        _;
+        // We don't do the automatic refund here because of reentrancy and denial-of-service concerns.
+        // One can always use multi-call to trigger refundNative() after all transactions are completed.
+        // SENSE_NATIVE_PAYMENT_HELPER.refundNative(msg.sender);
+    }
+}

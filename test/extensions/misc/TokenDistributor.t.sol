@@ -84,7 +84,7 @@ contract TokenDistributorTest is FuzzZkTest {
         params[0] = KeyValue({key: paramKey, value: abi.encode(paramValue)});
 
         vm.expectEmit(true, true, true, true);
-        emit TokenDistributor.Lens_TokenDistributor_DistributionCreated(
+        emit TokenDistributor.Sense_TokenDistributor_DistributionCreated(
             predictedDistributionId, NATIVE_TOKEN, amount, params
         );
 
@@ -119,7 +119,7 @@ contract TokenDistributorTest is FuzzZkTest {
         params[0] = KeyValue({key: paramKey, value: abi.encode(paramValue)});
 
         vm.expectEmit(true, true, true, true);
-        emit TokenDistributor.Lens_TokenDistributor_DistributionCreated(
+        emit TokenDistributor.Sense_TokenDistributor_DistributionCreated(
             predictedDistributionId, address(mockCurrency), amount, params
         );
 

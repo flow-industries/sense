@@ -84,8 +84,8 @@ const EVENT_TOPICS = {
   DefaultVersionSet: "0xddb2013cf7f102d15447c4c1e94cf56823455f02eb244d0c3b2ef65163389346",
 
   // Lock events
-  Lens_Lock_LockStatusSet_Global: "0x8ecce4741c993dacb6397c3a43bfba3d342e1fe1d800b632a636ff59e78dd692",
-  Lens_Lock_LockStatusSet_Address: "0x73324da9958330578a9d21dce8e726e64c80c13385ecee232dd0675ec5234fb2",
+  Sense_Lock_LockStatusSet_Global: "0x8ecce4741c993dacb6397c3a43bfba3d342e1fe1d800b632a636ff59e78dd692",
+  Sense_Lock_LockStatusSet_Address: "0x73324da9958330578a9d21dce8e726e64c80c13385ecee232dd0675ec5234fb2",
 };
 
 // Reverse lookup: topic hash -> event name
@@ -185,8 +185,8 @@ function getEventsForContract(contractInfo, contractName) {
 
   // Lock contracts
   if (contractName.includes("Lock") || contractInfo.contractName === "Lock") {
-    events.push(EVENT_TOPICS.Lens_Lock_LockStatusSet_Global);
-    events.push(EVENT_TOPICS.Lens_Lock_LockStatusSet_Address);
+    events.push(EVENT_TOPICS.Sense_Lock_LockStatusSet_Global);
+    events.push(EVENT_TOPICS.Sense_Lock_LockStatusSet_Address);
     return events;
   }
 
@@ -264,14 +264,14 @@ function decodeEventData(log, eventName) {
         result.param1 = BigInt(log.topics[1]).toString();
         break;
 
-      case "Lens_Lock_LockStatusSet_Global":
-        // Lens_Lock_LockStatusSet(bool indexed locked)
+      case "Sense_Lock_LockStatusSet_Global":
+        // Sense_Lock_LockStatusSet(bool indexed locked)
         result.param1Name = "locked";
         result.param1 = BigInt(log.topics[1]) !== 0n;
         break;
 
-      case "Lens_Lock_LockStatusSet_Address":
-        // Lens_Lock_LockStatusSet(address indexed target, bool indexed locked)
+      case "Sense_Lock_LockStatusSet_Address":
+        // Sense_Lock_LockStatusSet(address indexed target, bool indexed locked)
         result.param1Name = "target";
         result.param2Name = "locked";
         result.param1 = ethers.getAddress("0x" + log.topics[1].slice(26));

@@ -603,7 +603,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Account_AccountManagerAdded",
+    "name": "Sense_Account_AccountManagerAdded",
     "inputs": [
       {
         "name": "accountManager",
@@ -644,7 +644,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Account_AccountManagerRemoved",
+    "name": "Sense_Account_AccountManagerRemoved",
     "inputs": [
       {
         "name": "accountManager",
@@ -657,7 +657,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Account_AccountManagerUpdated",
+    "name": "Sense_Account_AccountManagerUpdated",
     "inputs": [
       {
         "name": "accountManager",
@@ -698,7 +698,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Account_AllAllowancesCleared",
+    "name": "Sense_Account_AllAllowancesCleared",
     "inputs": [
       {
         "name": "spender",
@@ -711,32 +711,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Account_AllowanceDecreased",
-    "inputs": [
-      {
-        "name": "spender",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "currency",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "newAllowance",
-        "type": "uint256",
-        "indexed": false,
-        "internalType": "uint256"
-      }
-    ],
-    "anonymous": false
-  },
-  {
-    "type": "event",
-    "name": "Lens_Account_AllowanceIncreased",
+    "name": "Sense_Account_AllowanceDecreased",
     "inputs": [
       {
         "name": "spender",
@@ -761,7 +736,32 @@
   },
   {
     "type": "event",
-    "name": "Lens_Account_ExtraDataAdded",
+    "name": "Sense_Account_AllowanceIncreased",
+    "inputs": [
+      {
+        "name": "spender",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "currency",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "newAllowance",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "Sense_Account_ExtraDataAdded",
     "inputs": [
       {
         "name": "key",
@@ -786,7 +786,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Account_ExtraDataRemoved",
+    "name": "Sense_Account_ExtraDataRemoved",
     "inputs": [
       {
         "name": "key",
@@ -799,7 +799,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Account_ExtraDataUpdated",
+    "name": "Sense_Account_ExtraDataUpdated",
     "inputs": [
       {
         "name": "key",
@@ -824,7 +824,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Account_MetadataURISet",
+    "name": "Sense_Account_MetadataURISet",
     "inputs": [
       {
         "name": "metadataURI",
@@ -837,7 +837,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Account_MetadataURISet",
+    "name": "Sense_Account_MetadataURISet",
     "inputs": [
       {
         "name": "metadataURI",
@@ -856,7 +856,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Account_OwnershipTransferred",
+    "name": "Sense_Account_OwnershipTransferred",
     "inputs": [
       {
         "name": "previousOwner",
@@ -875,7 +875,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Account_TransactionExecuted",
+    "name": "Sense_Account_TransactionExecuted",
     "inputs": [
       {
         "name": "target",

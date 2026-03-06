@@ -14,13 +14,13 @@ contract UsernameReservedNamespaceRule is OwnableMetadataBasedRule, Initializabl
     using AccessControlLib for IAccessControl;
     using AccessControlLib for address;
 
-    event Lens_UsernameReservedNamespaceRule_UsernameReserved(
+    event Sense_UsernameReservedNamespaceRule_UsernameReserved(
         address indexed usernamePrimitive, bytes32 indexed configSalt, string indexed indexedUsername, string username
     );
-    event Lens_UsernameReservedNamespaceRule_UsernameReleased(
+    event Sense_UsernameReservedNamespaceRule_UsernameReleased(
         address indexed usernamePrimitive, bytes32 indexed configSalt, string indexed indexedUsername, string username
     );
-    event Lens_UsernameReservedNamespaceRule_ReservedUsernameCreated(
+    event Sense_UsernameReservedNamespaceRule_ReservedUsernameCreated(
         address indexed usernamePrimitive,
         bytes32 indexed configSalt,
         string indexed indexedUsername,
@@ -29,20 +29,20 @@ contract UsernameReservedNamespaceRule is OwnableMetadataBasedRule, Initializabl
         address createdBy
     );
 
-    /// @custom:keccak lens.permission.CreateReservedUsername
+    /// @custom:keccak sense.permission.CreateReservedUsername
     uint256 constant PID__CREATE_RESERVED_USERNAME =
-        uint256(0xf94dde6e939068e103ec2e4fe1d167e5a2c1beb18cd5214e57207fd2e92507de);
+        uint256(0x1309d301ab7e698e15b7f5f1e60b960d99fc20245a2805114ccf6f5c6b80aaf1);
 
-    /// @custom:keccak lens.param.accessControl
-    bytes32 constant PARAM__ACCESS_CONTROL = 0xcf3b0fab90208e4185bf857e0f943f6672abffb7d0898e0750beeeb991ae35fa;
-    /// @custom:keccak lens.param.usernamesToReserve
-    bytes32 constant PARAM__USERNAMES_TO_RESERVE = 0xf26be09bbd76bd72f4bb3b9191df07efee6b4e7a2e71571f78b583bac6f8c8bc;
-    /// @custom:keccak lens.param.usernamesToRelease
-    bytes32 constant PARAM__USERNAMES_TO_RELEASE = 0x81011f9338fa0fd1bac6372a385bfd0c2763bf18ec154f09ad5b6688b943b6dc;
+    /// @custom:keccak sense.param.accessControl
+    bytes32 constant PARAM__ACCESS_CONTROL = 0x60bed11e4162e3e9bcfb8044458f295705a04aa845c92624582efb6c988f9b9e;
+    /// @custom:keccak sense.param.usernamesToReserve
+    bytes32 constant PARAM__USERNAMES_TO_RESERVE = 0xe1f317d50dd4083bc89665d97030636bf18f985b6842103710e4adc054345b85;
+    /// @custom:keccak sense.param.usernamesToRelease
+    bytes32 constant PARAM__USERNAMES_TO_RELEASE = 0x2ea0d35e0ddab93a6ca79311b27f3431d66ae58a09cc8e94fd7b59108f68fd57;
 
-    /// @custom:keccak lens.storage.UsernameReservedNamespaceRule
+    /// @custom:keccak sense.storage.UsernameReservedNamespaceRule
     bytes32 constant STORAGE__USERNAME_RESERVED_NAMESPACE_RULE =
-        0xa08559feca4ccbf88f5987d492116b3568a32a24d348dca81dc1af9040c43847;
+        0x7bbb7a30cc4bb651fea38ee25587a6a2a490f36190f7a54dfbf61eca3f36287c;
 
     struct Storage {
         mapping(address namespace => mapping(bytes32 configSalt => address accessControl)) accessControl;
@@ -61,7 +61,9 @@ contract UsernameReservedNamespaceRule is OwnableMetadataBasedRule, Initializabl
     }
 
     function initialize(address owner, string memory metadataURI) external initializer {
-        emit Events.Lens_PermissionId_Available(PID__CREATE_RESERVED_USERNAME, "lens.permission.CreateReservedUsername");
+        emit Events.Sense_PermissionId_Available(
+            PID__CREATE_RESERVED_USERNAME, "sense.permission.CreateReservedUsername"
+        );
         OwnableMetadataBasedRule._initialize(owner, metadataURI);
     }
 
@@ -78,7 +80,7 @@ contract UsernameReservedNamespaceRule is OwnableMetadataBasedRule, Initializabl
                         Errors.RedundantStateChange()
                     );
                     $storage().isUsernameReserved[msg.sender][configSalt][usernamesToReserve[j]] = true;
-                    emit Lens_UsernameReservedNamespaceRule_UsernameReserved(
+                    emit Sense_UsernameReservedNamespaceRule_UsernameReserved(
                         msg.sender, configSalt, usernamesToReserve[j], usernamesToReserve[j]
                     );
                 }
@@ -90,7 +92,7 @@ contract UsernameReservedNamespaceRule is OwnableMetadataBasedRule, Initializabl
                         Errors.RedundantStateChange()
                     );
                     $storage().isUsernameReserved[msg.sender][configSalt][usernamesToRelease[j]] = false;
-                    emit Lens_UsernameReservedNamespaceRule_UsernameReleased(
+                    emit Sense_UsernameReservedNamespaceRule_UsernameReleased(
                         msg.sender, configSalt, usernamesToRelease[j], usernamesToRelease[j]
                     );
                 }
@@ -112,7 +114,7 @@ contract UsernameReservedNamespaceRule is OwnableMetadataBasedRule, Initializabl
             $storage().accessControl[msg.sender][configSalt].requireAccess(
                 originalMsgSender, PID__CREATE_RESERVED_USERNAME
             );
-            emit Lens_UsernameReservedNamespaceRule_ReservedUsernameCreated(
+            emit Sense_UsernameReservedNamespaceRule_ReservedUsernameCreated(
                 msg.sender, configSalt, username, username, account, originalMsgSender
             );
         }

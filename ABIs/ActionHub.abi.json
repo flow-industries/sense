@@ -375,7 +375,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_ActionHub_AccountAction_Configured",
+    "name": "Sense_ActionHub_AccountAction_Configured",
     "inputs": [
       {
         "name": "action",
@@ -430,7 +430,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_ActionHub_AccountAction_Disabled",
+    "name": "Sense_ActionHub_AccountAction_Disabled",
     "inputs": [
       {
         "name": "action",
@@ -485,7 +485,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_ActionHub_AccountAction_Enabled",
+    "name": "Sense_ActionHub_AccountAction_Enabled",
     "inputs": [
       {
         "name": "action",
@@ -540,7 +540,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_ActionHub_AccountAction_Executed",
+    "name": "Sense_ActionHub_AccountAction_Executed",
     "inputs": [
       {
         "name": "action",
@@ -595,7 +595,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_ActionHub_AccountAction_Reconfigured",
+    "name": "Sense_ActionHub_AccountAction_Reconfigured",
     "inputs": [
       {
         "name": "action",
@@ -650,7 +650,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_ActionHub_AccountAction_Universal",
+    "name": "Sense_ActionHub_AccountAction_Universal",
     "inputs": [
       {
         "name": "action",
@@ -663,7 +663,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_ActionHub_PostAction_Configured",
+    "name": "Sense_ActionHub_PostAction_Configured",
     "inputs": [
       {
         "name": "action",
@@ -730,7 +730,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_ActionHub_PostAction_Disabled",
+    "name": "Sense_ActionHub_PostAction_Disabled",
     "inputs": [
       {
         "name": "action",
@@ -797,7 +797,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_ActionHub_PostAction_Enabled",
+    "name": "Sense_ActionHub_PostAction_Enabled",
     "inputs": [
       {
         "name": "action",
@@ -864,7 +864,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_ActionHub_PostAction_Executed",
+    "name": "Sense_ActionHub_PostAction_Executed",
     "inputs": [
       {
         "name": "action",
@@ -931,7 +931,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_ActionHub_PostAction_Reconfigured",
+    "name": "Sense_ActionHub_PostAction_Reconfigured",
     "inputs": [
       {
         "name": "action",
@@ -998,7 +998,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_ActionHub_PostAction_Universal",
+    "name": "Sense_ActionHub_PostAction_Universal",
     "inputs": [
       {
         "name": "action",
@@ -1011,7 +1011,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_ExtraStorageSet",
+    "name": "Sense_ExtraStorageSet",
     "inputs": [
       {
         "name": "addressScope",

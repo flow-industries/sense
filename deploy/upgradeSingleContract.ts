@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-import { ContractType, ContractInfo, loadContractAddressFromAddressBook, saveContractToAddressBook } from './lensUtils';
+import { ContractType, ContractInfo, loadContractAddressFromAddressBook, saveContractToAddressBook } from './senseUtils';
 import { deployContract, getWallet } from './utils';
 import * as hre from 'hardhat';
 import { ethers } from 'ethers';
 
 async function deploy() {
   //////////////// SETUP /////////////////
-  const contractToUpgrade = 'LensFactory';
+  const contractToUpgrade = 'SenseFactory';
   ////////////////////////////////////////
 
   const proxyOwnerPrivateKey = process.env.PROXY_ADMIN_PRIVATE_KEY;

@@ -7,19 +7,19 @@ import {IAccessControl} from "contracts/core/interfaces/IAccessControl.sol";
 import {ITokenURIProvider} from "contracts/core/interfaces/ITokenURIProvider.sol";
 
 interface INamespace is IMetadataBased {
-    event Lens_Namespace_RuleConfigured(address indexed rule, bytes32 indexed configSalt, KeyValue[] configParams);
+    event Sense_Namespace_RuleConfigured(address indexed rule, bytes32 indexed configSalt, KeyValue[] configParams);
 
-    event Lens_Namespace_RuleReconfigured(address indexed rule, bytes32 indexed configSalt, KeyValue[] configParams);
+    event Sense_Namespace_RuleReconfigured(address indexed rule, bytes32 indexed configSalt, KeyValue[] configParams);
 
-    event Lens_Namespace_RuleSelectorEnabled(
+    event Sense_Namespace_RuleSelectorEnabled(
         address indexed rule, bytes32 indexed configSalt, bool isRequired, bytes4 ruleSelector
     );
 
-    event Lens_Namespace_RuleSelectorDisabled(
+    event Sense_Namespace_RuleSelectorDisabled(
         address indexed rule, bytes32 indexed configSalt, bool isRequired, bytes4 ruleSelector
     );
 
-    event Lens_Username_Created(
+    event Sense_Username_Created(
         string username,
         address indexed account,
         KeyValue[] customParams,
@@ -28,7 +28,7 @@ interface INamespace is IMetadataBased {
         KeyValue[] extraData
     );
 
-    event Lens_Username_Removed(
+    event Sense_Username_Removed(
         string username,
         address indexed account,
         KeyValue[] customParams,
@@ -36,7 +36,7 @@ interface INamespace is IMetadataBased {
         address indexed source
     );
 
-    event Lens_Username_Assigned(
+    event Sense_Username_Assigned(
         string username,
         address indexed account,
         KeyValue[] customParams,
@@ -44,7 +44,7 @@ interface INamespace is IMetadataBased {
         address indexed source
     );
 
-    event Lens_Username_Unassigned(
+    event Sense_Username_Unassigned(
         string username,
         address indexed previousAccount,
         KeyValue[] customParams,
@@ -52,18 +52,18 @@ interface INamespace is IMetadataBased {
         address indexed source
     );
 
-    event Lens_Namespace_ExtraDataAdded(bytes32 indexed key, bytes value, bytes indexed valueIndexed);
-    event Lens_Namespace_ExtraDataUpdated(bytes32 indexed key, bytes value, bytes indexed valueIndexed);
-    event Lens_Namespace_ExtraDataRemoved(bytes32 indexed key);
-    event Lens_Username_ExtraDataAdded(
+    event Sense_Namespace_ExtraDataAdded(bytes32 indexed key, bytes value, bytes indexed valueIndexed);
+    event Sense_Namespace_ExtraDataUpdated(bytes32 indexed key, bytes value, bytes indexed valueIndexed);
+    event Sense_Namespace_ExtraDataRemoved(bytes32 indexed key);
+    event Sense_Username_ExtraDataAdded(
         uint256 indexed usernameId, bytes32 indexed key, bytes value, bytes indexed valueIndexed
     );
-    event Lens_Username_ExtraDataUpdated(
+    event Sense_Username_ExtraDataUpdated(
         uint256 indexed usernameId, bytes32 indexed key, bytes value, bytes indexed valueIndexed
     );
-    event Lens_Username_ExtraDataRemoved(uint256 indexed usernameId, bytes32 indexed key);
+    event Sense_Username_ExtraDataRemoved(uint256 indexed usernameId, bytes32 indexed key);
 
-    event Lens_Namespace_MetadataURISet(string metadataURI);
+    event Sense_Namespace_MetadataURISet(string metadataURI);
 
     function initialize(
         string memory namespace,

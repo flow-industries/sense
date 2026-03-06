@@ -9,14 +9,14 @@ import {Initializable} from "contracts/core/upgradeability/Initializable.sol";
 import {BPS_MAX} from "contracts/core/types/Constants.sol";
 
 contract SimplePaymentFollowRule is SimplePaymentRule, Initializable, IFollowRule {
-    /// @custom:keccak lens.param.referrals
-    bytes32 constant PARAM__REFERRALS = 0x183a1b7fdb9626f5ae4e8cac88ee13cc03b29800d2690f61e2a2566f76d8773f;
-    /// @custom:keccak lens.param.referralFee
-    bytes32 constant PARAM__REFERRAL_FEE = 0x6dff2c1710f2154b19d8cf5d6f7d8f5b3909222c3cdd8801486403e4d423b1b6;
+    /// @custom:keccak sense.param.referrals
+    bytes32 constant PARAM__REFERRALS = 0xe101986198b5c30a6ffb015105ee63311b35d0a2d7768694589fc3d6dc5ba469;
+    /// @custom:keccak sense.param.referralFee
+    bytes32 constant PARAM__REFERRAL_FEE = 0x572859a2dfb962d4fd0391f169e5e52f8a5fdf3edd1e793981e717e9c443039f;
 
-    /// @custom:keccak lens.storage.SimplePaymentFollowRule
+    /// @custom:keccak sense.storage.SimplePaymentFollowRule
     bytes32 constant STORAGE__SIMPLE_PAYMENT_FOLLOW_RULE =
-        0x40d861d20f0413c082c732a37b8aa34f7a2abf2d3b8a62e3868805a8505f8fd5;
+        0x9ee352df61b3de5940326c1919f14a2e46dfe6ee1af48c616e045acc4f1ae166;
 
     struct Configuration {
         PaymentConfiguration paymentConfiguration;

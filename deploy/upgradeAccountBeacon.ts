@@ -10,7 +10,7 @@ import {
   getArtifactBytecodeHash,
   deployImplAndUpgradeBeacon,
   getBeaconImplementationAddress,
-} from './lensUtils';
+} from './senseUtils';
 import { getWallet } from './utils';
 
 async function deploy() {

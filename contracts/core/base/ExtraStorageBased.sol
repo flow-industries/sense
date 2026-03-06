@@ -7,7 +7,7 @@ import {KeyValueStorageLib} from "contracts/core/libraries/KeyValueStorageLib.so
 abstract contract ExtraStorageBased {
     using KeyValueStorageLib for mapping(bytes32 => bytes);
 
-    event Lens_ExtraStorageSet(
+    event Sense_ExtraStorageSet(
         address addressScope, uint256 indexed entityType, uint256 indexed entityId, bytes32 indexed key, bytes value
     );
 
@@ -39,7 +39,7 @@ abstract contract ExtraStorageBased {
      * Zero entity ID can be passed if the extraStorage is not entity-specific but rather general.
      *
      * Key is the keccak256 hash of the key (string) that is used to store the value, for example:
-     *      keccak256("lens.data.myAppName.someCustomKey")
+     *      keccak256("sense.data.myAppName.someCustomKey")
      */
     struct ExtraStorage {
         mapping(
@@ -48,8 +48,8 @@ abstract contract ExtraStorageBased {
         ) slot;
     }
 
-    /// @custom:keccak lens.storage.ExtraStorage
-    bytes32 constant STORAGE__EXTRA_STORAGE = 0xfae2ddb96afe37e426489b23daa1bb7071e3786e8320e123d30b7ec1bc85340f;
+    /// @custom:keccak sense.storage.ExtraStorage
+    bytes32 constant STORAGE__EXTRA_STORAGE = 0xbc582c75b0cd62e8ed1e85cb4d2e9dc62ceac8606131d8e73c852d39c99a9cd8;
 
     function $extraStorage() private pure returns (ExtraStorage storage _storage) {
         assembly {
@@ -66,7 +66,7 @@ abstract contract ExtraStorageBased {
         KeyValue memory extraStorageToSet
     ) private returns (bool) {
         bool wasPreviousValueSet = $extraStorage().slot[addressScope][entityType][entityId].set(extraStorageToSet);
-        emit Lens_ExtraStorageSet(addressScope, entityType, entityId, extraStorageToSet.key, extraStorageToSet.value);
+        emit Sense_ExtraStorageSet(addressScope, entityType, entityId, extraStorageToSet.key, extraStorageToSet.value);
         return wasPreviousValueSet;
     }
 

@@ -51,7 +51,7 @@ const beaconABI = ['function proxy__getBeacon() view returns (address)'];
 const autoUpgradeABI = ['function proxy__getAutoUpgrade() view returns (bool)'];
 const lockABI = ['function isLocked() view returns (bool)'];
 
-// Function to calculate bytecodeHash, ported from lensUtils.ts
+// Function to calculate bytecodeHash, ported from senseUtils.ts
 function calculateBytecodeHash(bytecode) {
   // Remove '0x' prefix if present
   const cleanBytecode = bytecode.startsWith('0x') ? bytecode.slice(2) : bytecode;
@@ -127,7 +127,7 @@ async function main() {
   // Read addressBook
   const addressBook = JSON.parse(fs.readFileSync(addressBookFile, 'utf8'));
 
-  // Setup provider with the Lens RPC URL
+  // Setup provider with the Sense RPC URL
   const provider = new ethers.JsonRpcProvider('https://rpc.lens.xyz');
 
   // CSV headers

@@ -13,8 +13,8 @@ library NamespaceCore {
         mapping(address => string) accountToUsername;
     }
 
-    /// @custom:keccak lens.storage.NamespaceCore
-    bytes32 constant STORAGE__NAMESPACE_CORE = 0x6d374ece44bcfef1b791ff4a0e88360ee8ce91bd6dc8916c39867f03ba1bfb84;
+    /// @custom:keccak sense.storage.NamespaceCore
+    bytes32 constant STORAGE__NAMESPACE_CORE = 0xc0859b09b5c609ba4c029fd0c4e06efbf38db2535eca3140b5ecd4f873425d89;
 
     function $storage() internal pure returns (Storage storage _storage) {
         assembly {

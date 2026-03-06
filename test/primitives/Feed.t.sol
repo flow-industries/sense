@@ -37,7 +37,7 @@ contract FeedTest is RulesTest, BaseDeployments, RuleExecutionTest {
 
         mockAccessControl = new MockAccessControl();
 
-        vm.prank(address(lensFactory));
+        vm.prank(address(senseFactory));
         feed = IFeed(
             feedFactory.deployFeed({
                 metadataURI: "some metadata uri",
@@ -48,7 +48,7 @@ contract FeedTest is RulesTest, BaseDeployments, RuleExecutionTest {
             })
         );
 
-        vm.prank(address(lensFactory));
+        vm.prank(address(senseFactory));
         feedForRules = feedFactory.deployFeed({
             metadataURI: "uri://feed",
             accessControl: mockAccessControl,
@@ -69,7 +69,7 @@ contract FeedTest is RulesTest, BaseDeployments, RuleExecutionTest {
         uint256 expectedAuthorPostSequentialId = feed.getPostCount(postAuthor) + 1;
 
         vm.expectEmit(true, true, true, true);
-        emit IFeed.Lens_Feed_PostCreated(
+        emit IFeed.Sense_Feed_PostCreated(
             feed.getNextPostId(postAuthor),
             postAuthor,
             expectedAuthorPostSequentialId,
@@ -137,10 +137,10 @@ contract FeedTest is RulesTest, BaseDeployments, RuleExecutionTest {
         uint256 expectedPostId = feed.getNextPostId(postAuthor);
 
         KeyValue[] memory customParams =
-            _toKeyValueArray(KeyValue({key: keccak256("lens.param.expectedPostId"), value: abi.encode(expectedPostId)}));
+            _toKeyValueArray(KeyValue({key: keccak256("sense.param.expectedPostId"), value: abi.encode(expectedPostId)}));
 
         vm.expectEmit(true, true, true, true);
-        emit IFeed.Lens_Feed_PostCreated(
+        emit IFeed.Sense_Feed_PostCreated(
             expectedPostId,
             postAuthor,
             expectedAuthorPostSequentialId,
@@ -207,7 +207,7 @@ contract FeedTest is RulesTest, BaseDeployments, RuleExecutionTest {
                 extraData: _emptyKeyValueArray()
             }),
             customParams: _toKeyValueArray(
-                KeyValue({key: keccak256("lens.param.expectedPostId"), value: abi.encode(wrongExpectedPostId)})
+                KeyValue({key: keccak256("sense.param.expectedPostId"), value: abi.encode(wrongExpectedPostId)})
             ),
             feedRulesParams: _emptyRuleProcessingParamsArray(),
             rootPostRulesParams: _emptyRuleProcessingParamsArray(),
@@ -775,7 +775,7 @@ contract FeedTest is RulesTest, BaseDeployments, RuleExecutionTest {
 
         // Edit the post
         vm.expectEmit(true, true, true, true);
-        emit IFeed.Lens_Feed_PostEdited(
+        emit IFeed.Sense_Feed_PostEdited(
             postId,
             postAuthor,
             EditPostParams({contentURI: newContentURI, extraData: _emptyKeyValueArray()}),
@@ -978,7 +978,7 @@ contract FeedTest2 is RulesTest, BaseDeployments, RuleExecutionTest {
 
         mockAccessControl = new MockAccessControl();
 
-        vm.prank(address(lensFactory));
+        vm.prank(address(senseFactory));
         feed = IFeed(
             feedFactory.deployFeed({
                 metadataURI: "some metadata uri",
@@ -989,7 +989,7 @@ contract FeedTest2 is RulesTest, BaseDeployments, RuleExecutionTest {
             })
         );
 
-        vm.prank(address(lensFactory));
+        vm.prank(address(senseFactory));
         feedForRules = feedFactory.deployFeed({
             metadataURI: "uri://feed",
             accessControl: mockAccessControl,
@@ -1132,7 +1132,7 @@ contract FeedTest2 is RulesTest, BaseDeployments, RuleExecutionTest {
 
         // Delete the post
         vm.expectEmit(true, true, true, true);
-        emit IFeed.Lens_Feed_PostDeleted(postId, postAuthor, _emptyKeyValueArray(), address(0));
+        emit IFeed.Sense_Feed_PostDeleted(postId, postAuthor, _emptyKeyValueArray(), address(0));
 
         vm.prank(postAuthor);
         feed.deletePost({
@@ -1332,7 +1332,7 @@ contract FeedTest2 is RulesTest, BaseDeployments, RuleExecutionTest {
 
         vm.prank(author);
         vm.expectEmit(true, true, true, true);
-        emit IFeed.Lens_Feed_Post_ExtraDataAdded(postId, key, value, value);
+        emit IFeed.Sense_Feed_Post_ExtraDataAdded(postId, key, value, value);
 
         feed.editPost({
             postId: postId,
@@ -1410,7 +1410,7 @@ contract FeedTest2 is RulesTest, BaseDeployments, RuleExecutionTest {
         updatedExtraData[0] = KeyValue(key, updatedValue);
 
         vm.expectEmit(true, true, true, true);
-        emit IFeed.Lens_Feed_Post_ExtraDataUpdated(postId, key, updatedValue, updatedValue);
+        emit IFeed.Sense_Feed_Post_ExtraDataUpdated(postId, key, updatedValue, updatedValue);
 
         vm.prank(author);
         feed.editPost({
@@ -1438,7 +1438,7 @@ contract FeedTest2 is RulesTest, BaseDeployments, RuleExecutionTest {
         uint256 expectedPostId = _generatePostId(address(feed), author, 1);
 
         vm.expectEmit(true, true, true, true);
-        emit IFeed.Lens_Feed_Post_ExtraDataAdded(expectedPostId, key, value, value);
+        emit IFeed.Sense_Feed_Post_ExtraDataAdded(expectedPostId, key, value, value);
 
         vm.prank(author);
         uint256 postId = feed.createPost({
@@ -1800,7 +1800,7 @@ contract FeedTest2 is RulesTest, BaseDeployments, RuleExecutionTest {
         );
 
         vm.expectEmit(true, true, true, true);
-        emit IFeed.Lens_Feed_PostEdited(
+        emit IFeed.Sense_Feed_PostEdited(
             quotePostId,
             author,
             editParams,
@@ -2116,7 +2116,7 @@ contract FeedTest3 is RulesTest, BaseDeployments, RuleExecutionTest {
 
         mockAccessControl = new MockAccessControl();
 
-        vm.prank(address(lensFactory));
+        vm.prank(address(senseFactory));
         feed = IFeed(
             feedFactory.deployFeed({
                 metadataURI: "some metadata uri",
@@ -2127,7 +2127,7 @@ contract FeedTest3 is RulesTest, BaseDeployments, RuleExecutionTest {
             })
         );
 
-        vm.prank(address(lensFactory));
+        vm.prank(address(senseFactory));
         feedForRules = feedFactory.deployFeed({
             metadataURI: "uri://feed",
             accessControl: mockAccessControl,
@@ -2255,7 +2255,7 @@ contract FeedTest3 is RulesTest, BaseDeployments, RuleExecutionTest {
         );
 
         vm.expectEmit(true, true, true, true);
-        emit IFeed.Lens_Feed_PostEdited(
+        emit IFeed.Sense_Feed_PostEdited(
             replyPostId,
             author,
             editParams,
@@ -2396,7 +2396,7 @@ contract FeedTest3 is RulesTest, BaseDeployments, RuleExecutionTest {
         );
 
         vm.expectEmit(true, true, true, true);
-        emit IFeed.Lens_Feed_PostEdited(
+        emit IFeed.Sense_Feed_PostEdited(
             replyPostId,
             author,
             editParams,
@@ -2529,7 +2529,7 @@ contract FeedTest3 is RulesTest, BaseDeployments, RuleExecutionTest {
         );
 
         vm.expectEmit(true, true, true, true);
-        emit IFeed.Lens_Feed_PostEdited(
+        emit IFeed.Sense_Feed_PostEdited(
             thirdPostId,
             author,
             editParams,
@@ -2651,7 +2651,7 @@ contract FeedTest3 is RulesTest, BaseDeployments, RuleExecutionTest {
         );
 
         vm.expectEmit(true, true, true, true);
-        emit IFeed.Lens_Feed_PostEdited(
+        emit IFeed.Sense_Feed_PostEdited(
             secondReplyId,
             author,
             editParams,
@@ -2903,7 +2903,7 @@ contract FeedTest4 is RulesTest, BaseDeployments, RuleExecutionTest {
 
         mockAccessControl = new MockAccessControl();
 
-        vm.prank(address(lensFactory));
+        vm.prank(address(senseFactory));
         feed = IFeed(
             feedFactory.deployFeed({
                 metadataURI: "some metadata uri",
@@ -2914,7 +2914,7 @@ contract FeedTest4 is RulesTest, BaseDeployments, RuleExecutionTest {
             })
         );
 
-        vm.prank(address(lensFactory));
+        vm.prank(address(senseFactory));
         feedForRules = feedFactory.deployFeed({
             metadataURI: "uri://feed",
             accessControl: mockAccessControl,
@@ -3567,7 +3567,7 @@ contract FeedTest4 is RulesTest, BaseDeployments, RuleExecutionTest {
         string memory newMetadataURI = "uri://new-metadata-uri";
         assertNotEq(IMetadataBased(address(feed)).getMetadataURI(), newMetadataURI);
         mockAccessControl.mockAccess(
-            addressWithPID, address(feed), uint256(keccak256("lens.permission.SetMetadata")), true
+            addressWithPID, address(feed), uint256(keccak256("sense.permission.SetMetadata")), true
         );
         vm.prank(addressWithPID);
         IMetadataBased(address(feed)).setMetadataURI(newMetadataURI);
@@ -3579,7 +3579,7 @@ contract FeedTest4 is RulesTest, BaseDeployments, RuleExecutionTest {
         string memory newMetadataURI = "uri://new-metadata-uri";
         assertNotEq(oldMetadataURI, newMetadataURI);
         mockAccessControl.mockAccess(
-            addressWithoutPID, address(feed), uint256(keccak256("lens.permission.SetMetadata")), false
+            addressWithoutPID, address(feed), uint256(keccak256("sense.permission.SetMetadata")), false
         );
         vm.prank(addressWithoutPID);
         vm.expectRevert(Errors.AccessDenied.selector);

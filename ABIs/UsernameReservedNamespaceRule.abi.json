@@ -368,7 +368,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Ownable_OwnershipTransferred",
+    "name": "Sense_Ownable_OwnershipTransferred",
     "inputs": [
       {
         "name": "previousOwner",
@@ -387,7 +387,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_PermissionId_Available",
+    "name": "Sense_PermissionId_Available",
     "inputs": [
       {
         "name": "permissionId",
@@ -406,7 +406,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Rule_MetadataURISet",
+    "name": "Sense_Rule_MetadataURISet",
     "inputs": [
       {
         "name": "metadataURI",
@@ -419,7 +419,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_UsernameReservedNamespaceRule_ReservedUsernameCreated",
+    "name": "Sense_UsernameReservedNamespaceRule_ReservedUsernameCreated",
     "inputs": [
       {
         "name": "usernamePrimitive",
@@ -462,7 +462,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_UsernameReservedNamespaceRule_UsernameReleased",
+    "name": "Sense_UsernameReservedNamespaceRule_UsernameReleased",
     "inputs": [
       {
         "name": "usernamePrimitive",
@@ -493,7 +493,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_UsernameReservedNamespaceRule_UsernameReserved",
+    "name": "Sense_UsernameReservedNamespaceRule_UsernameReserved",
     "inputs": [
       {
         "name": "usernamePrimitive",

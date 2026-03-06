@@ -10,7 +10,7 @@ import {AccessControlled} from "contracts/core/access/AccessControlled.sol";
 import {ExtraDataBased} from "contracts/core/base/ExtraDataBased.sol";
 import {EntityExtraDataBased} from "contracts/core/base/EntityExtraDataBased.sol";
 import {Events} from "contracts/core/types/Events.sol";
-import {LensERC721} from "contracts/core/base/LensERC721.sol";
+import {SenseERC721} from "contracts/core/base/SenseERC721.sol";
 import {ITokenURIProvider} from "contracts/core/interfaces/ITokenURIProvider.sol";
 import {SourceStampBased} from "contracts/core/base/SourceStampBased.sol";
 import {MetadataBased} from "contracts/core/base/MetadataBased.sol";
@@ -22,7 +22,7 @@ import {IAccessControlled} from "contracts/core/interfaces/IAccessControlled.sol
 contract Namespace is
     IERC721Namespace,
     Initializable,
-    LensERC721,
+    SenseERC721,
     RuleBasedNamespace,
     AccessControlled,
     ExtraDataBased,
@@ -30,23 +30,23 @@ contract Namespace is
     SourceStampBased,
     MetadataBased
 {
-    /// @custom:keccak lens.permission.SetMetadata
-    uint256 constant PID__SET_METADATA = uint256(0xe40fdb273cda3c78f0d9b6d20f5378755989e26c60c89696e5eea644d84eefea);
-    /// @custom:keccak lens.permission.ChangeRules
-    uint256 constant PID__CHANGE_RULES = uint256(0x550b12ef6572134aefc5804fd2b13ab3d8451e067ad453f67afe134cffebd977);
-    /// @custom:keccak lens.permission.SetExtraData
-    uint256 constant PID__SET_EXTRA_DATA = uint256(0x9b4afa2e6d7162f878076bb1210736928cd607a384b985eca0dba5e94790e72a);
-    /// @custom:keccak lens.permission.SetTokenURIProvider
+    /// @custom:keccak sense.permission.SetMetadata
+    uint256 constant PID__SET_METADATA = uint256(0xc593734a442ec90a714cfb87bfb7aca283b763335df63d0001196ab1ff115f53);
+    /// @custom:keccak sense.permission.ChangeRules
+    uint256 constant PID__CHANGE_RULES = uint256(0xde011e4a0a5ba313b0ac8a7e2b9d7ee3156d91c77a234d9be7f9ed14184deaec);
+    /// @custom:keccak sense.permission.SetExtraData
+    uint256 constant PID__SET_EXTRA_DATA = uint256(0x89230884684683d91d892d3bd0c063380fe312b990f4c455be670b9b5b0c30c2);
+    /// @custom:keccak sense.permission.SetTokenURIProvider
     uint256 constant PID__SET_TOKEN_URI_PROVIDER =
-        uint256(0x32b3651aa4f96bc363c3045558bf6accc2b6027323bee86f6b4a570142cbd469);
-    /// @custom:keccak lens.permission.AssignUsername
-    uint256 constant PID__ASSIGN_USERNAME = uint256(0x6ed127ecda9c702e81990b9c822ee95d9238c4141f2d4fbaa05c6ba3df0ec6ce);
+        uint256(0xcacfcd5128751f553d1935f7feaf5141d13b4de459f17a8072d672c221973952);
+    /// @custom:keccak sense.permission.AssignUsername
+    uint256 constant PID__ASSIGN_USERNAME = uint256(0x3c87a82b30f2bbd8c7aea56ab1a2e859419f6176cf30c57b6b50b837fcb638c2);
 
-    /// @custom:keccak lens.data.assignmentSource
-    bytes32 constant DATA__ASSIGNMENT_SOURCE = 0x8bc73a48d2dc60da20efb89fc5618c638ad593255415dd355096e39ab76af582;
+    /// @custom:keccak sense.data.assignmentSource
+    bytes32 constant DATA__ASSIGNMENT_SOURCE = 0x1b8675dd23b5c60cf325498b1fb2cee5604e8330e499b892318cd5733f55dc99;
 
-    /// @custom:keccak lens.storage.Namespace
-    uint256 constant STORAGE__NAMESPACE = 0x643a2517af0a90463c06865bbd358f4e5d1271f6ad1b8352aca5bb2e89b867f6;
+    /// @custom:keccak sense.storage.Namespace
+    uint256 constant STORAGE__NAMESPACE = 0x4b166fa2a217e314ef91eccd82e999160007372f58336bd2d6a6733f74297730;
 
     struct NamespaceStorage {
         mapping(uint256 => string) idToUsername;
@@ -72,29 +72,29 @@ contract Namespace is
     ) external override initializer {
         _initialize(namespace, metadataURI);
         AccessControlled._initialize(accessControl);
-        LensERC721._initialize(nftName, nftSymbol, tokenURIProvider);
+        SenseERC721._initialize(nftName, nftSymbol, tokenURIProvider);
     }
 
     function _initialize(string memory namespace, string memory metadataURI) internal {
         Core.$storage().namespace = namespace;
         _setMetadataURI(metadataURI);
         _emitPIDs();
-        emit Events.Lens_Contract_Deployed({
-            contractType: "lens.contract.Namespace",
-            flavour: "lens.contract.Namespace.ERC721Namespace"
+        emit Events.Sense_Contract_Deployed({
+            contractType: "sense.contract.Namespace",
+            flavour: "sense.contract.Namespace.ERC721Namespace"
         });
     }
 
     function _emitMetadataURISet(string memory metadataURI, address /* source */ ) internal override {
-        emit Lens_Namespace_MetadataURISet(metadataURI);
+        emit Sense_Namespace_MetadataURISet(metadataURI);
     }
 
     function _emitPIDs() internal override {
         super._emitPIDs();
-        emit Events.Lens_PermissionId_Available(PID__CHANGE_RULES, "lens.permission.ChangeRules");
-        emit Events.Lens_PermissionId_Available(PID__SET_METADATA, "lens.permission.SetMetadata");
-        emit Events.Lens_PermissionId_Available(PID__SET_EXTRA_DATA, "lens.permission.SetExtraData");
-        emit Events.Lens_PermissionId_Available(PID__SET_TOKEN_URI_PROVIDER, "lens.permission.SetTokenURIProvider");
+        emit Events.Sense_PermissionId_Available(PID__CHANGE_RULES, "sense.permission.ChangeRules");
+        emit Events.Sense_PermissionId_Available(PID__SET_METADATA, "sense.permission.SetMetadata");
+        emit Events.Sense_PermissionId_Available(PID__SET_EXTRA_DATA, "sense.permission.SetExtraData");
+        emit Events.Sense_PermissionId_Available(PID__SET_TOKEN_URI_PROVIDER, "sense.permission.SetTokenURIProvider");
     }
 
     // Access Controlled functions
@@ -119,29 +119,29 @@ contract Namespace is
     {}
 
     function _emitExtraDataAddedEvent(KeyValue calldata extraDataAdded) internal override {
-        emit Lens_Namespace_ExtraDataAdded(extraDataAdded.key, extraDataAdded.value, extraDataAdded.value);
+        emit Sense_Namespace_ExtraDataAdded(extraDataAdded.key, extraDataAdded.value, extraDataAdded.value);
     }
 
     function _emitExtraDataUpdatedEvent(KeyValue calldata extraDataUpdated) internal override {
-        emit Lens_Namespace_ExtraDataUpdated(extraDataUpdated.key, extraDataUpdated.value, extraDataUpdated.value);
+        emit Sense_Namespace_ExtraDataUpdated(extraDataUpdated.key, extraDataUpdated.value, extraDataUpdated.value);
     }
 
     function _emitExtraDataRemovedEvent(KeyValue calldata extraDataRemoved) internal override {
-        emit Lens_Namespace_ExtraDataRemoved(extraDataRemoved.key);
+        emit Sense_Namespace_ExtraDataRemoved(extraDataRemoved.key);
     }
 
     function _emitEntityExtraDataAddedEvent(uint256 usernameId, KeyValue memory extraDataAdded) internal override {
-        emit Lens_Username_ExtraDataAdded(usernameId, extraDataAdded.key, extraDataAdded.value, extraDataAdded.value);
+        emit Sense_Username_ExtraDataAdded(usernameId, extraDataAdded.key, extraDataAdded.value, extraDataAdded.value);
     }
 
     function _emitEntityExtraDataUpdatedEvent(uint256 usernameId, KeyValue memory extraDataUpdated) internal override {
-        emit Lens_Username_ExtraDataUpdated(
+        emit Sense_Username_ExtraDataUpdated(
             usernameId, extraDataUpdated.key, extraDataUpdated.value, extraDataUpdated.value
         );
     }
 
     function _emitEntityExtraDataRemovedEvent(uint256 usernameId, KeyValue memory extraDataRemoved) internal override {
-        emit Lens_Username_ExtraDataRemoved(usernameId, extraDataRemoved.key);
+        emit Sense_Username_ExtraDataRemoved(usernameId, extraDataRemoved.key);
     }
 
     // Permissionless functions
@@ -162,11 +162,11 @@ contract Namespace is
         Core._createUsername(username);
         address source = _processSourceStamp(id, customParams);
         _setEntityExtraData(id, extraData);
-        emit Lens_Username_Created(username, account, customParams, creationProcessingParams, source, extraData);
+        emit Sense_Username_Created(username, account, customParams, creationProcessingParams, source, extraData);
         _unassignIfAssigned(account, customParams, unassigningProcessingParams, source);
         Core._assignUsername(account, username);
         _storeSource(DATA__ASSIGNMENT_SOURCE, id, source); // Stores after unassign, as unassign could clear the source
-        emit Lens_Username_Assigned(username, account, customParams, assigningProcessingParams, source);
+        emit Sense_Username_Assigned(username, account, customParams, assigningProcessingParams, source);
         _processCreation(msg.sender, account, username, customParams, creationProcessingParams);
         _processAssigning(msg.sender, account, username, customParams, assigningProcessingParams);
     }
@@ -185,7 +185,7 @@ contract Namespace is
         address source = _processSourceStamp(id, customParams);
         _processCreation(msg.sender, account, username, customParams, ruleProcessingParams);
         _setEntityExtraData(id, extraData);
-        emit Lens_Username_Created(username, account, customParams, ruleProcessingParams, source, extraData);
+        emit Sense_Username_Created(username, account, customParams, ruleProcessingParams, source, extraData);
     }
 
     function removeUsername(
@@ -203,7 +203,7 @@ contract Namespace is
         _clearSource(id); // Clears DATA__SOURCE, which is the creation source
         _burn(id);
         Core._removeUsername(username);
-        emit Lens_Username_Removed(username, owner, customParams, removalRuleProcessingParams, source);
+        emit Sense_Username_Removed(username, owner, customParams, removalRuleProcessingParams, source);
     }
 
     function assignUsername(
@@ -227,7 +227,7 @@ contract Namespace is
         _storeSource(DATA__ASSIGNMENT_SOURCE, id, source); // Stores after unassign, as unassign could clear the source
         Core._assignUsername(account, username);
         _processAssigning(msg.sender, account, username, customParams, assignRuleProcessingParams);
-        emit Lens_Username_Assigned(username, account, customParams, assignRuleProcessingParams, source);
+        emit Sense_Username_Assigned(username, account, customParams, assignRuleProcessingParams, source);
     }
 
     function _doesMsgSenderControlAccount(address account) internal view returns (bool) {
@@ -270,7 +270,7 @@ contract Namespace is
         _processUnassigning(msg.sender, account, username, customParams, ruleProcessingParams);
         address source = _processSourceStamp(customParams);
         _clearSource(DATA__ASSIGNMENT_SOURCE, id);
-        emit Lens_Username_Unassigned(username, account, customParams, ruleProcessingParams, source);
+        emit Sense_Username_Unassigned(username, account, customParams, ruleProcessingParams, source);
     }
 
     function setExtraData(KeyValue[] calldata extraDataToSet) external override {
@@ -288,7 +288,7 @@ contract Namespace is
     // Internal
 
     function _afterTokenTransfer(address from, address to, uint256 tokenId) internal virtual override {
-        emit Lens_Username_Transfer(from, to, tokenId);
+        emit Sense_Username_Transfer(from, to, tokenId);
     }
 
     function _computeId(string memory username) internal pure virtual returns (uint256) {
@@ -306,7 +306,7 @@ contract Namespace is
             _clearSource(DATA__ASSIGNMENT_SOURCE, _computeId(username));
             Core._unassignUsername(username);
             _processUnassigning(msg.sender, assignedAccount, username, customParams, ruleProcessingParams);
-            emit Lens_Username_Unassigned(username, assignedAccount, customParams, ruleProcessingParams, source);
+            emit Sense_Username_Unassigned(username, assignedAccount, customParams, ruleProcessingParams, source);
         }
     }
 
@@ -321,7 +321,7 @@ contract Namespace is
             _clearSource(DATA__ASSIGNMENT_SOURCE, _computeId(assignedUsername));
             Core._unassignUsername(assignedUsername);
             _processUnassigning(msg.sender, account, assignedUsername, customParams, ruleProcessingParams);
-            emit Lens_Username_Unassigned(assignedUsername, account, customParams, ruleProcessingParams, source);
+            emit Sense_Username_Unassigned(assignedUsername, account, customParams, ruleProcessingParams, source);
         }
     }
 

@@ -8,44 +8,44 @@ import {AppInitialProperties} from "contracts/extensions/primitives/app/App.sol"
 
 interface IApp is IMetadataBased {
     // Graph
-    event Lens_App_GraphAdded(address indexed graph);
-    event Lens_App_GraphRemoved(address indexed graph);
+    event Sense_App_GraphAdded(address indexed graph);
+    event Sense_App_GraphRemoved(address indexed graph);
 
     // Feed
-    event Lens_App_FeedAdded(address indexed feed);
-    event Lens_App_FeedRemoved(address indexed feed);
-    event Lens_App_DefaultFeedSet(address indexed feed);
+    event Sense_App_FeedAdded(address indexed feed);
+    event Sense_App_FeedRemoved(address indexed feed);
+    event Sense_App_DefaultFeedSet(address indexed feed);
 
     // Namespace
-    event Lens_App_NamespaceAdded(address indexed namespace);
-    event Lens_App_NamespaceRemoved(address indexed namespace);
+    event Sense_App_NamespaceAdded(address indexed namespace);
+    event Sense_App_NamespaceRemoved(address indexed namespace);
 
     // Group
-    event Lens_App_GroupAdded(address indexed group);
-    event Lens_App_GroupRemoved(address indexed group);
-    event Lens_App_DefaultGroupSet(address indexed group);
+    event Sense_App_GroupAdded(address indexed group);
+    event Sense_App_GroupRemoved(address indexed group);
+    event Sense_App_DefaultGroupSet(address indexed group);
 
     // Paymaster
-    event Lens_App_PaymasterAdded(address indexed paymaster);
-    event Lens_App_PaymasterRemoved(address indexed paymaster);
+    event Sense_App_PaymasterAdded(address indexed paymaster);
+    event Sense_App_PaymasterRemoved(address indexed paymaster);
 
     // Signer
-    event Lens_App_SignerAdded(address indexed signer);
-    event Lens_App_SignerRemoved(address indexed signer);
+    event Sense_App_SignerAdded(address indexed signer);
+    event Sense_App_SignerRemoved(address indexed signer);
 
     // Extra Data
-    event Lens_App_ExtraDataAdded(bytes32 indexed key, bytes value, bytes indexed valueIndexed);
-    event Lens_App_ExtraDataUpdated(bytes32 indexed key, bytes value, bytes indexed valueIndexed);
-    event Lens_App_ExtraDataRemoved(bytes32 indexed key);
+    event Sense_App_ExtraDataAdded(bytes32 indexed key, bytes value, bytes indexed valueIndexed);
+    event Sense_App_ExtraDataUpdated(bytes32 indexed key, bytes value, bytes indexed valueIndexed);
+    event Sense_App_ExtraDataRemoved(bytes32 indexed key);
 
     // Metadata URI
-    event Lens_App_MetadataURISet(string metadataURI);
+    event Sense_App_MetadataURISet(string metadataURI);
 
     // Treasury
-    event Lens_App_TreasurySet(address indexed treasury);
+    event Sense_App_TreasurySet(address indexed treasury);
 
     // Source Stamp Verification
-    event Lens_App_SourceStampVerificationSet(bool indexed isEnabled);
+    event Sense_App_SourceStampVerificationSet(bool indexed isEnabled);
 
     function initialize(
         string memory metadataURI,

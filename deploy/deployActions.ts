@@ -2,11 +2,11 @@
 
 import { ContractRunner, ethers } from 'ethers';
 import {
-  deployLensContractAsProxy,
+  deploySenseContractAsProxy,
   ContractType,
   ContractInfo,
   deployImplAndUpgradeTransparentProxy,
-} from './lensUtils';
+} from './senseUtils';
 
 function getContracts(actionHub: string): ContractInfo[] {
   return [
@@ -40,7 +40,7 @@ export async function deployActions(actionHub: string, actionsOwner: string): Pr
   ]);
 
   for (const contract of contracts) {
-    await deployLensContractAsProxy(contract, actionsOwner, initializeEncodedCall);
+    await deploySenseContractAsProxy(contract, actionsOwner, initializeEncodedCall);
   }
 }
 

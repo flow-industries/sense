@@ -7,10 +7,10 @@ import {ISource} from "contracts/core/interfaces/ISource.sol";
 import {Errors} from "contracts/core/types/Errors.sol";
 
 abstract contract SourceStampBased is ExtraStorageBased {
-    /// @custom:keccak lens.param.sourceStamp
-    bytes32 constant PARAM__SOURCE_STAMP = 0xedc03eff258927169d8466a6d671afad7cb0b69c2ad73f480eab23a233329cfc;
-    /// @custom:keccak lens.data.source
-    bytes32 constant DATA__SOURCE = 0xe256f222b2a828c71663f947d88e5c36216c58578c760b915641bf46ffe6a66e;
+    /// @custom:keccak sense.param.sourceStamp
+    bytes32 constant PARAM__SOURCE_STAMP = 0x7d066962790e0c91c3f412ba70116f6c31920c114bbeff5e8cf16c59438f34b8;
+    /// @custom:keccak sense.data.source
+    bytes32 constant DATA__SOURCE = 0x894b42f248ad79490a587f90812b92739d431acca0927cae95260efd773a776c;
 
     // Functions with generic key
 
@@ -77,7 +77,7 @@ abstract contract SourceStampBased is ExtraStorageBased {
         return _getSource(key, 0, entityId);
     }
 
-    // Functions with default `lens.data.source` key hardcoded
+    // Functions with default `sense.data.source` key hardcoded
 
     function _processSourceStamp(uint256 entityType, uint256 entityId, KeyValue[] memory customParams)
         internal
@@ -98,7 +98,7 @@ abstract contract SourceStampBased is ExtraStorageBased {
         return _getSource(DATA__SOURCE, entityType, entityId);
     }
 
-    // Functions with default `lens.data.source` key and default 0 entityType hardcoded
+    // Functions with default `sense.data.source` key and default 0 entityType hardcoded
 
     function _processSourceStamp(uint256 entityId, KeyValue[] memory customParams) internal returns (address) {
         return _processSourceStamp(DATA__SOURCE, 0, entityId, customParams);

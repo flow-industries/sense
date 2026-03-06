@@ -16,13 +16,13 @@ contract RoleBasedAccessControlTest is Test {
     function setUp() public virtual {
         owner = address(this);
         accessControl = new RoleBasedAccessControl(owner);
-        OWNER_ROLE_ID = uint256(keccak256("lens.role.Owner"));
+        OWNER_ROLE_ID = uint256(keccak256("sense.role.Owner"));
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     function test_ConstructorSetsProperOwner() public view {
-        assertTrue(OWNER_ROLE_ID == uint256(keccak256("lens.role.Owner")));
+        assertTrue(OWNER_ROLE_ID == uint256(keccak256("sense.role.Owner")));
         assertTrue(accessControl.hasRole({account: owner, roleId: OWNER_ROLE_ID}));
     }
 

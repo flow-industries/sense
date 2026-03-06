@@ -11,15 +11,15 @@ import {Errors} from "contracts/core/types/Errors.sol";
 import {Initializable} from "contracts/core/upgradeability/Initializable.sol";
 
 contract AccountBlockingRule is OwnableMetadataBasedRule, Initializable, IFeedRule, IGraphRule {
-    event Lens_AccountBlocking_AccountBlocked(address indexed source, address indexed target);
-    event Lens_AccountBlocking_AccountUnblocked(address indexed source, address indexed target);
+    event Sense_AccountBlocking_AccountBlocked(address indexed source, address indexed target);
+    event Sense_AccountBlocking_AccountUnblocked(address indexed source, address indexed target);
 
     struct Storage {
         mapping(address source => mapping(address target => bool isBlocked)) isBlocked;
     }
 
-    /// @custom:keccak lens.storage.AccountBlockingRule
-    bytes32 constant STORAGE__ACCOUNT_BLOCKING_RULE = 0xe12472e4fa1ab16991a1a948dff8ec39ff46bdd19194555f802f78a18b5506a0;
+    /// @custom:keccak sense.storage.AccountBlockingRule
+    bytes32 constant STORAGE__ACCOUNT_BLOCKING_RULE = 0x8b7840d82958cf4dc44c3ecc0b583daf677186c88dd5f711d2a1d544642014b3;
 
     function $storage() private pure returns (Storage storage _storage) {
         assembly {
@@ -46,14 +46,14 @@ contract AccountBlockingRule is OwnableMetadataBasedRule, Initializable, IFeedRu
         require(source != target, Errors.ActionOnSelf());
         require(!$storage().isBlocked[source][target], Errors.RedundantStateChange());
         $storage().isBlocked[source][target] = true;
-        emit Lens_AccountBlocking_AccountBlocked(source, target);
+        emit Sense_AccountBlocking_AccountBlocked(source, target);
     }
 
     function unblockUser(address source, address target) external {
         require(msg.sender == source, Errors.InvalidMsgSender());
         require($storage().isBlocked[source][target], Errors.RedundantStateChange());
         $storage().isBlocked[source][target] = false;
-        emit Lens_AccountBlocking_AccountUnblocked(source, target);
+        emit Sense_AccountBlocking_AccountUnblocked(source, target);
     }
 
     function processCreatePost(

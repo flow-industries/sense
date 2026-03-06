@@ -12,8 +12,8 @@ import {IMetadataBased} from "@core/interfaces/IMetadataBased.sol";
 import {INamespace} from "@core/interfaces/INamespace.sol";
 import {INamespaceRule} from "@core/interfaces/INamespaceRule.sol";
 import {IOwnable} from "@core/interfaces/IOwnable.sol";
-import {LensERC721} from "@core/base/LensERC721.sol";
-import {LensUsernameTokenURIProvider} from "@core/primitives/namespace/LensUsernameTokenURIProvider.sol";
+import {SenseERC721} from "@core/base/SenseERC721.sol";
+import {SenseUsernameTokenURIProvider} from "@core/primitives/namespace/SenseUsernameTokenURIProvider.sol";
 import {MockAccessControl} from "test/mocks/MockAccessControl.sol";
 import {Namespace} from "@core/primitives/namespace/Namespace.sol";
 import {Rule} from "@core/types/Types.sol";
@@ -22,8 +22,8 @@ import {RulesTest} from "test/primitives/rules/Rules.t.sol";
 import {IERC721Receiver} from "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 
 contract NamespaceTest is RulesTest, BaseDeployments, RuleExecutionTest {
-    /// @custom:keccak lens.permission.AssignUsername
-    uint256 constant PID__ASSIGN_USERNAME = uint256(0x6ed127ecda9c702e81990b9c822ee95d9238c4141f2d4fbaa05c6ba3df0ec6ce);
+    /// @custom:keccak sense.permission.AssignUsername
+    uint256 constant PID__ASSIGN_USERNAME = uint256(0x3c87a82b30f2bbd8c7aea56ab1a2e859419f6176cf30c57b6b50b837fcb638c2);
 
     INamespace namespace;
 
@@ -37,7 +37,7 @@ contract NamespaceTest is RulesTest, BaseDeployments, RuleExecutionTest {
         BaseDeployments.setUp();
 
         namespace = INamespace(
-            lensFactory.deployNamespace({
+            senseFactory.deployNamespace({
                 namespace: "bitcoin",
                 metadataURI: "satoshi://nakamoto",
                 owner: namespaceOwner,
@@ -51,9 +51,9 @@ contract NamespaceTest is RulesTest, BaseDeployments, RuleExecutionTest {
 
         mockAccessControl = new MockAccessControl();
 
-        LensUsernameTokenURIProvider tokenURIProvider = new LensUsernameTokenURIProvider();
+        SenseUsernameTokenURIProvider tokenURIProvider = new SenseUsernameTokenURIProvider();
 
-        vm.prank(address(lensFactory));
+        vm.prank(address(senseFactory));
         namespaceForRules = namespaceFactory.deployNamespace({
             namespace: "ethereum",
             metadataURI: "vitalik://buterin",
@@ -505,7 +505,7 @@ contract NamespaceTest is RulesTest, BaseDeployments, RuleExecutionTest {
         });
 
         assertTrue(namespace.exists(localName), "Username should exist after creation");
-        assertEq(LensERC721(address(namespace)).ownerOf(tokenId), account, "Token ownership should be correct");
+        assertEq(SenseERC721(address(namespace)).ownerOf(tokenId), account, "Token ownership should be correct");
 
         vm.prank(account);
         namespace.assignUsername({
@@ -519,11 +519,11 @@ contract NamespaceTest is RulesTest, BaseDeployments, RuleExecutionTest {
 
         // Transfer username NFT
         vm.prank(account);
-        LensERC721(address(namespace)).transferFrom(account, otherAccount, tokenId);
+        SenseERC721(address(namespace)).transferFrom(account, otherAccount, tokenId);
 
         // Verify ownership changed but assignment remains
         assertTrue(namespace.exists(localName), "Username should still exist after transfer");
-        assertEq(LensERC721(address(namespace)).ownerOf(tokenId), otherAccount, "Token ownership should be transferred");
+        assertEq(SenseERC721(address(namespace)).ownerOf(tokenId), otherAccount, "Token ownership should be transferred");
         assertEq(namespace.accountOf(localName), account, "Username assignment should remain unchanged");
         assertEq(namespace.usernameOf(account), localName, "Account should still have the username");
     }
@@ -546,7 +546,7 @@ contract NamespaceTest is RulesTest, BaseDeployments, RuleExecutionTest {
 
         // Verify token ownership and username assignment
         assertTrue(namespace.exists(localName), "Username should exist");
-        assertEq(LensERC721(address(namespace)).ownerOf(tokenId), account, "Token should be owned by account");
+        assertEq(SenseERC721(address(namespace)).ownerOf(tokenId), account, "Token should be owned by account");
         assertEq(namespace.accountOf(localName), account, "Username should be assigned to account");
         assertEq(namespace.usernameOf(account), localName, "Account should have the username");
     }
@@ -573,7 +573,7 @@ contract NamespaceTest is RulesTest, BaseDeployments, RuleExecutionTest {
 
         // Verify token ownership and username assignment
         assertTrue(namespace.exists(localName), "Username should exist");
-        assertEq(LensERC721(address(namespace)).ownerOf(tokenId), ownedAccount, "Token should be owned by account");
+        assertEq(SenseERC721(address(namespace)).ownerOf(tokenId), ownedAccount, "Token should be owned by account");
         assertEq(namespace.accountOf(localName), ownedAccount, "Username should be assigned to account");
         assertEq(namespace.usernameOf(ownedAccount), localName, "Account should have the username");
     }
@@ -601,7 +601,7 @@ contract NamespaceTest is RulesTest, BaseDeployments, RuleExecutionTest {
 
         // Verify token ownership and username assignment
         assertTrue(namespace.exists(localName), "Username should exist");
-        assertEq(LensERC721(address(namespace)).ownerOf(tokenId), controlledAccount, "Token should be owned by account");
+        assertEq(SenseERC721(address(namespace)).ownerOf(tokenId), controlledAccount, "Token should be owned by account");
         assertEq(namespace.accountOf(localName), controlledAccount, "Username should be assigned to account");
         assertEq(namespace.usernameOf(controlledAccount), localName, "Account should have the username");
     }
@@ -641,7 +641,7 @@ contract NamespaceTest is RulesTest, BaseDeployments, RuleExecutionTest {
         string memory newMetadataURI = "uri://new-metadata-uri";
         assertNotEq(IMetadataBased(address(namespaceForRules)).getMetadataURI(), newMetadataURI);
         mockAccessControl.mockAccess(
-            addressWithPID, address(namespaceForRules), uint256(keccak256("lens.permission.SetMetadata")), true
+            addressWithPID, address(namespaceForRules), uint256(keccak256("sense.permission.SetMetadata")), true
         );
         vm.prank(addressWithPID);
         IMetadataBased(address(namespaceForRules)).setMetadataURI(newMetadataURI);
@@ -653,7 +653,7 @@ contract NamespaceTest is RulesTest, BaseDeployments, RuleExecutionTest {
         string memory newMetadataURI = "uri://new-metadata-uri";
         assertNotEq(oldMetadataURI, newMetadataURI);
         mockAccessControl.mockAccess(
-            addressWithoutPID, address(namespaceForRules), uint256(keccak256("lens.permission.SetMetadata")), false
+            addressWithoutPID, address(namespaceForRules), uint256(keccak256("sense.permission.SetMetadata")), false
         );
         vm.prank(addressWithoutPID);
         vm.expectRevert(Errors.AccessDenied.selector);
@@ -869,8 +869,8 @@ contract NamespaceTest is RulesTest, BaseDeployments, RuleExecutionTest {
 }
 
 contract NamespaceTestII is BaseDeployments {
-    /// @custom:keccak lens.permission.AssignUsername
-    uint256 constant PID__ASSIGN_USERNAME = uint256(0x6ed127ecda9c702e81990b9c822ee95d9238c4141f2d4fbaa05c6ba3df0ec6ce);
+    /// @custom:keccak sense.permission.AssignUsername
+    uint256 constant PID__ASSIGN_USERNAME = uint256(0x3c87a82b30f2bbd8c7aea56ab1a2e859419f6176cf30c57b6b50b837fcb638c2);
 
     INamespace namespace;
 
@@ -883,7 +883,7 @@ contract NamespaceTestII is BaseDeployments {
         BaseDeployments.setUp();
 
         namespace = INamespace(
-            lensFactory.deployNamespace({
+            senseFactory.deployNamespace({
                 namespace: "bitcoin",
                 metadataURI: "satoshi://nakamoto",
                 owner: namespaceOwner,

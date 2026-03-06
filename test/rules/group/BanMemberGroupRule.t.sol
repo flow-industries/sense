@@ -18,7 +18,7 @@ contract BanMemberGroupRuleTest is BaseDeployments {
         BaseDeployments.setUp();
 
         group = IGroup(
-            lensFactory.deployGroup({
+            senseFactory.deployGroup({
                 metadataURI: "some metadata uri",
                 owner: groupOwner,
                 admins: _emptyAddressArray(),

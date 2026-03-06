@@ -7,7 +7,7 @@ import {IAccessControl} from "contracts/core/interfaces/IAccessControl.sol";
 import {ITokenURIProvider} from "contracts/core/interfaces/ITokenURIProvider.sol";
 
 import {RoleBasedAccessControl} from "contracts/core/access/RoleBasedAccessControl.sol";
-import {LensUsernameTokenURIProvider} from "contracts/core/primitives/namespace/LensUsernameTokenURIProvider.sol";
+import {SenseUsernameTokenURIProvider} from "contracts/core/primitives/namespace/SenseUsernameTokenURIProvider.sol";
 
 import {App} from "@extensions/primitives/app/App.sol";
 import {Account as AccountContract} from "@extensions/account/Account.sol";
@@ -26,10 +26,10 @@ import {FeedFactory} from "@extensions/factories/FeedFactory.sol";
 import {GraphFactory} from "@extensions/factories/GraphFactory.sol";
 import {GroupFactory} from "@extensions/factories/GroupFactory.sol";
 import {NamespaceFactory} from "@extensions/factories/NamespaceFactory.sol";
-import {LensFactory, FactoryConstructorParams, RuleConstructorParams} from "@extensions/factories/LensFactory.sol";
+import {SenseFactory, FactoryConstructorParams, RuleConstructorParams} from "@extensions/factories/SenseFactory.sol";
 
-import {CONTRACT__LENS_FEES, CONTRACT__LENS_NATIVE_PAYMENT_HELPER} from "contracts/core/types/Constants.sol";
-import {LENS_CREATE_2_ADDRESS} from "contracts/core/upgradeability/LensCreate2.sol";
+import {CONTRACT__SENSE_FEES, CONTRACT__SENSE_NATIVE_PAYMENT_HELPER} from "contracts/core/types/Constants.sol";
+import {SENSE_CREATE_2_ADDRESS} from "contracts/core/upgradeability/SenseCreate2.sol";
 
 import {Lock} from "contracts/core/upgradeability/Lock.sol";
 import {Beacon} from "contracts/core/upgradeability/Beacon.sol";
@@ -45,7 +45,7 @@ import {TippingAccountAction} from "contracts/actions/account/TippingAccountActi
 import {TippingPostAction} from "contracts/actions/post/TippingPostAction.sol";
 import {SimpleCollectAction} from "contracts/actions/post/collect/SimpleCollectAction.sol";
 
-import {LensFees} from "contracts/extensions/fees/LensFees.sol";
+import {SenseFees} from "contracts/extensions/fees/SenseFees.sol";
 
 import {MockCurrency} from "test/mocks/MockCurrency.sol";
 import {MockWrapperCurrency} from "test/mocks/MockWrapperCurrency.sol";
@@ -58,9 +58,9 @@ import {
 
 import {ZkTest} from "test/helpers/ZkTest.sol";
 
-import {MockLensCreate2} from "test/mocks/MockLensCreate2.sol";
+import {MockSenseCreate2} from "test/mocks/MockSenseCreate2.sol";
 import {EmptyImplementation} from "@core/upgradeability/EmptyImplementation.sol";
-import {LensNativePaymentHelper} from "@extensions/fees/LensNativePaymentHelper.sol";
+import {SenseNativePaymentHelper} from "@extensions/fees/SenseNativePaymentHelper.sol";
 
 contract BaseDeployments is ZkTest {
     using stdJson for string;
@@ -92,7 +92,7 @@ contract BaseDeployments is ZkTest {
     address factoriesProxyOwner = vm.envOr("FACTORIES_PROXY_OWNER", makeAddr("FACTORIES_PROXY_OWNER"));
     address rulesProxyOwner = vm.envOr("RULES_PROXY_OWNER", makeAddr("RULES_PROXY_OWNER"));
     address primitivesOwner = vm.envOr("PRIMITIVES_OWNER", makeAddr("PRIMITIVES_OWNER"));
-    address lensCreate2ProxyAdmin = vm.envOr("LENS_CREATE_2_PROXY_ADMIN", makeAddr("LENS_CREATE_2_PROXY_ADMIN"));
+    address senseCreate2ProxyAdmin = vm.envOr("SENSE_CREATE_2_PROXY_ADMIN", makeAddr("SENSE_CREATE_2_PROXY_ADMIN"));
 
     address appImpl;
     address accountImpl;
@@ -111,9 +111,9 @@ contract BaseDeployments is ZkTest {
 
     address actionHub;
 
-    address lensFeesImpl;
-    address lensFees;
-    address payable lensNativePaymentHelper;
+    address senseFeesImpl;
+    address senseFees;
+    address payable senseNativePaymentHelper;
 
     AppFactory appFactory;
     AccessControlFactory accessControlFactory;
@@ -123,7 +123,7 @@ contract BaseDeployments is ZkTest {
     GroupFactory groupFactory;
     NamespaceFactory namespaceFactory;
 
-    LensFactory lensFactory;
+    SenseFactory senseFactory;
 
     address accessControlFactoryImpl;
     address accountFactoryImpl;
@@ -162,12 +162,12 @@ contract BaseDeployments is ZkTest {
             _loadAddressBookJson();
             _loadFromFork();
         } else {
-            _deployMockLensCreate2();
+            _deployMockSenseCreate2();
             _deployNewContracts();
         }
     }
 
-    function _deployMockLensCreate2() internal {
+    function _deployMockSenseCreate2() internal {
         address emptyImpl = address(new EmptyImplementation());
         new TransparentUpgradeableProxy(emptyImpl, emptyImpl, ""); // Discarded, just to avoid UnknownCodeHash error
 
@@ -179,26 +179,26 @@ contract BaseDeployments is ZkTest {
         // - getCode doesn't work in native EVM (contains constructor code, we need getDeployedCode instead)
         // - getDeployedCode doesn't work in ZkSync (fails with an error about multiple artifacts during compilation)
         vm.etch(
-            LENS_CREATE_2_ADDRESS,
+            SENSE_CREATE_2_ADDRESS,
             isZkEvm() ? vm.getCode("TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy") : proxyDeployedEVMCode
         );
 
-        MockLensCreate2 create2Impl = new MockLensCreate2();
+        MockSenseCreate2 create2Impl = new MockSenseCreate2();
 
         vm.store(
-            LENS_CREATE_2_ADDRESS,
+            SENSE_CREATE_2_ADDRESS,
             0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc, // bytes32(uint256(keccak256('eip1967.proxy.implementation')) - 1)
             bytes32(uint256(uint160(address(create2Impl))))
         );
         vm.store(
-            LENS_CREATE_2_ADDRESS,
+            SENSE_CREATE_2_ADDRESS,
             0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103, // bytes32(uint256(keccak256('eip1967.proxy.admin')) - 1)
-            bytes32(uint256(uint160(lensCreate2ProxyAdmin)))
+            bytes32(uint256(uint160(senseCreate2ProxyAdmin)))
         );
 
-        MockLensCreate2(LENS_CREATE_2_ADDRESS).setAddress(CONTRACT__LENS_FEES, makeAddr("LENS_FEES"));
-        address lensFeesAddress = MockLensCreate2(LENS_CREATE_2_ADDRESS).getAddress(CONTRACT__LENS_FEES);
-        assertEq(lensFeesAddress, makeAddr("LENS_FEES"), "[LENS_CREATE_2] LensFees address is not set correctly");
+        MockSenseCreate2(SENSE_CREATE_2_ADDRESS).setAddress(CONTRACT__SENSE_FEES, makeAddr("SENSE_FEES"));
+        address senseFeesAddress = MockSenseCreate2(SENSE_CREATE_2_ADDRESS).getAddress(CONTRACT__SENSE_FEES);
+        assertEq(senseFeesAddress, makeAddr("SENSE_FEES"), "[SENSE_CREATE_2] SenseFees address is not set correctly");
     }
 
     function _loadFromFork() internal {
@@ -226,7 +226,7 @@ contract BaseDeployments is ZkTest {
         banMemberGroupRule = json.readAddress(".BanMemberGroupRule.address");
         addRemovePidGroupRule = json.readAddress(".AdditionRemovalPidGroupRule.address");
         usernameReservedNamespaceRule = json.readAddress(".UsernameReservedNamespaceRule.address");
-        lensFactory = LensFactory(json.readAddress(".LensFactory.address"));
+        senseFactory = SenseFactory(json.readAddress(".SenseFactory.address"));
     }
 
     function _deployNewContracts() internal {
@@ -246,11 +246,13 @@ contract BaseDeployments is ZkTest {
         actionHubImpl = address(new ActionHub());
         actionHub = address(new TransparentUpgradeableProxy(actionHubImpl, factoriesProxyOwner, ""));
 
-        lensFeesImpl = address(new LensFees(TREASURY_ADDRESS, TREASURY_FEE_BPS));
-        lensFees = address(new TransparentUpgradeableProxy(lensFeesImpl, factoriesProxyOwner, ""));
-        lensNativePaymentHelper = payable(new LensNativePaymentHelper());
-        MockLensCreate2(LENS_CREATE_2_ADDRESS).setAddress(CONTRACT__LENS_NATIVE_PAYMENT_HELPER, lensNativePaymentHelper);
-        MockLensCreate2(LENS_CREATE_2_ADDRESS).setAddress(CONTRACT__LENS_FEES, lensFees);
+        senseFeesImpl = address(new SenseFees(TREASURY_ADDRESS, TREASURY_FEE_BPS));
+        senseFees = address(new TransparentUpgradeableProxy(senseFeesImpl, factoriesProxyOwner, ""));
+        senseNativePaymentHelper = payable(new SenseNativePaymentHelper());
+        MockSenseCreate2(SENSE_CREATE_2_ADDRESS).setAddress(
+            CONTRACT__SENSE_NATIVE_PAYMENT_HELPER, senseNativePaymentHelper
+        );
+        MockSenseCreate2(SENSE_CREATE_2_ADDRESS).setAddress(CONTRACT__SENSE_FEES, senseFees);
 
         _deployImplementations();
         _deployBeacons();
@@ -310,8 +312,8 @@ contract BaseDeployments is ZkTest {
             )
         );
 
-        address lensFactoryImpl = address(
-            new LensFactory({
+        address senseFactoryImpl = address(
+            new SenseFactory({
                 factories: FactoryConstructorParams({
                     accessControlFactory: accessControlFactory,
                     accountFactory: accountFactory,
@@ -331,10 +333,10 @@ contract BaseDeployments is ZkTest {
                 })
             })
         );
-        TransparentUpgradeableProxy lensFactoryProxy =
-            new TransparentUpgradeableProxy(address(lensFactoryImpl), factoriesProxyOwner, "");
+        TransparentUpgradeableProxy senseFactoryProxy =
+            new TransparentUpgradeableProxy(address(senseFactoryImpl), factoriesProxyOwner, "");
 
-        lensFactory = LensFactory(address(lensFactoryProxy));
+        senseFactory = SenseFactory(address(senseFactoryProxy));
 
         _deployFactoryImplementations();
         _setFactoryImplementationsToProxies();
@@ -344,7 +346,7 @@ contract BaseDeployments is ZkTest {
     function _deployImplementations() internal {
         // LOG: console.log("Deploying implementations");
         simpleAccessControl = IAccessControl(new RoleBasedAccessControl({owner: address(this)}));
-        simpleTokenURIProvider = new LensUsernameTokenURIProvider();
+        simpleTokenURIProvider = new SenseUsernameTokenURIProvider();
 
         appImpl = address(new App());
         accountImpl = address(new AccountContract({nativeGHO: address(GHO), wrappedGHO: address(WGHO)}));
@@ -357,7 +359,7 @@ contract BaseDeployments is ZkTest {
     function _loadImplementations() internal {
         // LOG: console.log("Loading implementations");
         simpleAccessControl = IAccessControl(new RoleBasedAccessControl({owner: address(this)}));
-        simpleTokenURIProvider = new LensUsernameTokenURIProvider();
+        simpleTokenURIProvider = new SenseUsernameTokenURIProvider();
 
         appImpl = json.readAddress(".AppImpl.address");
         accountImpl = json.readAddress(".AccountImpl.address");
@@ -420,13 +422,13 @@ contract BaseDeployments is ZkTest {
 
         appFactoryImpl = address(new AppFactory(appBeacon, appLock));
 
-        feedFactoryImpl = address(new FeedFactory(feedBeacon, feedLock, address(lensFactory)));
+        feedFactoryImpl = address(new FeedFactory(feedBeacon, feedLock, address(senseFactory)));
 
-        graphFactoryImpl = address(new GraphFactory(graphBeacon, graphLock, address(lensFactory)));
+        graphFactoryImpl = address(new GraphFactory(graphBeacon, graphLock, address(senseFactory)));
 
-        groupFactoryImpl = address(new GroupFactory(groupBeacon, groupLock, address(lensFactory)));
+        groupFactoryImpl = address(new GroupFactory(groupBeacon, groupLock, address(senseFactory)));
 
-        namespaceFactoryImpl = address(new NamespaceFactory(namespaceBeacon, namespaceLock, address(lensFactory)));
+        namespaceFactoryImpl = address(new NamespaceFactory(namespaceBeacon, namespaceLock, address(senseFactory)));
     }
 
     function _loadFactoryImplementations() internal {

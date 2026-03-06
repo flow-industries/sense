@@ -14,25 +14,25 @@ import {NATIVE_TOKEN, SELECTOR_BYTE_LENGTH} from "contracts/core/types/Constants
 contract PrepareTokenDistribution is Script {
     /// @dev How many tokens should be allocated for each distribution period (e.g. you create a distribution with
     /// 10K GHO, with 1K sent each day, you would set it to 1_000e18)
-    /// @custom:keccak lens.param.amount_allocated_per_batch
+    /// @custom:keccak sense.param.amount_allocated_per_batch
     bytes32 constant PARAM__AMOUNT_ALLOCATED_PER_BATCH =
         0x6b4066c61a2f7e3c5ca790dccaa57d2e863321fbf0584afe8095116695f3317f;
 
     /// How often distributions should occur in seconds (e.g. daily would be 86400)
-    /// @custom:keccak lens.param.distribute_every
+    /// @custom:keccak sense.param.distribute_every
     bytes32 constant PARAM__DISTRIBUTE_EVERY = 0xd88adae0b656afd18030ea00aeb460a498a38b0dbf64dcdbfbeaa47f695e8fa5;
 
     /// @dev How often vesting should occur within each distribution period as a way to subdivide batches even further
     /// @dev Optional parameter
-    /// @custom:keccak lens.param.vest_every
+    /// @custom:keccak sense.param.vest_every
     bytes32 constant PARAM__VEST_EVERY = 0x869ebff7d31c711b87f50b1ce7da4c89f969ed5a032bb529fcdf5c2e5912a72f;
 
     /// @dev When should the token distribution begin
-    /// @custom:keccak lens.param.starts_at
+    /// @custom:keccak sense.param.starts_at
     bytes32 constant PARAM__STARTS_AT = 0x2de80238eb81ce97848edb5be4274576fea1a6760e422ef76cd8f100e3761c7e;
 
     /// @dev When should the token distribution end
-    /// @custom:keccak lens.param.ends_at
+    /// @custom:keccak sense.param.ends_at
     bytes32 constant PARAM__ENDS_AT = 0xcda52eac4bed4794dbef6554969a07005da129cf93e3faf0522856e765c7b774;
 
     address constant TOKEN_DISTRIBUTOR = 0x2a705184A6Bb7Dd185E4534d79E441B3edA1082c;
@@ -71,10 +71,10 @@ contract PrepareTokenDistribution is Script {
         console.log("\nToken: ", token);
         console.log("\nTotal amount to allocate: ", totalAmountToAllocate);
         console.log("\n- - - - -");
-        console.log("\nlens.param.amount_allocated_per_batch", amountAllocatedPerBatch);
-        console.log("\nlens.param.distribute_every", distributeEvery);
-        console.log("\nlens.param.starts_at", startsAt);
-        console.log("\nlens.param.ends_at", endsAt);
+        console.log("\nsense.param.amount_allocated_per_batch", amountAllocatedPerBatch);
+        console.log("\nsense.param.distribute_every", distributeEvery);
+        console.log("\nsense.param.starts_at", startsAt);
+        console.log("\nsense.param.ends_at", endsAt);
 
         KeyValue[] memory params = new KeyValue[](4);
         params[0] = KeyValue({key: PARAM__AMOUNT_ALLOCATED_PER_BATCH, value: abi.encode(amountAllocatedPerBatch)});

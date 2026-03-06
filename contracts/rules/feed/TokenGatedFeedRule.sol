@@ -15,14 +15,14 @@ contract TokenGatedFeedRule is TokenGatedRule, Initializable, IFeedRule {
     using AccessControlLib for IAccessControl;
     using AccessControlLib for address;
 
-    /// @custom:keccak lens.permission.SkipGate
-    uint256 constant PID__SKIP_GATE = uint256(0xeb7f30e4c97d5211e2534aa42375c26931bd55b57a8101e5eb7918daead714eb);
+    /// @custom:keccak sense.permission.SkipGate
+    uint256 constant PID__SKIP_GATE = uint256(0x9c121722c489db51d51806a75ad147e0ea1b081f6236c9d68afaa6100116d370);
 
-    /// @custom:keccak lens.param.accessControl
-    bytes32 constant PARAM__ACCESS_CONTROL = 0xcf3b0fab90208e4185bf857e0f943f6672abffb7d0898e0750beeeb991ae35fa;
+    /// @custom:keccak sense.param.accessControl
+    bytes32 constant PARAM__ACCESS_CONTROL = 0x60bed11e4162e3e9bcfb8044458f295705a04aa845c92624582efb6c988f9b9e;
 
-    /// @custom:keccak lens.storage.TokenGatedFeedRule
-    bytes32 constant STORAGE__TOKEN_GATED_FEED_RULE = 0xd05368ec51bd7f193185c9db5c15fb8de0f631a954507a483fb9bb1f567a00c9;
+    /// @custom:keccak sense.storage.TokenGatedFeedRule
+    bytes32 constant STORAGE__TOKEN_GATED_FEED_RULE = 0x4fe1e801a881f91c8a947e1634a5ab1e08d13c2991697296fac2ff2c065483ea;
 
     struct Configuration {
         address accessControl;
@@ -44,7 +44,7 @@ contract TokenGatedFeedRule is TokenGatedRule, Initializable, IFeedRule {
     }
 
     function initialize(address owner, string memory metadataURI) external initializer {
-        emit Events.Lens_PermissionId_Available(PID__SKIP_GATE, "lens.permission.SkipGate");
+        emit Events.Sense_PermissionId_Available(PID__SKIP_GATE, "sense.permission.SkipGate");
         TokenGatedRule._initialize(owner, metadataURI);
     }
 

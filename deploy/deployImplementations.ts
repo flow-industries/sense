@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-import { deployLensContract, ContractType, ContractInfo } from './lensUtils';
+import { deploySenseContract, ContractType, ContractInfo } from './senseUtils';
 
 export default async function deployImplementations(DEPLOYING_MIGRATION: boolean): Promise<void> {
   const contracts: ContractInfo[] = [
@@ -13,6 +13,6 @@ export default async function deployImplementations(DEPLOYING_MIGRATION: boolean
   ];
 
   for (const contract of contracts) {
-    await deployLensContract(contract);
+    await deploySenseContract(contract);
   }
 }

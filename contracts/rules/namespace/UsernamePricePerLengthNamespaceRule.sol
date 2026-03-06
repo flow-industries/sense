@@ -16,21 +16,21 @@ contract UsernamePricePerLengthNamespaceRule is SimplePaymentRule, Initializable
     using AccessControlLib for IAccessControl;
     using AccessControlLib for address;
 
-    /// @custom:keccak lens.permission.SkipPayment
-    uint256 constant PID__SKIP_PAYMENT = uint256(0x00f37ae888d55466c7f464a414e84bc629550dc0e0655302b62e8c608a260b5c);
+    /// @custom:keccak sense.permission.SkipPayment
+    uint256 constant PID__SKIP_PAYMENT = uint256(0x3d2561fc4fb84b50403ba25bbac5deca4d160044709aa895c8888af5dc5707be);
 
-    /// @custom:keccak lens.param.accessControl
-    bytes32 constant PARAM__ACCESS_CONTROL = 0xcf3b0fab90208e4185bf857e0f943f6672abffb7d0898e0750beeeb991ae35fa;
-    /// @custom:keccak lens.param.referrals
-    bytes32 constant PARAM__REFERRALS = 0x183a1b7fdb9626f5ae4e8cac88ee13cc03b29800d2690f61e2a2566f76d8773f;
-    /// @custom:keccak lens.param.referralFee
-    bytes32 constant PARAM__REFERRAL_FEE = 0x6dff2c1710f2154b19d8cf5d6f7d8f5b3909222c3cdd8801486403e4d423b1b6;
-    /// @custom:keccak lens.param.pricePerLengthConfig
-    bytes32 constant PARAM__PRICE_PER_LENGTH = 0xfb5b606f0631eb09d9455c5a3bac25917b3cea6dfc6127937a7a18264219cb27;
+    /// @custom:keccak sense.param.accessControl
+    bytes32 constant PARAM__ACCESS_CONTROL = 0x60bed11e4162e3e9bcfb8044458f295705a04aa845c92624582efb6c988f9b9e;
+    /// @custom:keccak sense.param.referrals
+    bytes32 constant PARAM__REFERRALS = 0xe101986198b5c30a6ffb015105ee63311b35d0a2d7768694589fc3d6dc5ba469;
+    /// @custom:keccak sense.param.referralFee
+    bytes32 constant PARAM__REFERRAL_FEE = 0x572859a2dfb962d4fd0391f169e5e52f8a5fdf3edd1e793981e717e9c443039f;
+    /// @custom:keccak sense.param.pricePerLengthConfig
+    bytes32 constant PARAM__PRICE_PER_LENGTH = 0x47db35d797c0b548423f3fbc43b4cb78921a333cfefddff5a4352b47563d2b77;
 
-    /// @custom:keccak lens.storage.UsernamePricePerLengthNamespaceRule
+    /// @custom:keccak sense.storage.UsernamePricePerLengthNamespaceRule
     bytes32 constant STORAGE__USERNAME_PRICE_PER_LENGTH_NAMESPACE_RULE =
-        0x30c135f7e439d20e948372fefb19fe2e3bba93558b8f166d2139949a2055326f;
+        0xaa2992940c74cd9846b0ad6e33afae3ca084465e4e74c5ae766bd6bc4dd423a7;
 
     struct Configuration {
         address accessControl;
@@ -65,7 +65,7 @@ contract UsernamePricePerLengthNamespaceRule is SimplePaymentRule, Initializable
     }
 
     function initialize(address owner, string memory metadataURI) external initializer {
-        emit Events.Lens_PermissionId_Available(PID__SKIP_PAYMENT, "lens.permission.SkipPayment");
+        emit Events.Sense_PermissionId_Available(PID__SKIP_PAYMENT, "sense.permission.SkipPayment");
         SimplePaymentRule._initialize(owner, metadataURI);
     }
 

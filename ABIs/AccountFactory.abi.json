@@ -127,7 +127,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Account_Created",
+    "name": "Sense_Account_Created",
     "inputs": [
       {
         "name": "account",

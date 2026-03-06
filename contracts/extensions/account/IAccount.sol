@@ -31,19 +31,19 @@ struct AllowanceChange {
 }
 
 interface IAccount is IMetadataBased, IERC1155Receiver, IERC721Receiver {
-    event Lens_Account_MetadataURISet(string metadataURI);
-    event Lens_Account_MetadataURISet(string metadataURI, address indexed source);
-    event Lens_Account_OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
-    event Lens_Account_TransactionExecuted(address indexed target, uint256 value, bytes data, address indexed executor);
-    event Lens_Account_AccountManagerAdded(address accountManager, AccountManagerPermissions permissions);
-    event Lens_Account_AccountManagerRemoved(address accountManager);
-    event Lens_Account_AccountManagerUpdated(address accountManager, AccountManagerPermissions permissions);
-    event Lens_Account_ExtraDataAdded(bytes32 indexed key, bytes value, bytes indexed valueIndexed);
-    event Lens_Account_ExtraDataUpdated(bytes32 indexed key, bytes value, bytes indexed valueIndexed);
-    event Lens_Account_ExtraDataRemoved(bytes32 indexed key);
-    event Lens_Account_AllowanceIncreased(address indexed spender, address indexed currency, uint256 newAllowance);
-    event Lens_Account_AllowanceDecreased(address indexed spender, address indexed currency, uint256 newAllowance);
-    event Lens_Account_AllAllowancesCleared(address indexed spender);
+    event Sense_Account_MetadataURISet(string metadataURI);
+    event Sense_Account_MetadataURISet(string metadataURI, address indexed source);
+    event Sense_Account_OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+    event Sense_Account_TransactionExecuted(address indexed target, uint256 value, bytes data, address indexed executor);
+    event Sense_Account_AccountManagerAdded(address accountManager, AccountManagerPermissions permissions);
+    event Sense_Account_AccountManagerRemoved(address accountManager);
+    event Sense_Account_AccountManagerUpdated(address accountManager, AccountManagerPermissions permissions);
+    event Sense_Account_ExtraDataAdded(bytes32 indexed key, bytes value, bytes indexed valueIndexed);
+    event Sense_Account_ExtraDataUpdated(bytes32 indexed key, bytes value, bytes indexed valueIndexed);
+    event Sense_Account_ExtraDataRemoved(bytes32 indexed key);
+    event Sense_Account_AllowanceIncreased(address indexed spender, address indexed currency, uint256 newAllowance);
+    event Sense_Account_AllowanceDecreased(address indexed spender, address indexed currency, uint256 newAllowance);
+    event Sense_Account_AllAllowancesCleared(address indexed spender);
 
     function addAccountManager(address accountManager, AccountManagerPermissions calldata accountManagerPermissions)
         external;

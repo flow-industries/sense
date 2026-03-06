@@ -459,7 +459,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_ApprovalGroupRule_MembershipApproved",
+    "name": "Sense_ApprovalGroupRule_MembershipApproved",
     "inputs": [
       {
         "name": "group",
@@ -490,7 +490,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_ApprovalGroupRule_MembershipRejected",
+    "name": "Sense_ApprovalGroupRule_MembershipRejected",
     "inputs": [
       {
         "name": "group",
@@ -521,7 +521,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_ApprovalGroupRule_MembershipRequestCancelled",
+    "name": "Sense_ApprovalGroupRule_MembershipRequestCancelled",
     "inputs": [
       {
         "name": "group",
@@ -546,7 +546,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_ApprovalGroupRule_MembershipRequested",
+    "name": "Sense_ApprovalGroupRule_MembershipRequested",
     "inputs": [
       {
         "name": "group",
@@ -571,7 +571,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Ownable_OwnershipTransferred",
+    "name": "Sense_Ownable_OwnershipTransferred",
     "inputs": [
       {
         "name": "previousOwner",
@@ -590,7 +590,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_PermissionId_Available",
+    "name": "Sense_PermissionId_Available",
     "inputs": [
       {
         "name": "permissionId",
@@ -609,7 +609,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Rule_MetadataURISet",
+    "name": "Sense_Rule_MetadataURISet",
     "inputs": [
       {
         "name": "metadataURI",

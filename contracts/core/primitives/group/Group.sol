@@ -17,25 +17,25 @@ import {IAccountGroupAdditionSettings} from "contracts/core/interfaces/IAccountG
 import {KeyValueLib} from "contracts/core/libraries/KeyValueLib.sol";
 
 // Resource IDs involved in the contract
-/// @custom:keccak lens.permission.SetMetadata
-uint256 constant PID__SET_METADATA = uint256(0xe40fdb273cda3c78f0d9b6d20f5378755989e26c60c89696e5eea644d84eefea);
-/// @custom:keccak lens.permission.ChangeRules
-uint256 constant PID__CHANGE_RULES = uint256(0x550b12ef6572134aefc5804fd2b13ab3d8451e067ad453f67afe134cffebd977);
-/// @custom:keccak lens.permission.SetExtraData
-uint256 constant PID__SET_EXTRA_DATA = uint256(0x9b4afa2e6d7162f878076bb1210736928cd607a384b985eca0dba5e94790e72a);
-/// @custom:keccak lens.permission.AddMember
-uint256 constant PID__ADD_MEMBER = uint256(0x19ef038b2d9618004143e998c9c636d9796ef58a03b5e2351e9f8d8446b0c2ab);
-/// @custom:keccak lens.permission.RemoveMember
-uint256 constant PID__REMOVE_MEMBER = uint256(0x8c204b72f1086f607fac077224053e94d5f8a69311195889c42430ffa8646e23);
-/// @custom:keccak lens.permission.SkipAddMemberRules
-uint256 constant PID__SKIP_ADD_MEMBER_RULES = uint256(0xd2a5a9d31c1be4f87f450917f4a33dadddde87ef034ecd45fa79c2067bb0b434);
-/// @custom:keccak lens.permission.SkipRemoveMemberRules
+/// @custom:keccak sense.permission.SetMetadata
+uint256 constant PID__SET_METADATA = uint256(0xc593734a442ec90a714cfb87bfb7aca283b763335df63d0001196ab1ff115f53);
+/// @custom:keccak sense.permission.ChangeRules
+uint256 constant PID__CHANGE_RULES = uint256(0xde011e4a0a5ba313b0ac8a7e2b9d7ee3156d91c77a234d9be7f9ed14184deaec);
+/// @custom:keccak sense.permission.SetExtraData
+uint256 constant PID__SET_EXTRA_DATA = uint256(0x89230884684683d91d892d3bd0c063380fe312b990f4c455be670b9b5b0c30c2);
+/// @custom:keccak sense.permission.AddMember
+uint256 constant PID__ADD_MEMBER = uint256(0x7975da81c3eb15a487a022674de548c87768be7c96c68d8f8560ea96b553a09c);
+/// @custom:keccak sense.permission.RemoveMember
+uint256 constant PID__REMOVE_MEMBER = uint256(0xdd20b5712d56709059ba6d5be4805add03a675fa6ffe2d8d6cb116b14fa6101f);
+/// @custom:keccak sense.permission.SkipAddMemberRules
+uint256 constant PID__SKIP_ADD_MEMBER_RULES = uint256(0x3aa52594fa508d1db0c0dfe361541bed5b12d178b184c9afaaaeeebbee9b600a);
+/// @custom:keccak sense.permission.SkipRemoveMemberRules
 uint256 constant PID__SKIP_REMOVE_MEMBER_RULES =
-    uint256(0x2c3e2cd5ab51b79b73a15b273d9b9ccfee8d62a91defe98fd96370db5e5564e0);
+    uint256(0x4d3a597e22a7dbca3e78ef71512f62ef71fa71bdeb4e81b73ba77f11a1db5f37);
 
-/// @custom:keccak lens.param.accountAdditionSettingsParams
+/// @custom:keccak sense.param.accountAdditionSettingsParams
 bytes32 constant PARAM__ACCOUNT_ADDITION_SETTINGS_PARAMS =
-    0xc5602d6fdc6b403d800fd4d9c15c7ff231b8994478f8df567d4554ab356cdd55;
+    0x94e635d0c6ead24a1112c887c590f1a6d3fdaf31729c32af83aeffeaea89d21e;
 
 contract Group is
     IGroup,
@@ -64,9 +64,9 @@ contract Group is
     function _initialize(string memory metadataURI, address foundingMember) internal {
         _setMetadataURI(metadataURI);
         _emitPIDs();
-        emit Events.Lens_Contract_Deployed({contractType: "lens.contract.Group", flavour: "lens.contract.Group"});
+        emit Events.Sense_Contract_Deployed({contractType: "sense.contract.Group", flavour: "sense.contract.Group"});
         if (foundingMember != address(0)) {
-            emit Lens_Group_MemberAdded(
+            emit Sense_Group_MemberAdded(
                 foundingMember,
                 Core._grantMembership(foundingMember),
                 new KeyValue[](0),
@@ -77,14 +77,14 @@ contract Group is
     }
 
     function _emitMetadataURISet(string memory metadataURI, address /* source */ ) internal override {
-        emit Lens_Group_MetadataURISet(metadataURI);
+        emit Sense_Group_MetadataURISet(metadataURI);
     }
 
     function _emitPIDs() internal override {
         super._emitPIDs();
-        emit Events.Lens_PermissionId_Available(PID__CHANGE_RULES, "lens.permission.ChangeRules");
-        emit Events.Lens_PermissionId_Available(PID__SET_METADATA, "lens.permission.SetMetadata");
-        emit Events.Lens_PermissionId_Available(PID__SET_EXTRA_DATA, "lens.permission.SetExtraData");
+        emit Events.Sense_PermissionId_Available(PID__CHANGE_RULES, "sense.permission.ChangeRules");
+        emit Events.Sense_PermissionId_Available(PID__SET_METADATA, "sense.permission.SetMetadata");
+        emit Events.Sense_PermissionId_Available(PID__SET_EXTRA_DATA, "sense.permission.SetExtraData");
     }
 
     // Access Controlled functions
@@ -105,15 +105,15 @@ contract Group is
     {}
 
     function _emitExtraDataAddedEvent(KeyValue calldata extraDataAdded) internal override {
-        emit Lens_Group_ExtraDataAdded(extraDataAdded.key, extraDataAdded.value, extraDataAdded.value);
+        emit Sense_Group_ExtraDataAdded(extraDataAdded.key, extraDataAdded.value, extraDataAdded.value);
     }
 
     function _emitExtraDataUpdatedEvent(KeyValue calldata extraDataUpdated) internal override {
-        emit Lens_Group_ExtraDataUpdated(extraDataUpdated.key, extraDataUpdated.value, extraDataUpdated.value);
+        emit Sense_Group_ExtraDataUpdated(extraDataUpdated.key, extraDataUpdated.value, extraDataUpdated.value);
     }
 
     function _emitExtraDataRemovedEvent(KeyValue calldata extraDataRemoved) internal override {
-        emit Lens_Group_ExtraDataRemoved(extraDataRemoved.key);
+        emit Sense_Group_ExtraDataRemoved(extraDataRemoved.key);
     }
 
     // Public functions
@@ -143,7 +143,7 @@ contract Group is
         uint256 membershipId = Core._grantMembership(account);
         _processMemberJoining(msg.sender, account, customParams, ruleProcessingParams);
         address source = _processSourceStamp(membershipId, customParams);
-        emit Lens_Group_MemberJoined(account, membershipId, customParams, ruleProcessingParams, source);
+        emit Sense_Group_MemberJoined(account, membershipId, customParams, ruleProcessingParams, source);
     }
 
     function leaveGroup(
@@ -156,7 +156,7 @@ contract Group is
         _processMemberLeaving(msg.sender, account, customParams, ruleProcessingParams);
         address source = _processSourceStamp(customParams);
         _clearSource(membershipId);
-        emit Lens_Group_MemberLeft(account, membershipId, customParams, ruleProcessingParams, source);
+        emit Sense_Group_MemberLeft(account, membershipId, customParams, ruleProcessingParams, source);
     }
 
     function setExtraData(KeyValue[] calldata extraDataToSet) external override {
@@ -182,7 +182,7 @@ contract Group is
             Errors.NotAllowed()
         );
         _storeSource(membershipId, source);
-        emit Lens_Group_MemberAdded(account, membershipId, customParams, ruleProcessingParams, source);
+        emit Sense_Group_MemberAdded(account, membershipId, customParams, ruleProcessingParams, source);
     }
 
     function _removeMember(
@@ -194,7 +194,7 @@ contract Group is
         uint256 membershipId = Core._revokeMembership(account);
         _processMemberRemoval(msg.sender, account, customParams, ruleProcessingParams);
         _clearSource(membershipId);
-        emit Lens_Group_MemberRemoved(account, membershipId, customParams, ruleProcessingParams, source);
+        emit Sense_Group_MemberRemoved(account, membershipId, customParams, ruleProcessingParams, source);
     }
 
     function _extractAccountAdditionSettingsParamsFromParams(KeyValue[] memory customParams)

@@ -6,17 +6,17 @@ import "./../../helpers/TypeHelpers.sol";
 
 import {BaseDeployments} from "test/helpers/BaseDeployments.sol";
 import {FuzzZkTest} from "test/helpers/FuzzZkTest.sol";
-import {PayableUsingNativePaymentHelper} from "@extensions/fees/LensNativePaymentHelper.sol";
-import {ILensCreate2, LENS_CREATE_2_ADDRESS} from "@core/upgradeability/LensCreate2.sol";
-import {CONTRACT__LENS_NATIVE_PAYMENT_HELPER} from "@core/types/Constants.sol";
+import {PayableUsingNativePaymentHelper} from "@extensions/fees/SenseNativePaymentHelper.sol";
+import {ISenseCreate2, SENSE_CREATE_2_ADDRESS} from "@core/upgradeability/SenseCreate2.sol";
+import {CONTRACT__SENSE_NATIVE_PAYMENT_HELPER} from "@core/types/Constants.sol";
 import {Errors} from "@core/types/Errors.sol";
 
 contract PayableUsingNativePaymentHelperTest is FuzzZkTest, BaseDeployments {
     function setUp() public override {
         super.setUp();
 
-        lensNativePaymentHelper =
-            payable(ILensCreate2(LENS_CREATE_2_ADDRESS).getAddress(CONTRACT__LENS_NATIVE_PAYMENT_HELPER));
+        senseNativePaymentHelper =
+            payable(ISenseCreate2(SENSE_CREATE_2_ADDRESS).getAddress(CONTRACT__SENSE_NATIVE_PAYMENT_HELPER));
     }
 
     function test_PayableUsingNativePaymentHelper_SendsMsgValueToNativePaymentHelper(uint256 msgValue) public {
@@ -25,11 +25,11 @@ contract PayableUsingNativePaymentHelperTest is FuzzZkTest, BaseDeployments {
 
         DummyPayableUsingNativePaymentHelper payableUsingNativePaymentHelper = new DummyPayableUsingNativePaymentHelper();
 
-        assertEq(lensNativePaymentHelper.balance, 0);
+        assertEq(senseNativePaymentHelper.balance, 0);
 
         payableUsingNativePaymentHelper.somePayableFunction{value: msgValue}();
 
-        assertEq(lensNativePaymentHelper.balance, msgValue);
+        assertEq(senseNativePaymentHelper.balance, msgValue);
     }
 
     function test_PayableUsingNativePaymentHelper_RevertsIfSpendSomeMsgValueFails(uint256 msgValue) public {
@@ -39,12 +39,12 @@ contract PayableUsingNativePaymentHelperTest is FuzzZkTest, BaseDeployments {
         RevertingPayableUsingNativePaymentHelper payableUsingNativePaymentHelper =
             new RevertingPayableUsingNativePaymentHelper();
 
-        assertEq(lensNativePaymentHelper.balance, 0);
+        assertEq(senseNativePaymentHelper.balance, 0);
 
         vm.expectRevert(Errors.FailedToTransferNative.selector);
         payableUsingNativePaymentHelper.somePayableFunction{value: msgValue}();
 
-        assertEq(lensNativePaymentHelper.balance, 0);
+        assertEq(senseNativePaymentHelper.balance, 0);
     }
 }
 

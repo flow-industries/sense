@@ -25,20 +25,20 @@ contract Feed is
     SourceStampBased,
     MetadataBased
 {
-    /// @custom:keccak lens.permission.SetMetadata
-    uint256 constant PID__SET_METADATA = uint256(0xe40fdb273cda3c78f0d9b6d20f5378755989e26c60c89696e5eea644d84eefea);
-    /// @custom:keccak lens.permission.ChangeRules
-    uint256 constant PID__CHANGE_RULES = uint256(0x550b12ef6572134aefc5804fd2b13ab3d8451e067ad453f67afe134cffebd977);
-    /// @custom:keccak lens.permission.SetExtraData
-    uint256 constant PID__SET_EXTRA_DATA = uint256(0x9b4afa2e6d7162f878076bb1210736928cd607a384b985eca0dba5e94790e72a);
-    /// @custom:keccak lens.permission.RemovePost
-    uint256 constant PID__REMOVE_POST = uint256(0x25b86c749bcf827bec85b3f107e1d65771462eb329e68ff158d50a2f4b301c89);
+    /// @custom:keccak sense.permission.SetMetadata
+    uint256 constant PID__SET_METADATA = uint256(0xc593734a442ec90a714cfb87bfb7aca283b763335df63d0001196ab1ff115f53);
+    /// @custom:keccak sense.permission.ChangeRules
+    uint256 constant PID__CHANGE_RULES = uint256(0xde011e4a0a5ba313b0ac8a7e2b9d7ee3156d91c77a234d9be7f9ed14184deaec);
+    /// @custom:keccak sense.permission.SetExtraData
+    uint256 constant PID__SET_EXTRA_DATA = uint256(0x89230884684683d91d892d3bd0c063380fe312b990f4c455be670b9b5b0c30c2);
+    /// @custom:keccak sense.permission.RemovePost
+    uint256 constant PID__REMOVE_POST = uint256(0xc550c6daf63a72b671ddce6cc124c13d6054506fa1b55f01af4b651d88a571d0);
 
-    /// @custom:keccak lens.param.expectedPostId
-    bytes32 constant PARAM__EXPECTED_POST_ID = 0x5c421319b1e3c75e7c7239e8e44abd0f35e3e7f7fcc9a98fdbbcbd19deb4202e;
+    /// @custom:keccak sense.param.expectedPostId
+    bytes32 constant PARAM__EXPECTED_POST_ID = 0x06ce7f74bdd55ae3240a09e41459945bc6abad800dc41253e4d177a0f225fbec;
 
-    /// @custom:keccak lens.data.lastUpdatedSource
-    bytes32 constant DATA__LAST_UPDATED_SOURCE = 0x3cd0f450c58e5572a9f19a4af172d526fb9645ba11a751c1e6fe7f53c4d956eb;
+    /// @custom:keccak sense.data.lastUpdatedSource
+    bytes32 constant DATA__LAST_UPDATED_SOURCE = 0x96b63a0919b79e32de4dc35ca188d24e828195655ec7b68e412fb3984a894db8;
 
     constructor() {
         _disableInitializers();
@@ -52,19 +52,19 @@ contract Feed is
     function _initialize(string memory metadataURI) internal {
         _setMetadataURI(metadataURI);
         _emitPIDs();
-        emit Events.Lens_Contract_Deployed({contractType: "lens.contract.Feed", flavour: "lens.contract.Feed"});
+        emit Events.Sense_Contract_Deployed({contractType: "sense.contract.Feed", flavour: "sense.contract.Feed"});
     }
 
     function _emitMetadataURISet(string memory metadataURI, address /* source */ ) internal override {
-        emit Lens_Feed_MetadataURISet(metadataURI);
+        emit Sense_Feed_MetadataURISet(metadataURI);
     }
 
     function _emitPIDs() internal override {
         super._emitPIDs();
-        emit Events.Lens_PermissionId_Available(PID__CHANGE_RULES, "lens.permission.ChangeRules");
-        emit Events.Lens_PermissionId_Available(PID__SET_METADATA, "lens.permission.SetMetadata");
-        emit Events.Lens_PermissionId_Available(PID__SET_EXTRA_DATA, "lens.permission.SetExtraData");
-        emit Events.Lens_PermissionId_Available(PID__REMOVE_POST, "lens.permission.RemovePost");
+        emit Events.Sense_PermissionId_Available(PID__CHANGE_RULES, "sense.permission.ChangeRules");
+        emit Events.Sense_PermissionId_Available(PID__SET_METADATA, "sense.permission.SetMetadata");
+        emit Events.Sense_PermissionId_Available(PID__SET_EXTRA_DATA, "sense.permission.SetExtraData");
+        emit Events.Sense_PermissionId_Available(PID__REMOVE_POST, "sense.permission.RemovePost");
     }
 
     // Access Controlled functions
@@ -89,29 +89,29 @@ contract Feed is
     }
 
     function _emitExtraDataAddedEvent(KeyValue calldata extraDataAdded) internal override {
-        emit Lens_Feed_ExtraDataAdded(extraDataAdded.key, extraDataAdded.value, extraDataAdded.value);
+        emit Sense_Feed_ExtraDataAdded(extraDataAdded.key, extraDataAdded.value, extraDataAdded.value);
     }
 
     function _emitExtraDataUpdatedEvent(KeyValue calldata extraDataUpdated) internal override {
-        emit Lens_Feed_ExtraDataUpdated(extraDataUpdated.key, extraDataUpdated.value, extraDataUpdated.value);
+        emit Sense_Feed_ExtraDataUpdated(extraDataUpdated.key, extraDataUpdated.value, extraDataUpdated.value);
     }
 
     function _emitExtraDataRemovedEvent(KeyValue calldata extraDataRemoved) internal override {
-        emit Lens_Feed_ExtraDataRemoved(extraDataRemoved.key);
+        emit Sense_Feed_ExtraDataRemoved(extraDataRemoved.key);
     }
 
     function _emitEntityExtraDataAddedEvent(uint256 postId, KeyValue memory extraDataAdded) internal override {
-        emit Lens_Feed_Post_ExtraDataAdded(postId, extraDataAdded.key, extraDataAdded.value, extraDataAdded.value);
+        emit Sense_Feed_Post_ExtraDataAdded(postId, extraDataAdded.key, extraDataAdded.value, extraDataAdded.value);
     }
 
     function _emitEntityExtraDataUpdatedEvent(uint256 postId, KeyValue memory extraDataUpdated) internal override {
-        emit Lens_Feed_Post_ExtraDataUpdated(
+        emit Sense_Feed_Post_ExtraDataUpdated(
             postId, extraDataUpdated.key, extraDataUpdated.value, extraDataUpdated.value
         );
     }
 
     function _emitEntityExtraDataRemovedEvent(uint256 postId, KeyValue memory extraDataRemoved) internal override {
-        emit Lens_Feed_Post_ExtraDataRemoved(postId, extraDataRemoved.key);
+        emit Sense_Feed_Post_ExtraDataRemoved(postId, extraDataRemoved.key);
     }
 
     // Public user functions
@@ -148,7 +148,7 @@ contract Feed is
         } else {
             _addPostRulesAtCreation(postId, postParams, feedRulesParams);
         }
-        emit Lens_Feed_PostCreated(
+        emit Sense_Feed_PostCreated(
             postId,
             postParams.author,
             localSequentialId,
@@ -194,7 +194,7 @@ contract Feed is
             _processPostEditingOnRootPost(rootPostId, postId, postParams, customParams, rootPostRulesParams);
         }
         address source = _processSourceStamp(DATA__LAST_UPDATED_SOURCE, postId, customParams);
-        emit Lens_Feed_PostEdited(
+        emit Sense_Feed_PostEdited(
             postId, author, postParams, customParams, feedRulesParams, rootPostRulesParams, quotedPostRulesParams, source
         );
     }
@@ -210,7 +210,7 @@ contract Feed is
         Core._removePost(postId);
         _processPostDeletion(postId, customParams, feedRulesParams);
         address source = _processSourceStamp(DATA__LAST_UPDATED_SOURCE, postId, customParams);
-        emit Lens_Feed_PostDeleted(postId, author, customParams, source);
+        emit Sense_Feed_PostDeleted(postId, author, customParams, source);
     }
 
     function setExtraData(KeyValue[] calldata extraDataToSet) external override {

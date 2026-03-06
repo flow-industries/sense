@@ -21,15 +21,15 @@ contract OwnerAdminOnlyAccessControlTest is Test {
         owner = address(this);
         lock = new Lock(address(this), true);
         accessControl = new OwnerAdminOnlyAccessControl(owner, address(lock));
-        OWNER_ROLE_ID = uint256(keccak256("lens.role.Owner"));
-        ADMIN_ROLE_ID = uint256(keccak256("lens.role.Admin"));
+        OWNER_ROLE_ID = uint256(keccak256("sense.role.Owner"));
+        ADMIN_ROLE_ID = uint256(keccak256("sense.role.Admin"));
         accessControl.grantRole({account: admin, roleId: ADMIN_ROLE_ID});
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     function test_ConstructorSetsProperOwner() public view {
-        assertTrue(OWNER_ROLE_ID == uint256(keccak256("lens.role.Owner")));
+        assertTrue(OWNER_ROLE_ID == uint256(keccak256("sense.role.Owner")));
         assertTrue(accessControl.hasRole({account: owner, roleId: OWNER_ROLE_ID}));
     }
 

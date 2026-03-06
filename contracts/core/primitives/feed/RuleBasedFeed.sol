@@ -20,8 +20,8 @@ abstract contract RuleBasedFeed is IFeed, RuleBasedPrimitive {
         mapping(uint256 => RulesStorage) postRulesStorage;
     }
 
-    /// @custom:keccak lens.storage.RuleBasedStorage
-    bytes32 constant STORAGE__RULE_BASED_FEED = 0x5d84583cb768017b44ca3aec8199901a24d17ed118ff103b086430f4dac47b71;
+    /// @custom:keccak sense.storage.RuleBasedStorage
+    bytes32 constant STORAGE__RULE_BASED_FEED = 0x87552cb1698e57fb2c279147acfb6a744e188b86e810df9a92102441e16a2b2a;
 
     function $ruleBasedStorage() private pure returns (RuleBasedStorage storage _storage) {
         assembly {
@@ -106,9 +106,9 @@ abstract contract RuleBasedFeed is IFeed, RuleBasedPrimitive {
         KeyValue[] memory ruleParams
     ) internal override {
         if (wasAlreadyConfigured) {
-            emit IFeed.Lens_Feed_RuleReconfigured(ruleAddress, configSalt, ruleParams);
+            emit IFeed.Sense_Feed_RuleReconfigured(ruleAddress, configSalt, ruleParams);
         } else {
-            emit IFeed.Lens_Feed_RuleConfigured(ruleAddress, configSalt, ruleParams);
+            emit IFeed.Sense_Feed_RuleConfigured(ruleAddress, configSalt, ruleParams);
         }
     }
 
@@ -120,9 +120,9 @@ abstract contract RuleBasedFeed is IFeed, RuleBasedPrimitive {
         bytes4 ruleSelector
     ) internal override {
         if (enabled) {
-            emit Lens_Feed_RuleSelectorEnabled(ruleAddress, configSalt, isRequired, ruleSelector);
+            emit Sense_Feed_RuleSelectorEnabled(ruleAddress, configSalt, isRequired, ruleSelector);
         } else {
-            emit Lens_Feed_RuleSelectorDisabled(ruleAddress, configSalt, isRequired, ruleSelector);
+            emit Sense_Feed_RuleSelectorDisabled(ruleAddress, configSalt, isRequired, ruleSelector);
         }
     }
 
@@ -134,9 +134,9 @@ abstract contract RuleBasedFeed is IFeed, RuleBasedPrimitive {
         KeyValue[] memory ruleParams
     ) internal override {
         if (wasAlreadyConfigured) {
-            emit IFeed.Lens_Feed_Post_RuleReconfigured(entityId, msg.sender, ruleAddress, configSalt, ruleParams);
+            emit IFeed.Sense_Feed_Post_RuleReconfigured(entityId, msg.sender, ruleAddress, configSalt, ruleParams);
         } else {
-            emit IFeed.Lens_Feed_Post_RuleConfigured(entityId, msg.sender, ruleAddress, configSalt, ruleParams);
+            emit IFeed.Sense_Feed_Post_RuleConfigured(entityId, msg.sender, ruleAddress, configSalt, ruleParams);
         }
     }
 
@@ -149,11 +149,11 @@ abstract contract RuleBasedFeed is IFeed, RuleBasedPrimitive {
         bytes4 selector
     ) internal override {
         if (enabled) {
-            emit IFeed.Lens_Feed_Post_RuleSelectorEnabled(
+            emit IFeed.Sense_Feed_Post_RuleSelectorEnabled(
                 entityId, msg.sender, ruleAddress, configSalt, isRequired, selector
             );
         } else {
-            emit IFeed.Lens_Feed_Post_RuleSelectorDisabled(
+            emit IFeed.Sense_Feed_Post_RuleSelectorDisabled(
                 entityId, msg.sender, ruleAddress, configSalt, isRequired, selector
             );
         }

@@ -10,10 +10,10 @@ import {ProxyAdmin} from "contracts/core/upgradeability/ProxyAdmin.sol";
 import {PrimitiveFactory} from "contracts/extensions/factories/PrimitiveFactory.sol";
 
 contract NamespaceFactory is PrimitiveFactory {
-    event Lens_NamespaceFactory_Deployment(address indexed namespaceAddress, string namespace, string metadataURI);
+    event Sense_NamespaceFactory_Deployment(address indexed namespaceAddress, string namespace, string metadataURI);
 
-    constructor(address primitiveBeacon, address proxyAdminLock, address lensFactory)
-        PrimitiveFactory(primitiveBeacon, proxyAdminLock, lensFactory)
+    constructor(address primitiveBeacon, address proxyAdminLock, address senseFactory)
+        PrimitiveFactory(primitiveBeacon, proxyAdminLock, senseFactory)
     {}
 
     function deployNamespace(
@@ -26,7 +26,7 @@ contract NamespaceFactory is PrimitiveFactory {
         string memory nftName,
         string memory nftSymbol,
         ITokenURIProvider tokenURIProvider
-    ) external onlyLensFactory returns (address) {
+    ) external onlySenseFactory returns (address) {
         address proxyAdmin = address(new ProxyAdmin(proxyAdminOwner, PROXY_ADMIN_LOCK));
         Namespace namespacePrimitive = Namespace(address(new BeaconProxy(proxyAdmin, PRIMITIVE_BEACON)));
         namespacePrimitive.initialize(
@@ -35,7 +35,7 @@ contract NamespaceFactory is PrimitiveFactory {
         namespacePrimitive.changeNamespaceRules(ruleChanges);
         namespacePrimitive.setExtraData(extraData);
         namespacePrimitive.setAccessControl(accessControl);
-        emit Lens_NamespaceFactory_Deployment(address(namespacePrimitive), namespace, metadataURI);
+        emit Sense_NamespaceFactory_Deployment(address(namespacePrimitive), namespace, metadataURI);
         return address(namespacePrimitive);
     }
 }

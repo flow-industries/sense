@@ -600,7 +600,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_BanMemberGroupRule_MemberBanned",
+    "name": "Sense_BanMemberGroupRule_MemberBanned",
     "inputs": [
       {
         "name": "group",
@@ -625,7 +625,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_BanMemberGroupRule_MemberUnbanned",
+    "name": "Sense_BanMemberGroupRule_MemberUnbanned",
     "inputs": [
       {
         "name": "group",
@@ -650,7 +650,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Ownable_OwnershipTransferred",
+    "name": "Sense_Ownable_OwnershipTransferred",
     "inputs": [
       {
         "name": "previousOwner",
@@ -669,7 +669,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_PermissionId_Available",
+    "name": "Sense_PermissionId_Available",
     "inputs": [
       {
         "name": "permissionId",
@@ -688,7 +688,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Rule_MetadataURISet",
+    "name": "Sense_Rule_MetadataURISet",
     "inputs": [
       {
         "name": "metadataURI",

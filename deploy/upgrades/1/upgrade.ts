@@ -4,7 +4,7 @@ import {
   ContractType,
   ContractInfo,
   loadContractAddressFromAddressBook,
-} from '../../lensUtils';
+} from '../../senseUtils';
 import { getWallet, getProvider } from '../../utils';
 import * as hre from 'hardhat';
 import { ethers, Wallet } from 'ethers';
@@ -57,7 +57,7 @@ async function deploy() {
   // GroupFactory was already deployed as normal, non-migration implementation
   await transparentProxyUpgrade('GroupFactory', proxyOwnerWallet, proxyOwnerAddress);
   await transparentProxyUpgrade('NamespaceFactory', proxyOwnerWallet, proxyOwnerAddress);
-  await transparentProxyUpgrade('LensFactory', proxyOwnerWallet, proxyOwnerAddress);
+  await transparentProxyUpgrade('SenseFactory', proxyOwnerWallet, proxyOwnerAddress);
 
   //////////////////////////////////////// BEACONS UPGRADES //////////////////////////////////////////////
 

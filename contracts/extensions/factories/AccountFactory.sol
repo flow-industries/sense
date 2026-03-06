@@ -7,7 +7,7 @@ import {BeaconProxy} from "contracts/core/upgradeability/BeaconProxy.sol";
 import {ProxyAdmin} from "contracts/core/upgradeability/ProxyAdmin.sol";
 
 contract AccountFactory {
-    event Lens_Account_Created(
+    event Sense_Account_Created(
         address indexed account,
         address indexed owner,
         string metadataURI,
@@ -36,7 +36,7 @@ contract AccountFactory {
         address proxyAdmin = address(new ProxyAdmin(owner, _lock)); // Owner of Proxy Admin same as owner of Account
         Account account = Account(payable(new BeaconProxy(proxyAdmin, _beacon)));
         account.initialize(owner, metadataURI, accountManagers, accountManagersPermissions, sourceStamp, extraData);
-        emit Lens_Account_Created(
+        emit Sense_Account_Created(
             address(account),
             owner,
             metadataURI,

@@ -754,7 +754,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_AccessControlAdded",
+    "name": "Sense_AccessControlAdded",
     "inputs": [
       {
         "name": "accessControl",
@@ -773,7 +773,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_AccessControlUpdated",
+    "name": "Sense_AccessControlUpdated",
     "inputs": [
       {
         "name": "accessControl",
@@ -792,7 +792,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Contract_Deployed",
+    "name": "Sense_Contract_Deployed",
     "inputs": [
       {
         "name": "contractType",
@@ -811,7 +811,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_ExtraStorageSet",
+    "name": "Sense_ExtraStorageSet",
     "inputs": [
       {
         "name": "addressScope",
@@ -848,7 +848,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Graph_ExtraDataAdded",
+    "name": "Sense_Graph_ExtraDataAdded",
     "inputs": [
       {
         "name": "key",
@@ -873,7 +873,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Graph_ExtraDataRemoved",
+    "name": "Sense_Graph_ExtraDataRemoved",
     "inputs": [
       {
         "name": "key",
@@ -886,7 +886,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Graph_ExtraDataUpdated",
+    "name": "Sense_Graph_ExtraDataUpdated",
     "inputs": [
       {
         "name": "key",
@@ -911,7 +911,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Graph_Follow_RuleConfigured",
+    "name": "Sense_Graph_Follow_RuleConfigured",
     "inputs": [
       {
         "name": "account",
@@ -954,7 +954,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Graph_Follow_RuleReconfigured",
+    "name": "Sense_Graph_Follow_RuleReconfigured",
     "inputs": [
       {
         "name": "account",
@@ -997,7 +997,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Graph_Follow_RuleSelectorDisabled",
+    "name": "Sense_Graph_Follow_RuleSelectorDisabled",
     "inputs": [
       {
         "name": "account",
@@ -1034,7 +1034,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Graph_Follow_RuleSelectorEnabled",
+    "name": "Sense_Graph_Follow_RuleSelectorEnabled",
     "inputs": [
       {
         "name": "account",
@@ -1071,7 +1071,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Graph_Followed",
+    "name": "Sense_Graph_Followed",
     "inputs": [
       {
         "name": "followerAccount",
@@ -1208,7 +1208,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Graph_MetadataURISet",
+    "name": "Sense_Graph_MetadataURISet",
     "inputs": [
       {
         "name": "metadataURI",
@@ -1221,7 +1221,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Graph_RuleConfigured",
+    "name": "Sense_Graph_RuleConfigured",
     "inputs": [
       {
         "name": "rule",
@@ -1258,7 +1258,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Graph_RuleReconfigured",
+    "name": "Sense_Graph_RuleReconfigured",
     "inputs": [
       {
         "name": "rule",
@@ -1295,7 +1295,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Graph_RuleSelectorDisabled",
+    "name": "Sense_Graph_RuleSelectorDisabled",
     "inputs": [
       {
         "name": "rule",
@@ -1326,7 +1326,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Graph_RuleSelectorEnabled",
+    "name": "Sense_Graph_RuleSelectorEnabled",
     "inputs": [
       {
         "name": "rule",
@@ -1357,7 +1357,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_Graph_Unfollowed",
+    "name": "Sense_Graph_Unfollowed",
     "inputs": [
       {
         "name": "followerAccount",
@@ -1441,7 +1441,7 @@
   },
   {
     "type": "event",
-    "name": "Lens_PermissionId_Available",
+    "name": "Sense_PermissionId_Available",
     "inputs": [
       {
         "name": "permissionId",

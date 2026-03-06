@@ -8,7 +8,7 @@ import {BeaconProxy} from "contracts/core/upgradeability/BeaconProxy.sol";
 import {ProxyAdmin} from "contracts/core/upgradeability/ProxyAdmin.sol";
 
 contract AppFactory {
-    event Lens_AppFactory_Deployment(address indexed app, string metadataURI, KeyValue[] extraData);
+    event Sense_AppFactory_Deployment(address indexed app, string metadataURI, KeyValue[] extraData);
 
     address internal immutable _beacon;
     address internal immutable _lock;
@@ -29,7 +29,7 @@ contract AppFactory {
         address proxyAdmin = address(new ProxyAdmin(proxyAdminOwner, _lock));
         App app = App(address(new BeaconProxy(proxyAdmin, _beacon)));
         app.initialize(metadataURI, sourceStampVerificationEnabled, accessControl, initialProperties, extraData);
-        emit Lens_AppFactory_Deployment(address(app), metadataURI, extraData);
+        emit Sense_AppFactory_Deployment(address(app), metadataURI, extraData);
         return address(app);
     }
 }

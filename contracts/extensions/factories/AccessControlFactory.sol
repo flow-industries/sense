@@ -6,10 +6,10 @@ import {OwnerAdminOnlyAccessControl} from "contracts/extensions/access/OwnerAdmi
 import {ILock} from "contracts/core/interfaces/ILock.sol";
 
 contract AccessControlFactory {
-    /// @custom:keccak lens.role.Admin
-    uint256 constant ADMIN_ROLE_ID = uint256(0xfcbeadd75a96b5f8140d8c80f7c8d81ccbd7c4caa9592217bc8936b9eaabee75);
+    /// @custom:keccak sense.role.Admin
+    uint256 constant ADMIN_ROLE_ID = uint256(0x71c974ef9fdb491e0205241d7438e2a707f089c8d115d0101d9f8b73f6745f88);
 
-    event Lens_AccessControlFactory_OwnerAdminDeployment(address indexed accessControl, address owner);
+    event Sense_AccessControlFactory_OwnerAdminDeployment(address indexed accessControl, address owner);
 
     address immutable LOCK;
 
@@ -23,7 +23,7 @@ contract AccessControlFactory {
         returns (IRoleBasedAccessControl)
     {
         OwnerAdminOnlyAccessControl accessControl = new OwnerAdminOnlyAccessControl({owner: address(this), lock: LOCK});
-        emit Lens_AccessControlFactory_OwnerAdminDeployment(address(accessControl), owner);
+        emit Sense_AccessControlFactory_OwnerAdminDeployment(address(accessControl), owner);
         for (uint256 i = 0; i < admins.length; i++) {
             accessControl.grantRole(admins[i], ADMIN_ROLE_ID);
         }

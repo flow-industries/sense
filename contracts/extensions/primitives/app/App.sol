@@ -27,21 +27,21 @@ struct AppInitialProperties {
 contract App is IApp, ExtraDataBased, MetadataBased, Initializable, BaseSource, AccessControlled {
     // Resource IDs involved in the contract
 
-    /// @custom:keccak lens.permission.SetPrimitives
-    uint256 constant PID__SET_PRIMITIVES = uint256(0x2be4bb804d9ebc1b1990cb2f1727ea09d1ac120a3466c62e804028516f9d24ae);
-    /// @custom:keccak lens.permission.SetSigners
-    uint256 constant PID__SET_SIGNERS = uint256(0x7cffc02293bdfeb075851a6bf2895d576026aed46f1ef5520b866951477e4252);
-    /// @custom:keccak lens.permission.SetTreasury
-    uint256 constant PID__SET_TREASURY = uint256(0x5c37928b3c9092cd0d2fb37e7b2c81c39348a65f14f7ff0f3c9d4558a2d85804);
-    /// @custom:keccak lens.permission.SetPaymaster
-    uint256 constant PID__SET_PAYMASTER = uint256(0x230828c21ca427ba35df5ba53b09310ab6248c3eb59bf0ef72db90c7a0abb78a);
-    /// @custom:keccak lens.permission.SetExtraData
-    uint256 constant PID__SET_EXTRA_DATA = uint256(0x9b4afa2e6d7162f878076bb1210736928cd607a384b985eca0dba5e94790e72a);
-    /// @custom:keccak lens.permission.SetMetadata
-    uint256 constant PID__SET_METADATA = uint256(0xe40fdb273cda3c78f0d9b6d20f5378755989e26c60c89696e5eea644d84eefea);
-    /// @custom:keccak lens.permission.SetSourceStampVerification
+    /// @custom:keccak sense.permission.SetPrimitives
+    uint256 constant PID__SET_PRIMITIVES = uint256(0xba9b82400786482994805993d6081e3f985aaa785ccdbca61355ef0cffa8afcb);
+    /// @custom:keccak sense.permission.SetSigners
+    uint256 constant PID__SET_SIGNERS = uint256(0x40892156888c0cbc2bf6c79c5ea145c37cb4f34dcdd71b9e44d8afac86c22a56);
+    /// @custom:keccak sense.permission.SetTreasury
+    uint256 constant PID__SET_TREASURY = uint256(0xe7e9b4627d7af430c5fd8578267308898ea541615c4a6da58ff5f95d5f36393d);
+    /// @custom:keccak sense.permission.SetPaymaster
+    uint256 constant PID__SET_PAYMASTER = uint256(0x8a347572bfcadca377a4cb0e0a4d6cf03ae34fe70b8fe3b1ed39d77bb6648d8b);
+    /// @custom:keccak sense.permission.SetExtraData
+    uint256 constant PID__SET_EXTRA_DATA = uint256(0x89230884684683d91d892d3bd0c063380fe312b990f4c455be670b9b5b0c30c2);
+    /// @custom:keccak sense.permission.SetMetadata
+    uint256 constant PID__SET_METADATA = uint256(0xc593734a442ec90a714cfb87bfb7aca283b763335df63d0001196ab1ff115f53);
+    /// @custom:keccak sense.permission.SetSourceStampVerification
     uint256 constant PID__SET_SOURCE_STAMP_VERIFICATION =
-        uint256(0x874f1133714eb68cab3e7feede3b8186418ef58948747b7e70981e346a5c7491);
+        uint256(0x455bc5f746f11ad605353c660a742d5e768422042e3eb1498851cfe6540af5fc);
 
     constructor() {
         _disableInitializers();
@@ -89,18 +89,18 @@ contract App is IApp, ExtraDataBased, MetadataBased, Initializable, BaseSource, 
 
         _emitPIDs();
 
-        emit Events.Lens_Contract_Deployed({contractType: "lens.contract.App", flavour: "lens.contract.App"});
+        emit Events.Sense_Contract_Deployed({contractType: "sense.contract.App", flavour: "sense.contract.App"});
     }
 
     function _emitPIDs() internal override {
         super._emitPIDs();
-        emit Events.Lens_PermissionId_Available(PID__SET_PRIMITIVES, "SET_PRIMITIVES");
-        emit Events.Lens_PermissionId_Available(PID__SET_SIGNERS, "SET_SIGNERS");
-        emit Events.Lens_PermissionId_Available(PID__SET_TREASURY, "SET_TREASURY");
-        emit Events.Lens_PermissionId_Available(PID__SET_PAYMASTER, "SET_PAYMASTER");
-        emit Events.Lens_PermissionId_Available(PID__SET_EXTRA_DATA, "SET_EXTRA_DATA");
-        emit Events.Lens_PermissionId_Available(PID__SET_METADATA, "SET_METADATA");
-        emit Events.Lens_PermissionId_Available(PID__SET_SOURCE_STAMP_VERIFICATION, "SET_SOURCE_STAMP_VERIFICATION");
+        emit Events.Sense_PermissionId_Available(PID__SET_PRIMITIVES, "SET_PRIMITIVES");
+        emit Events.Sense_PermissionId_Available(PID__SET_SIGNERS, "SET_SIGNERS");
+        emit Events.Sense_PermissionId_Available(PID__SET_TREASURY, "SET_TREASURY");
+        emit Events.Sense_PermissionId_Available(PID__SET_PAYMASTER, "SET_PAYMASTER");
+        emit Events.Sense_PermissionId_Available(PID__SET_EXTRA_DATA, "SET_EXTRA_DATA");
+        emit Events.Sense_PermissionId_Available(PID__SET_METADATA, "SET_METADATA");
+        emit Events.Sense_PermissionId_Available(PID__SET_SOURCE_STAMP_VERIFICATION, "SET_SOURCE_STAMP_VERIFICATION");
     }
 
     function _validateSource(SourceStamp calldata sourceStamp) internal virtual override {
@@ -117,7 +117,7 @@ contract App is IApp, ExtraDataBased, MetadataBased, Initializable, BaseSource, 
 
     function _setSourceStampVerification(bool isEnabled) internal virtual {
         Core.$storage().sourceStampVerificationEnabled = isEnabled;
-        emit Lens_App_SourceStampVerificationSet(isEnabled);
+        emit Sense_App_SourceStampVerificationSet(isEnabled);
     }
 
     function setSourceStampVerification(bool isEnabled) external virtual override {
@@ -137,10 +137,10 @@ contract App is IApp, ExtraDataBased, MetadataBased, Initializable, BaseSource, 
         address graphPreviouslySet = Core.$storage().defaultGraph;
         if (graphPreviouslySet != address(0)) {
             Core._removeGraph(graphPreviouslySet);
-            emit Lens_App_GraphRemoved(graphPreviouslySet);
+            emit Sense_App_GraphRemoved(graphPreviouslySet);
         }
         if (graph != address(0)) {
-            emit Lens_App_GraphAdded(graph);
+            emit Sense_App_GraphAdded(graph);
             Core._addGraph(graph);
         }
         Core._setDefaultGraph(graph);
@@ -162,7 +162,7 @@ contract App is IApp, ExtraDataBased, MetadataBased, Initializable, BaseSource, 
         _requireAccess(msg.sender, PID__SET_PRIMITIVES);
         if (feed != address(0) && !Core._isFeedPresent(feed)) {
             Core._addFeed(feed);
-            emit Lens_App_FeedAdded(feed);
+            emit Sense_App_FeedAdded(feed);
         }
         _setDefaultFeed(feed);
     }
@@ -170,7 +170,7 @@ contract App is IApp, ExtraDataBased, MetadataBased, Initializable, BaseSource, 
     function _addFeeds(address[] memory feeds) internal {
         for (uint256 i = 0; i < feeds.length; i++) {
             Core._addFeed(feeds[i]);
-            emit Lens_App_FeedAdded(feeds[i]);
+            emit Sense_App_FeedAdded(feeds[i]);
         }
     }
 
@@ -181,13 +181,13 @@ contract App is IApp, ExtraDataBased, MetadataBased, Initializable, BaseSource, 
                 _setDefaultFeed(address(0));
             }
             Core._removeFeed(feeds[i]);
-            emit Lens_App_FeedRemoved(feeds[i]);
+            emit Sense_App_FeedRemoved(feeds[i]);
         }
     }
 
     function _setDefaultFeed(address feed) internal {
         Core._setDefaultFeed(feed);
-        emit Lens_App_DefaultFeedSet(feed);
+        emit Sense_App_DefaultFeedSet(feed);
     }
 
     ///////////////// Namespace
@@ -202,10 +202,10 @@ contract App is IApp, ExtraDataBased, MetadataBased, Initializable, BaseSource, 
         address namespacePreviouslySet = Core.$storage().defaultNamespace;
         if (namespacePreviouslySet != address(0)) {
             Core._removeNamespace(namespacePreviouslySet);
-            emit Lens_App_NamespaceRemoved(namespacePreviouslySet);
+            emit Sense_App_NamespaceRemoved(namespacePreviouslySet);
         }
         if (namespace != address(0)) {
-            emit Lens_App_NamespaceAdded(namespace);
+            emit Sense_App_NamespaceAdded(namespace);
             Core._addNamespace(namespace);
         }
         Core._setDefaultNamespace(namespace);
@@ -217,7 +217,7 @@ contract App is IApp, ExtraDataBased, MetadataBased, Initializable, BaseSource, 
         _requireAccess(msg.sender, PID__SET_PRIMITIVES);
         if (group != address(0) && !Core._isGroupPresent(group)) {
             Core._addGroup(group);
-            emit Lens_App_GroupAdded(group);
+            emit Sense_App_GroupAdded(group);
         }
         _setDefaultGroup(group);
     }
@@ -235,7 +235,7 @@ contract App is IApp, ExtraDataBased, MetadataBased, Initializable, BaseSource, 
     function _addGroups(address[] memory groups) internal {
         for (uint256 i = 0; i < groups.length; i++) {
             Core._addGroup(groups[i]);
-            emit Lens_App_GroupAdded(groups[i]);
+            emit Sense_App_GroupAdded(groups[i]);
         }
     }
 
@@ -246,13 +246,13 @@ contract App is IApp, ExtraDataBased, MetadataBased, Initializable, BaseSource, 
                 _setDefaultGroup(address(0));
             }
             Core._removeGroup(groups[i]);
-            emit Lens_App_GroupRemoved(groups[i]);
+            emit Sense_App_GroupRemoved(groups[i]);
         }
     }
 
     function _setDefaultGroup(address group) internal {
         Core._setDefaultGroup(group);
-        emit Lens_App_DefaultGroupSet(group);
+        emit Sense_App_DefaultGroupSet(group);
     }
 
     ///////////////// Signers
@@ -270,14 +270,14 @@ contract App is IApp, ExtraDataBased, MetadataBased, Initializable, BaseSource, 
     function _addSigners(address[] memory signers) internal {
         for (uint256 i = 0; i < signers.length; i++) {
             Core._addSigner(signers[i]);
-            emit Lens_App_SignerAdded(signers[i]);
+            emit Sense_App_SignerAdded(signers[i]);
         }
     }
 
     function _removeSigners(address[] memory signers) internal {
         for (uint256 i = 0; i < signers.length; i++) {
             Core._removeSigner(signers[i]);
-            emit Lens_App_SignerRemoved(signers[i]);
+            emit Sense_App_SignerRemoved(signers[i]);
         }
     }
 
@@ -293,10 +293,10 @@ contract App is IApp, ExtraDataBased, MetadataBased, Initializable, BaseSource, 
         address paymasterPreviouslySet = Core.$storage().defaultPaymaster;
         if (paymasterPreviouslySet != address(0)) {
             Core._removePaymaster(paymasterPreviouslySet);
-            emit Lens_App_PaymasterRemoved(paymasterPreviouslySet);
+            emit Sense_App_PaymasterRemoved(paymasterPreviouslySet);
         }
         if (paymaster != address(0)) {
-            emit Lens_App_PaymasterAdded(paymaster);
+            emit Sense_App_PaymasterAdded(paymaster);
             Core._addPaymaster(paymaster);
         }
         Core._setDefaultPaymaster(paymaster);
@@ -315,7 +315,7 @@ contract App is IApp, ExtraDataBased, MetadataBased, Initializable, BaseSource, 
 
     function _setTreasury(address treasury) internal {
         Core._setTreasury(treasury);
-        emit Lens_App_TreasurySet(treasury);
+        emit Sense_App_TreasurySet(treasury);
     }
 
     function getTreasury() external view override(IApp, ISource) returns (address) {
@@ -329,7 +329,7 @@ contract App is IApp, ExtraDataBased, MetadataBased, Initializable, BaseSource, 
     }
 
     function _emitMetadataURISet(string memory metadataURI, address /* source */ ) internal override {
-        emit Lens_App_MetadataURISet(metadataURI);
+        emit Sense_App_MetadataURISet(metadataURI);
     }
 
     ///////////////// Extra Data
@@ -340,15 +340,15 @@ contract App is IApp, ExtraDataBased, MetadataBased, Initializable, BaseSource, 
     }
 
     function _emitExtraDataAddedEvent(KeyValue calldata extraDataAdded) internal override {
-        emit Lens_App_ExtraDataAdded(extraDataAdded.key, extraDataAdded.value, extraDataAdded.value);
+        emit Sense_App_ExtraDataAdded(extraDataAdded.key, extraDataAdded.value, extraDataAdded.value);
     }
 
     function _emitExtraDataUpdatedEvent(KeyValue calldata extraDataUpdated) internal override {
-        emit Lens_App_ExtraDataUpdated(extraDataUpdated.key, extraDataUpdated.value, extraDataUpdated.value);
+        emit Sense_App_ExtraDataUpdated(extraDataUpdated.key, extraDataUpdated.value, extraDataUpdated.value);
     }
 
     function _emitExtraDataRemovedEvent(KeyValue calldata extraDataRemoved) internal override {
-        emit Lens_App_ExtraDataRemoved(extraDataRemoved.key);
+        emit Sense_App_ExtraDataRemoved(extraDataRemoved.key);
     }
 
     //////////////////////////////////////////////////////////////////////////
